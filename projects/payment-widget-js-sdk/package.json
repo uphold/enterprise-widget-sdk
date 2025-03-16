@@ -1,0 +1,32 @@
+{
+  "name": "@uphold/enterprise-payment-widget-js-sdk",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Enterprise Payment Widget Javascript SDK",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uphold/enterprise-widget-sdk",
+    "directory": "projects/payment-widget-js-sdk"
+  },
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "typecheck": "react-router typegen && tsc",
+    "lint": "eslint .",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "i18next": "^24.2.2",
+    "i18next-browser-languagedetector": "^8.0.4",
+    "i18next-http-backend": "^3.0.2"
+  },
+  "devDependencies": {
+    "vite": "^6.2.1",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "lint-staged": {
+    "*.ts*": [
+      "eslint"
+    ]
+  }
+}
