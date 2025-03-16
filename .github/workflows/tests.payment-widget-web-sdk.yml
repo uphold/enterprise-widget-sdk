@@ -1,0 +1,56 @@
+name: Tests - payment-widget-web-sdk
+
+on:
+  push:
+    paths:
+      - 'packages/payment-widget-web-sdk/**'
+    branches-ignore:
+      - sandbox
+      - 'environment/*'
+
+jobs:
+  unit:
+    runs-on: ubuntu-8g-4cpu-arm64
+    env:
+      NPM_WORKSPACE: packages/payment-widget-web-sdk
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js version
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Get NPM cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Restore NPM cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-arc-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-arc-npm-
+
+      - name: Configure git
+        run: git config --global url.https://${{ secrets.ACTIONS_CHECKOUT_TOKEN_GITHUB }}@github.com/.insteadOf https://github.com/
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint --workspace $NPM_WORKSPACE
+
+      - name: Run typecheck
+        run: npm run typecheck --workspace $NPM_WORKSPACE
+
+      - name: Run tests
+        env:
+          VITEST_MAX_THREADS: 4
+          VITEST_MIN_THREADS: 1
+        run: npm run test --workspace $NPM_WORKSPACE

@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src/**/*",
+    "vitest.config.ts",
+    "../../vitest.setup.ts"
+  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDirs": ["src", "."],
+    "typeRoots": ["./types", "node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+  }
+}
