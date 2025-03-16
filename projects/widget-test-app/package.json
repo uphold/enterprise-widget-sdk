@@ -1,0 +1,34 @@
+{
+  "name": "@uphold/widget-test-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "react-router dev",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "lint-staged": {
+    "*.ts*": [
+      "eslint"
+    ]
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.4.0",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "dependencies": {
+    "@react-router/node": "^7.4.0",
+    "@uphold/enterprise-payment-widget-web-sdk": "../../packages/payment-widget-web-sdk",
+    "isbot": "^5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.4.0"
+  }
+}

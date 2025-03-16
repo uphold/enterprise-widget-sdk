@@ -1,0 +1,31 @@
+{
+  "name": "@uphold/enterprise-payment-widget-web-sdk",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "description": "Enterprise Payment Widget Web SDK",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "lint": "eslint .",
+    "release": "npx --yes release-it@^18 --config ../../.release-it.cjs",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uphold/enterprise-widget-sdk",
+    "directory": "packages/payment-widget-web-sdk"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "*.ts*": [
+      "eslint"
+    ]
+  }
+}

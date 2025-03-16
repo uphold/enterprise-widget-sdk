@@ -1,0 +1,12 @@
+.DS_Store
+!.vscode
+**/.chart/charts
+**/coverage
+**/node_modules
+**/.react-router
+**/build
+**/dist
+npm-debug.log*
+yarn.lock
+.env
+.env.local
