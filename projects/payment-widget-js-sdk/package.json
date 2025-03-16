@@ -21,7 +21,7 @@
     "i18next-http-backend": "^3.0.2"
   },
   "devDependencies": {
-    "vite": "^6.2.1",
+    "vite": "^6.2.2",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "lint-staged": {
