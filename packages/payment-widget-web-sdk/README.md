@@ -1,6 +1,6 @@
-# payment-widget-js-sdk
+# payment-widget-web-sdk
 
-Javascript SDK for the Enterprise Payment Widget.
+A Web SDK for the Enterprise Payment Widget.
 
 ## Tech stack
 
@@ -17,6 +17,10 @@ Install the dependencies:
 ```bash
 npm install
 ```
+
+### Running the project
+
+Check the documentation for the [`widget-test-app`](../../projects/widget-test-app/README.md) project to see how to run the payment gateway web SDK test application.
 
 ### Development
 
@@ -44,18 +48,10 @@ To type check the project, run:
 npm run typecheck
 ```
 
-## Building for Production
+### Building for production
 
-Create a production build:
+To create a production build, run:
 
-```bash
+```sh
 npm run build
 ```
-
-## Deployment
-
-TBD
-
-## Styling
-
-TBD

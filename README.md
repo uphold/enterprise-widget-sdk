@@ -27,20 +27,20 @@
 
 ## About The Project
 
-A set of SDKs for easy integration with Enterprise Widgets.
+A collection of SDKs for seamless integration with Enterprise Widgets. The SDKs are designed to be used in partner applications to provide a seamless experience for the end-user.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
 
-Please make sure your machine is using the correct versions Node.js and NPM before installing the project, otherwise you may run into installation issues. Check the `package.json` file for the required Node version.
+Please ensure your machine is using the correct versions of Node.js and NPM before installing the project; otherwise, you may encounter installation issues. Check the `package.json` file for the required Node version.
 
 ### Project Structure
 
 The project is organized as follows:
 
-- [`packages`](./packages/): Contain shared packages by all projects.
-- [`projects/payment-widget`](./projects/payment-widget-js-sdk/): The implementation of the `payment-widget-js-sdk` project.
+- [`packages/payment-widget-web-sdk`](./packages/payment-widget-web-sdk): The implementation of the Payment Widget SDK for the web.
+- [`projects/widget-test-app`](./projects/widget-test-app/): A test application for all widget SDKs.
 
 ### Installation
 
@@ -58,7 +58,7 @@ git clone https://github.com/uphold/enterprise-widget-sdk.git && cd enterprise-w
 nvm use
 ```
 
-_Note: If you don't use NVM, please make sure you have a compatible Node version installed in your machine._
+_Note: If you don't use NVM, please ensure you have a compatible Node version installed on your machine._
 
 #### 3. Install dependencies
 
@@ -66,7 +66,7 @@ _Note: If you don't use NVM, please make sure you have a compatible Node version
 npm install
 ```
 
-#### 4. Check if everything runs without issues
+#### 4. Verify that everything runs without issues
 
 ```js
 npm run lint
@@ -76,13 +76,14 @@ npm test
 
 #### 5. Running a project
 
-Every project has its own README with specialized instructions on how to run it. Please refer to the project's README for more information.
+Each project has its own README with specific instructions on how to run it.
+Please refer to the project's README for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contributing
 
-Any contributions you make are **greatly appreciated**. After the initial setup, you can follow the steps below to contribute to the project:
+Your contributions are **greatly appreciated**. After the initial setup, you can follow the steps below to contribute to the project:
 
 1. Create a branch with the convention `<prefix>/<branch-name>`:
    - **feature:** (`git checkout -b feature/amazing-feature`)

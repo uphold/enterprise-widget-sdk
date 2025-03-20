@@ -11,6 +11,7 @@ import baseConfig from '../../vitest.config.js';
 
 export default defineConfig({
   test: {
-    ...baseConfig.test
+    ...baseConfig.test,
+    environment: 'jsdom'
   }
 });

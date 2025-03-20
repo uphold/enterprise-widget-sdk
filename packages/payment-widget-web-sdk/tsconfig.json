@@ -6,10 +6,15 @@
     "../../vitest.setup.ts"
   ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "module": "Preserve",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "rootDirs": ["."],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDirs": ["src", "."],
+    "typeRoots": ["./types", "node_modules/@types"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

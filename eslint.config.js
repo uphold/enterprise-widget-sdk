@@ -32,7 +32,7 @@ export default tseslint.config(
   jsxA11y.flatConfigs.recommended,
   eslintPrettierRecommended,
   {
-    ignores: ['**/build', '**/dist', '**/coverage', '**/node_modules']
+    ignores: ['**/build', '**/dist', '**/coverage', '**/node_modules', '**/.react-router']
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
@@ -46,7 +46,7 @@ export default tseslint.config(
       'sort-destructure-keys': sortDestructureKeys,
       'sort-imports-requires': sortImportsRequires,
       'sort-keys-fix': sortKeysFix
-    },
+    }
   },
   {
     files: ['**/*.test.{ts,tsx}'],
@@ -65,6 +65,13 @@ export default tseslint.config(
   },
   {
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '_',
+          varsIgnorePattern: '_'
+        }
+      ],
       'accessor-pairs': 'error',
       'array-callback-return': 'error',
       'block-scoped-var': 'error',
@@ -137,6 +144,7 @@ export default tseslint.config(
       'no-underscore-dangle': ['error', { allow: ['__dirname', '__filename'] }],
       'no-unneeded-ternary': 'error',
       'no-unused-expressions': 'error',
+      'no-unused-vars': 'off',
       'no-use-before-define': 'error',
       'no-useless-call': 'error',
       'no-useless-concat': 'error',
