@@ -27,5 +27,8 @@
     "*.ts*": [
       "eslint"
     ]
+  },
+  "dependencies": {
+    "@uphold/enterprise-widget-messaging-types": "^0.3.0"
   }
 }
