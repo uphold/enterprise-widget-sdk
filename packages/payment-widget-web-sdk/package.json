@@ -29,6 +29,6 @@
     ]
   },
   "dependencies": {
-    "@uphold/enterprise-widget-messaging-types": "^0.3.0"
+    "@uphold/enterprise-widget-messaging-types": "^0.4.0"
   }
 }
