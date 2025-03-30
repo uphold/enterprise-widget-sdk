@@ -23,7 +23,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    concurrency: 1
+    concurrency: '1'
     environment: release
     env:
       NPM_WORKSPACE: packages/${{ github.event.inputs.PACKAGE }}
