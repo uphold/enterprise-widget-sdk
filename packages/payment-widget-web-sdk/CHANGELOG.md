@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.4.1](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.4.1) (2025-03-30)
+
+- Several improvements [\#8](https://github.com/uphold/enterprise-widget-sdk/pull/8) ([satazor](https://github.com/satazor))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.4.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.4.0) (2025-03-28)
 
 - Improve payment widget web sdk README [\#7](https://github.com/uphold/enterprise-widget-sdk/pull/7) ([boliveira](https://github.com/boliveira))
