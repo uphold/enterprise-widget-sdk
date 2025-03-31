@@ -1,5 +1,7 @@
 # payment-widget-web-sdk
 
+[![npm version](https://img.shields.io/npm/v/@uphold/enterprise-payment-widget-web-sdk.svg?style=flat-square)](https://www.npmjs.com/package/@uphold/enterprise-payment-widget-web-sdk)
+
 A Web SDK for the Enterprise Payment Widget.
 
 ## Installation
