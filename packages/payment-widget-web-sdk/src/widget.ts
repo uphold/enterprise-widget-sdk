@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 
-import type { EventByType, WidgetEvent, WidgetMountIframeOptions, WidgetOptions } from './types/base';
+import type { WidgetEvent, WidgetMountIframeOptions, WidgetOptions } from './types/base';
 import type {
-  WidgetCommandMessage,
+  WidgetInitCommandMessage,
   WidgetMessageEvent,
   WidgetSession
 } from '@uphold/enterprise-widget-messaging-types';
@@ -14,10 +14,14 @@ import { logSymbol } from './constants';
  * Widget base class.
  */
 
-class Widget<Session extends WidgetSession, Event extends WidgetEvent> extends EventTarget {
+class Widget<
+  TSession extends WidgetSession,
+  TMessageEvent extends WidgetMessageEvent,
+  TEvent extends WidgetEvent<TMessageEvent>
+> extends EventTarget {
   #iframe?: HTMLIFrameElement;
-  #eventListeners: Map<Event['type'], ((event: Event) => void)[]> = new Map();
-  session: Session;
+  #eventListeners: Map<TEvent['detail']['type'], ((event: TEvent) => void)[]> = new Map();
+  session: TSession;
   mountOptions?: WidgetMountIframeOptions;
   options?: WidgetOptions;
   [logSymbol] = {
@@ -31,7 +35,7 @@ class Widget<Session extends WidgetSession, Event extends WidgetEvent> extends E
     }
   };
 
-  constructor(session: Session, options?: WidgetOptions) {
+  constructor(session: TSession, options?: WidgetOptions) {
     super();
 
     this.session = session;
@@ -42,19 +46,25 @@ class Widget<Session extends WidgetSession, Event extends WidgetEvent> extends E
     }
   }
 
-  on<T extends Event['type']>(event: T, listener: (event: EventByType<Event, T>) => void) {
+  on<T extends TEvent['detail']['type']>(
+    event: T,
+    listener: (event: Extract<TEvent, { detail: { type: T } }>) => void
+  ) {
     this.addEventListener(event, listener as EventListener);
 
     if (!this.#eventListeners.has(event)) {
       this.#eventListeners.set(event, []);
     }
 
-    this.#eventListeners.get(event)!.push(listener as unknown as (event: Event) => void);
+    this.#eventListeners.get(event)!.push(listener as unknown as (event: TEvent) => void);
 
     this[logSymbol].log(`Added listener for event: '${event}'.`);
   }
 
-  off(event: Event['type'], listener: (event: Event) => void) {
+  off<T extends TEvent['detail']['type']>(
+    event: T,
+    listener: (event: Extract<TEvent, { detail: { type: T } }>) => void
+  ) {
     this.removeEventListener(event, listener as unknown as EventListener);
 
     if (this.#eventListeners.has(event)) {
@@ -99,7 +109,7 @@ class Widget<Session extends WidgetSession, Event extends WidgetEvent> extends E
   }
 
   unmount() {
-    window.removeEventListener('message', this.#widgetEventListener);
+    window.removeEventListener('message', this.#widgetEventListener as EventListener);
 
     this.#eventListeners.forEach((listeners, event) => {
       listeners.forEach(listener => this.removeEventListener(event, listener as EventListener));
@@ -127,26 +137,26 @@ class Widget<Session extends WidgetSession, Event extends WidgetEvent> extends E
     this.#iframe = iframe;
   }
 
-  #emit(event: Event['type'], data: Event['detail'] = {}) {
+  #emit<T extends TEvent['detail']['type']>(event: T, data?: Extract<TEvent['detail'], { type: T }>) {
     this[logSymbol].log(`'${event}' event raised. Details: `, data);
 
     this.dispatchEvent(new CustomEvent(event, { detail: data }));
   }
 
-  #sendMessageToWidget(message: WidgetCommandMessage) {
+  #sendMessageToWidget(message: WidgetInitCommandMessage) {
     this.#iframe?.contentWindow?.postMessage(message, '*');
   }
 
   #startWidgetEventsListener() {
-    window.addEventListener('message', this.#widgetEventListener);
+    window.addEventListener('message', this.#widgetEventListener as EventListener);
   }
 
-  #widgetEventListener = (event: WidgetMessageEvent) => {
+  #widgetEventListener = (event: TMessageEvent) => {
     const eventOrigin = new URL(event.origin).origin;
 
     if (eventOrigin !== this.session.url) {
       this[logSymbol].warn(
-        `[Widget -> Host] ⚠️ Discarding message from '${eventOrigin}' as it does not match widget URL '${this.session.url}' ⚠️.`
+        `[Widget -> Host] ⚠️ Discarding message from '${eventOrigin}' as it does not match widget URL '${this.session.url}' ⚠️`
       );
 
       return;
@@ -169,7 +179,7 @@ class Widget<Session extends WidgetSession, Event extends WidgetEvent> extends E
       }
 
       case 'complete': {
-        this.#emit('complete', event.data);
+        this.#emit('complete', event.data as Extract<TEvent['detail'], { type: 'complete' }>);
         break;
       }
 
@@ -179,7 +189,7 @@ class Widget<Session extends WidgetSession, Event extends WidgetEvent> extends E
       }
 
       case 'error': {
-        this.#emit('error', event.data);
+        this.#emit('error', event.data as Extract<TEvent['detail'], { type: 'error' }>);
         break;
       }
 
