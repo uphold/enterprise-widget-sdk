@@ -5,8 +5,12 @@
  * Module dependencies.
  */
 
-import type { EventByType, PaymentWidgetEvent, WidgetMountIframeOptions, WidgetOptions } from './types';
-import type { PaymentWidgetSession } from '@uphold/enterprise-widget-messaging-types';
+import type { PaymentWidgetEvent, WidgetMountIframeOptions, WidgetOptions } from './types';
+import type {
+  PaymentWidgetFlow,
+  PaymentWidgetMessageEvent,
+  PaymentWidgetSession
+} from '@uphold/enterprise-widget-messaging-types';
 import { Widget } from './widget';
 import { logSymbol } from './constants';
 
@@ -33,11 +37,16 @@ import { logSymbol } from './constants';
  *
  *   paymentWidget.unmount();
  * });
- *
+ * @template TFlow - (optional) The type of the payment widget flow. This determines the specific
+ * flow-related events and data that the widget will handle.
  * @public
  * ```
  */
-class PaymentWidget extends Widget<PaymentWidgetSession, PaymentWidgetEvent> {
+class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends Widget<
+  PaymentWidgetSession,
+  PaymentWidgetMessageEvent,
+  PaymentWidgetEvent<TFlow>
+> {
   /**
    * Creates a new instance of a Payment Widget.
    *
@@ -101,9 +110,9 @@ class PaymentWidget extends Widget<PaymentWidgetSession, PaymentWidgetEvent> {
    * @param listener The callback function to execute when the event is triggered.
    * The callback receives the event object as a parameter, which contains additional details about the event.
    */
-  override on<T extends PaymentWidgetEvent['type']>(
+  override on<T extends PaymentWidgetEvent['detail']['type']>(
     event: T,
-    listener: (event: EventByType<PaymentWidgetEvent, T>) => void
+    listener: (event: Extract<PaymentWidgetEvent<TFlow>, { detail: { type: T } }>) => void
   ) {
     super.on(event, listener);
   }
@@ -132,7 +141,10 @@ class PaymentWidget extends Widget<PaymentWidgetSession, PaymentWidgetEvent> {
    *
    * @throws {Error} If the `listener` parameter is not a function.
    */
-  override off(event: PaymentWidgetEvent['type'], listener: (event: PaymentWidgetEvent) => void) {
+  override off<T extends PaymentWidgetEvent['detail']['type']>(
+    event: T,
+    listener: (event: Extract<PaymentWidgetEvent<TFlow>, { detail: { type: T } }>) => void
+  ) {
     super.off(event, listener);
   }
 

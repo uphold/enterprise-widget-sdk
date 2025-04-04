@@ -6,6 +6,7 @@ import {
   type CreatePaymentSessionData,
   type CreateTokenData,
   createPaymentSession,
+  createQuote,
   createToken
 } from '../../api/requests';
 import type { PaymentWidgetSession } from '@uphold/enterprise-widget-messaging-types';
@@ -15,13 +16,17 @@ import { useEffect, useState } from 'react';
  * Exports.
  */
 
-export const useCreatePaymentSession = (createPaymentSessionData: CreatePaymentSessionData) => {
+export const useCreatePaymentSession = (createPaymentSessionData?: CreatePaymentSessionData) => {
   const [paymentSession, setPaymentSession] = useState<PaymentWidgetSession>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     async function start() {
+      if (paymentSession || !createPaymentSessionData || error || isLoading) {
+        return;
+      }
+
       setIsLoading(true);
       setError(null);
 
@@ -32,6 +37,33 @@ export const useCreatePaymentSession = (createPaymentSessionData: CreatePaymentS
         };
 
         const token = await createToken(createTokenData);
+
+        if (createPaymentSessionData.flow === 'authorize') {
+          const quote = await createQuote(
+            {
+              denomination: {
+                amount: '10',
+                asset: 'GBP',
+                target: 'origin'
+              },
+              destination: {
+                id: import.meta.env.VITE_CREATE_QUOTE_DESTINATION_ID,
+                type: 'account'
+              },
+              origin: {
+                id: import.meta.env.VITE_CREATE_QUOTE_ORIGIN_ID,
+                type: 'external-account'
+              }
+            },
+            {
+              accessToken: token.access_token,
+              impersonateUserId: import.meta.env.VITE_IMPERSONATE_USER_ID
+            }
+          );
+
+          createPaymentSessionData.data ||= {};
+          createPaymentSessionData.data.quoteId = quote.id;
+        }
 
         const paymentSession = await createPaymentSession(createPaymentSessionData, {
           accessToken: token.access_token,
@@ -48,7 +80,7 @@ export const useCreatePaymentSession = (createPaymentSessionData: CreatePaymentS
     }
 
     start();
-  }, []);
+  }, [createPaymentSessionData]);
 
   return {
     error,
