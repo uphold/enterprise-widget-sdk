@@ -34,6 +34,11 @@ Copy the `.env.sample` file to `.env` and set the values for the following varia
 - **VITE_PAYMENT_SESSION_URL_OVERRIDE**: This will override the response from the "create payment widget session" request to allow running the payment widget locally. (Example: `http://localhost:8788`).
 - **VITE_ENTERPRISE_CORE_API_BASE_URL**: The base URL for all `Enterprise Core API` calls.
 - **VITE_ENTERPRISE_WIDGETS_API_BASE_URL**: The same as `VITE_ENTERPRISE_CORE_API_BASE_URL` but for the `Enterprise Widgets API` calls.
+- **VITE_PAYMENT_WIDGET_FLOW**: The flow you want to use with the payment widget. This will be used as the value for the `flow` parameter in [`Create Payment Widget Session`](https://developer.uphold.com/rest-apis/widgets-api/payment/create-session) endpoint to create the payment widget session.
+- **VITE_CREATE_QUOTE_ORIGIN_ID**: Used for the `authorize` flow to specify the id to be used as the origin for the quote.
+- **VITE_CREATE_QUOTE_DESTINATION_ID**: Used for the `authorize` flow to specify the id to be used as the destination for the quote.
+- **PROXY_TARGET_ENTERPRISE_CORE_API**: The target to proxy the requests to the `core` api. Useful only when testing the `core` api locally. Set **VITE_ENTERPRISE_CORE_API_BASE_URL** accordingly in order for this to work.
+- **PROXY_TARGET_ENTERPRISE_WIDGETS_API**: Same as **PROXY_TARGET_ENTERPRISE_CORE_API** but for the `widgets` api.
 
 > [!NOTE]  
 > Except for `VITE_PAYMENT_SESSION_URL_OVERRIDE`, all other values are required.

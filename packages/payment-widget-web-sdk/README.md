@@ -33,22 +33,24 @@ import {
 const paymentSession = {};
 
 // Initialize the widget with the payment session.
-const widget = new PaymentWidget(paymentSession);
+// Accepts an optional type parameter `TFlow` which narrows
+// the type of the `complete` event.
+const widget = new PaymentWidget<'select-for-deposit'>(paymentSession);
 
 // Register event handlers.
 widget.on('complete', (e: PaymentWidgetCompleteEvent) => {
   // 'complete' event is raised when the user completes the flow.
-  console.log(`'complete' event raised. Account id: `, e.detail.externalAccountId);
+  console.log(`'complete' event raised. Account id: `, e.detail.selection.id);
   widget.unmount();
 });
 
-widget.on('cancel', (_: WidgetCancelEvent) => {
+widget.on('cancel', (_: PaymentWidgetCancelEvent) => {
   // 'cancel' event is raised when the user cancels the flow.
   console.log(`'cancel' event raised`);
   widget.unmount();
 });
 
-widget.on('error', (e: WidgetErrorEvent) => {
+widget.on('error', (e: PaymentWidgetErrorEvent) => {
   // 'error' event is raised when the widget encounters an unrecoverable error.
   console.log(`'error' event raised. error: `, e.detail.error);
   widget.unmount();

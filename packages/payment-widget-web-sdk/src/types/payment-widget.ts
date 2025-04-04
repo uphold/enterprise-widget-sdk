@@ -1,26 +1,34 @@
 /**
- * Exports.
+ * Module dependencies.
  */
 
+import type { PaymentWidgetFlow, PaymentWidgetMessageEvent } from '@uphold/enterprise-widget-messaging-types';
 import type {
   WidgetCancelEvent,
-  WidgetCompleteEventType,
+  WidgetCompleteEvent,
   WidgetErrorEvent,
   WidgetLoadEvent,
   WidgetReadyEvent
 } from './base';
 
-export type PaymentWidgetCompleteEventDetail = {
-  externalAccountId: string;
-};
+/**
+ * Exports.
+ */
 
-export interface PaymentWidgetCompleteEvent extends CustomEvent<PaymentWidgetCompleteEventDetail> {
-  type: WidgetCompleteEventType;
-}
+export type PaymentWidgetLoadEvent = WidgetLoadEvent<PaymentWidgetMessageEvent>;
+export type PaymentWidgetReadyEvent = WidgetReadyEvent<PaymentWidgetMessageEvent>;
+export type PaymentWidgetCompleteEvent<TFlow extends PaymentWidgetFlow> = WidgetCompleteEvent<
+  PaymentWidgetMessageEvent<TFlow>
+>;
+export type PaymentWidgetCancelEvent = WidgetCancelEvent<PaymentWidgetMessageEvent>;
+export type PaymentWidgetErrorEvent = WidgetErrorEvent<PaymentWidgetMessageEvent>;
 
-export type PaymentWidgetEvent =
-  | PaymentWidgetCompleteEvent
-  | WidgetCancelEvent
-  | WidgetErrorEvent
-  | WidgetReadyEvent
-  | WidgetLoadEvent;
+// This type could simply be WidgetEvent<PaymentWidgetMessageEvent> but it would be
+// ugly for the consumers so we make the type definition a little more verbose than
+// it should so it can give a more pleasant visualization of the types.
+export type PaymentWidgetEvent<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> =
+  | PaymentWidgetLoadEvent
+  | PaymentWidgetReadyEvent
+  | PaymentWidgetCompleteEvent<TFlow>
+  | PaymentWidgetCancelEvent
+  | PaymentWidgetErrorEvent;
