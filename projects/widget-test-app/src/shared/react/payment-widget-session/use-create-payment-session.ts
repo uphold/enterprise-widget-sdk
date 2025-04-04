@@ -2,41 +2,46 @@
  * Module dependencies.
  */
 
-import {
-  type CreatePaymentSessionData,
-  type CreateTokenData,
-  createPaymentSession,
-  createToken
-} from '../../api/requests';
+import { type CreatePaymentSessionData, createPaymentSession } from '../../api/requests';
 import type { PaymentWidgetSession } from '@uphold/enterprise-widget-messaging-types';
+import { config } from '../../../../config';
+import { useCreateToken } from '../../api';
 import { useEffect, useState } from 'react';
+
+/**
+ * Configs.
+ */
+
+const { onBehalfOf } = config.enterpriseApi.authentication;
+const paymentSessionUrlOverride = config.paymentWidgetSession.urlOverride;
 
 /**
  * Exports.
  */
 
-export const useCreatePaymentSession = (createPaymentSessionData: CreatePaymentSessionData) => {
+export const useCreatePaymentSession = (createPaymentSessionData?: CreatePaymentSessionData) => {
   const [paymentSession, setPaymentSession] = useState<PaymentWidgetSession>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
+  const { createToken } = useCreateToken();
+
   useEffect(() => {
     async function start() {
+      if (paymentSession || !createPaymentSessionData || error || isLoading) {
+        return;
+      }
+
       setIsLoading(true);
       setError(null);
 
       try {
-        const createTokenData: CreateTokenData = {
-          clientId: import.meta.env.VITE_CLIENT_ID,
-          clientSecret: import.meta.env.VITE_CLIENT_SECRET
-        };
-
-        const token = await createToken(createTokenData);
+        const token = await createToken();
 
         const paymentSession = await createPaymentSession(createPaymentSessionData, {
           accessToken: token.access_token,
-          impersonateUserId: import.meta.env.VITE_IMPERSONATE_USER_ID,
-          urlOverride: import.meta.env.VITE_PAYMENT_SESSION_URL_OVERRIDE
+          onBehalfOf,
+          paymentSessionUrlOverride
         });
 
         setPaymentSession(paymentSession);
@@ -48,7 +53,7 @@ export const useCreatePaymentSession = (createPaymentSessionData: CreatePaymentS
     }
 
     start();
-  }, []);
+  }, [createPaymentSessionData]);
 
   return {
     error,

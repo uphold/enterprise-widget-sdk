@@ -3,6 +3,13 @@
  */
 
 import type { PaymentWidgetFlow } from '@uphold/enterprise-widget-messaging-types';
+import { config } from '../../../../config';
+
+/**
+ * Configs.
+ */
+
+const widgetsApiBaseUrl = config.enterpriseApi.apis.widgets.baseUrl;
 
 /**
  * Exports.
@@ -15,22 +22,22 @@ export type CreatePaymentSessionData = {
 
 export type CreatePaymentSessionOptions = {
   accessToken: string;
-  impersonateUserId?: string;
-  urlOverride?: string;
+  onBehalfOf?: string;
+  paymentSessionUrlOverride?: string;
 };
 
 export const createPaymentSession = async (
   createPaymentSessionData: CreatePaymentSessionData,
   options: CreatePaymentSessionOptions
 ) => {
-  const response = await fetch(`${import.meta.env.VITE_ENTERPRISE_WIDGETS_API_BASE_URL}/payment/sessions`, {
+  const response = await fetch(`${widgetsApiBaseUrl}/payment/sessions`, {
     body: JSON.stringify({
       ...createPaymentSessionData
     }),
     headers: {
       Authorization: `Bearer ${options.accessToken}`,
       'Content-Type': 'application/json',
-      'X-On-Behalf-Of': `user ${options.impersonateUserId}`
+      'X-On-Behalf-Of': options.onBehalfOf ?? ''
     },
     method: 'POST'
   });
@@ -40,8 +47,8 @@ export const createPaymentSession = async (
 
     const paymentSession = responseBody.session;
 
-    if (options.urlOverride) {
-      paymentSession.url = options.urlOverride;
+    if (options.paymentSessionUrlOverride) {
+      paymentSession.url = options.paymentSessionUrlOverride;
     }
 
     return paymentSession;

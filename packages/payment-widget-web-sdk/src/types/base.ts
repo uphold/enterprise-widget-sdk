@@ -7,6 +7,7 @@ import {
   type WidgetCompleteMessageType,
   type WidgetErrorMessageType,
   type WidgetLoadMessageType,
+  type WidgetMessageEvent,
   type WidgetReadyMessageType
 } from '@uphold/enterprise-widget-messaging-types';
 
@@ -14,48 +15,61 @@ import {
  * External API Types.
  */
 
+export type WidgetLoadEventType = WidgetLoadMessageType;
+export type WidgetReadyEventType = WidgetReadyMessageType;
 export type WidgetCompleteEventType = WidgetCompleteMessageType;
 export type WidgetCancelEventType = WidgetCancelMessageType;
 export type WidgetErrorEventType = WidgetErrorMessageType;
-export type WidgetLoadEventType = WidgetLoadMessageType;
-export type WidgetReadyEventType = WidgetReadyMessageType;
+
+export type WidgetLoadEventDetail = {
+  type: WidgetLoadEventType;
+};
+
+export type WidgetReadyEventDetail = {
+  type: WidgetReadyEventType;
+};
+
+export type WidgetCompleteEventDetail = {
+  type: WidgetCompleteEventType;
+};
+
+export type WidgetCancelEventDetail = {
+  type: WidgetCancelEventType;
+};
 
 export type WidgetErrorEventDetail = {
+  type: WidgetErrorEventType;
   error: string;
 };
 
-export interface WidgetCompleteEvent extends CustomEvent {
-  type: WidgetCompleteEventType;
-}
+export type ExtractMessageEventDataForType<
+  TMessageEvent extends WidgetMessageEvent,
+  TType extends TMessageEvent['data']['type']
+> = Extract<TMessageEvent, { data: { type: TType } }>['data'];
 
-export interface WidgetErrorEvent extends CustomEvent<WidgetErrorEventDetail> {
-  type: WidgetErrorEventType;
-}
+export type WidgetLoadEvent<TMessageEvent extends WidgetMessageEvent> = CustomEvent<
+  ExtractMessageEventDataForType<TMessageEvent, 'load'>
+>;
 
-export interface WidgetLoadEvent extends CustomEvent {
-  type: WidgetLoadEventType;
-}
+export type WidgetReadyEvent<TMessageEvent extends WidgetMessageEvent> = CustomEvent<
+  ExtractMessageEventDataForType<TMessageEvent, 'ready'>
+>;
+export type WidgetCompleteEvent<TMessageEvent extends WidgetMessageEvent> = CustomEvent<
+  ExtractMessageEventDataForType<TMessageEvent, 'complete'>
+>;
+export type WidgetCancelEvent<TMessageEvent extends WidgetMessageEvent> = CustomEvent<
+  ExtractMessageEventDataForType<TMessageEvent, 'cancel'>
+>;
+export type WidgetErrorEvent<TMessageEvent extends WidgetMessageEvent> = CustomEvent<
+  ExtractMessageEventDataForType<TMessageEvent, 'error'>
+>;
 
-export interface WidgetCancelEvent extends CustomEvent {
-  type: WidgetCancelEventType;
-}
-
-export interface WidgetReadyEvent extends CustomEvent {
-  type: WidgetReadyEventType;
-}
-
-export type WidgetEvent =
-  | WidgetCompleteEvent
-  | WidgetErrorEvent
-  | WidgetCancelEvent
-  | WidgetLoadEvent
-  | WidgetReadyEvent;
-
-export type EventByType<Event extends { type: string }, T extends Event['type']> = Event extends infer E
-  ? E extends { type: T }
-    ? E
-    : never
-  : never;
+export type WidgetEvent<TMessageEvent extends WidgetMessageEvent = WidgetMessageEvent> =
+  | WidgetLoadEvent<TMessageEvent>
+  | WidgetReadyEvent<TMessageEvent>
+  | WidgetCompleteEvent<TMessageEvent>
+  | WidgetCancelEvent<TMessageEvent>
+  | WidgetErrorEvent<TMessageEvent>;
 
 export type WidgetMountIframeOptions = Record<string, unknown>;
 

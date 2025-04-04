@@ -24,23 +24,20 @@ npm install
 
 To test the Payment Widget Web SDK in the browser, follow these steps:
 
-#### **Set up environment variables**
+#### **Set up configuration**
 
-Copy the `.env.sample` file to `.env` and set the values for the following variables:
+Copy the `config.sample.ts` file to `config.ts` and set the required values for the flow you want to test. Check the comments of that file for more information.
 
-- **VITE_CLIENT_ID**: The client ID used to obtain a token from the Enterprise API.
-- **VITE_CLIENT_SECRET**: The corresponding secret for the client ID.
-- **VITE_IMPERSONATE_USER_ID**: A user ID that will be impersonated in the Enterprise API calls.
-- **VITE_PAYMENT_SESSION_URL_OVERRIDE**: This will override the response from the "create payment widget session" request to allow running the payment widget locally. (Example: `http://localhost:8788`).
-- **VITE_ENTERPRISE_CORE_API_BASE_URL**: The base URL for all `Enterprise Core API` calls.
-- **VITE_ENTERPRISE_WIDGETS_API_BASE_URL**: The same as `VITE_ENTERPRISE_CORE_API_BASE_URL` but for the `Enterprise Widgets API` calls.
+> [!NOTE]
+> Except for `paymentWidgetSession.urlOverride`, all other values are required.
 
-> [!NOTE]  
-> Except for `VITE_PAYMENT_SESSION_URL_OVERRIDE`, all other values are required.
+#### Setup authorize flow (optional)
 
-#### Start the payment widget project
+If you want to test the `authorize` flow, you need to configure the create quote request body to be used to create the quote to authorize. To do so, inside the `config.ts` file set the values you want for the body in `flows.authorize.createQuoteBody` property. You can just paste the body from the postman collection to make it easier.
 
-Start the Payment Widget project and ensure it is listening at the URL specified by the `VITE_PAYMENT_SESSION_URL_OVERRIDE` environment variable in step 1.
+#### Start the payment widget project (optional)
+
+If you want to run the payment widget project locally, start it and ensure it is listening at the URL specified by the `paymentWidgetSession.urlOverride` property in `config.ts` file.
 
 #### Start the Widget Test App
 
@@ -52,15 +49,9 @@ npm run dev
 
 It will print the URL where the app is running, usually `http://localhost:8789`. Open this URL in your browser.
 
-##### Select the "Payment Widget" option
+##### Select the "Payment Widget" option and the desired flow
 
-Click the `"Payment Widget"` button to navigate to the `"Payment Widget SDK Test"` page. This will:
-
-Create a token with the Enterprise API using the client credentials provided in the `.env` file;
-Create a payment widget session and override the URL in the response with the value of `VITE_PAYMENT_SESSION_URL_OVERRIDE`, if specified;
-Instantiate the widget with the URL from the payment widget session.
-
-Enjoy testing!
+Click the `"Payment Widget"` button to navigate to the `"Payment Widget SDK Test"` page. That page will present the available flows you can test. Select the flow you desire by clicking on it and enjoy testing!
 
 ### Development
 
