@@ -42,7 +42,7 @@
     "release-it": "^18.1.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.26.0",
-    "vite": "^6.2.5"
+    "vite": "^6.2.6"
   },
   "pre-commit": [
     "lint-staged"
