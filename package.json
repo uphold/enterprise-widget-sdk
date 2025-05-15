@@ -39,7 +39,7 @@
     "lint-staged": "^15.4.3",
     "pre-commit": "^1.2.2",
     "prettier": "3.5.3",
-    "release-it": "^18.1.2",
+    "release-it": "^19.0.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.26.0",
     "vite": "^6.2.6"
