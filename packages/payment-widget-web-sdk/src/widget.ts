@@ -128,6 +128,7 @@ class Widget<
     const iframe = document.createElement('iframe');
 
     iframe.setAttribute('src', this.session.url);
+    iframe.setAttribute('allow', 'clipboard-write *; clipboard-read *');
     iframe.style.width = '100%';
     iframe.style.height = '100%';
     iframe.style.border = 'none';
@@ -190,6 +191,11 @@ class Widget<
 
       case 'error': {
         this.#emit('error', event.data as Extract<TEvent['detail'], { type: 'error' }>);
+        break;
+      }
+
+      case 'ready': {
+        this.#emit('ready');
         break;
       }
 

@@ -3,10 +3,13 @@
  */
 
 import {
+  type WidgetCancelMessageEventData,
   type WidgetCancelMessageType,
+  type WidgetCompleteMessageEventData,
   type WidgetCompleteMessageType,
+  type WidgetError,
+  type WidgetErrorMessageEventData,
   type WidgetErrorMessageType,
-  type WidgetLoadMessageType,
   type WidgetMessageEvent,
   type WidgetReadyMessageType
 } from '@uphold/enterprise-widget-messaging-types';
@@ -15,15 +18,12 @@ import {
  * External API Types.
  */
 
-export type WidgetLoadEventType = WidgetLoadMessageType;
+export type { WidgetError, WidgetErrorMessageEventData, WidgetCompleteMessageEventData, WidgetCancelMessageEventData };
+
 export type WidgetReadyEventType = WidgetReadyMessageType;
 export type WidgetCompleteEventType = WidgetCompleteMessageType;
 export type WidgetCancelEventType = WidgetCancelMessageType;
 export type WidgetErrorEventType = WidgetErrorMessageType;
-
-export type WidgetLoadEventDetail = {
-  type: WidgetLoadEventType;
-};
 
 export type WidgetReadyEventDetail = {
   type: WidgetReadyEventType;
@@ -50,7 +50,6 @@ export type ExtractMessageEventDataForType<
 export type WidgetLoadEvent<TMessageEvent extends WidgetMessageEvent> = CustomEvent<
   ExtractMessageEventDataForType<TMessageEvent, 'load'>
 >;
-
 export type WidgetReadyEvent<TMessageEvent extends WidgetMessageEvent> = CustomEvent<
   ExtractMessageEventDataForType<TMessageEvent, 'ready'>
 >;
@@ -65,7 +64,6 @@ export type WidgetErrorEvent<TMessageEvent extends WidgetMessageEvent> = CustomE
 >;
 
 export type WidgetEvent<TMessageEvent extends WidgetMessageEvent = WidgetMessageEvent> =
-  | WidgetLoadEvent<TMessageEvent>
   | WidgetReadyEvent<TMessageEvent>
   | WidgetCompleteEvent<TMessageEvent>
   | WidgetCancelEvent<TMessageEvent>
@@ -76,3 +74,5 @@ export type WidgetMountIframeOptions = Record<string, unknown>;
 export type WidgetOptions = {
   debug?: boolean;
 };
+
+export type PaymentWidgetOptions = WidgetOptions;
