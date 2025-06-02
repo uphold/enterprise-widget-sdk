@@ -109,7 +109,7 @@ describe('Widget', () => {
     expect(element.querySelector('iframe')).toBeNull();
   });
 
-  it('should handle messages from the widget', () => {
+  it('should handle `complete` message from the widget', () => {
     const widget = new Widget(session, { debug: true });
 
     const listener = vi.fn();
@@ -121,7 +121,7 @@ describe('Widget', () => {
     widget.mountIframe(element);
 
     const messageEvent = new MessageEvent('message', {
-      data: { detail: { externalAccountId: true }, type: 'complete' },
+      data: { selection: { id: 'dummy' }, type: 'complete' },
       origin: session.url
     });
 
@@ -130,10 +130,85 @@ describe('Widget', () => {
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener.mock.calls[0]?.[0].detail).toMatchInlineSnapshot(`
       {
-        "detail": {
-          "externalAccountId": true,
+        "selection": {
+          "id": "dummy",
         },
         "type": "complete",
+      }
+    `);
+  });
+
+  it('should handle `ready` message from the widget', () => {
+    const widget = new Widget(session, { debug: true });
+
+    const listener = vi.fn();
+
+    widget.on('ready', listener);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'ready' },
+      origin: session.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener.mock.calls[0]?.[0].detail).toMatchInlineSnapshot(`null`);
+  });
+
+  it('should handle `cancel` message from the widget', () => {
+    const widget = new Widget(session, { debug: true });
+
+    const listener = vi.fn();
+
+    widget.on('cancel', listener);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'cancel' },
+      origin: session.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener.mock.calls[0]?.[0].detail).toMatchInlineSnapshot(`null`);
+  });
+
+  it('should handle `error` message from the widget', () => {
+    const widget = new Widget(session, { debug: true });
+
+    const listener = vi.fn();
+
+    widget.on('error', listener);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const messageEvent = new MessageEvent('message', {
+      data: { error: { code: 'error', message: 'DummyError', name: 'Error' }, type: 'error' },
+      origin: session.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener.mock.calls[0]?.[0].detail).toMatchInlineSnapshot(`
+      {
+        "error": {
+          "code": "error",
+          "message": "DummyError",
+          "name": "Error",
+        },
+        "type": "error",
       }
     `);
   });
