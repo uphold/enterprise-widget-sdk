@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.6.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.6.0) (2025-07-25)
+
+- Improve typescript support [\#18](https://github.com/uphold/enterprise-widget-sdk/pull/18) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.5.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.5.0) (2025-04-11)
 
 - Add support for authorize flow [\#12](https://github.com/uphold/enterprise-widget-sdk/pull/12) ([boliveira](https://github.com/boliveira))
