@@ -3,22 +3,24 @@
   "include": [
     "src/**/*",
     "vitest.config.ts",
-    "../../vitest.setup.ts"
+    "../../vitest.config.ts"
   ],
   "compilerOptions": {
+    "composite": true,
     "verbatimModuleSyntax": true,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "noEmit": false,
     "declaration": true,
     "declarationMap": true,
     "outDir": "dist",
-    "rootDirs": ["src", "."],
+    "rootDir": "../..",
     "typeRoots": ["./types", "node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-    }
+      "@/*": ["./src/*"]
+    },
   }
 }

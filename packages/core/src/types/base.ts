@@ -2,16 +2,16 @@
  * Module dependencies.
  */
 
-import {
-  type WidgetCancelMessageEventData,
-  type WidgetCancelMessageType,
-  type WidgetCompleteMessageEventData,
-  type WidgetCompleteMessageType,
-  type WidgetError,
-  type WidgetErrorMessageEventData,
-  type WidgetErrorMessageType,
-  type WidgetMessageEvent,
-  type WidgetReadyMessageType
+import type {
+  WidgetCancelMessageEventData,
+  WidgetCancelMessageType,
+  WidgetCompleteMessageEventData,
+  WidgetCompleteMessageType,
+  WidgetError,
+  WidgetErrorMessageEventData,
+  WidgetErrorMessageType,
+  WidgetMessageEvent,
+  WidgetReadyMessageType
 } from '@uphold/enterprise-widget-messaging-types';
 
 /**

@@ -11,7 +11,6 @@ import { useState } from 'react';
  * Configs.
  */
 
-const { createQuoteBody } = config.flows.authorize;
 const { onBehalfOf } = config.enterpriseApi.authentication;
 
 /**
@@ -24,7 +23,7 @@ export const useCreateQuote = () => {
 
   const { createToken } = useCreateToken();
 
-  const createQuote = async (createQuoteData?: CreateQuoteData, createQuoteOptions?: CreateQuoteOptions) => {
+  const createQuote = async (createQuoteData: CreateQuoteData, createQuoteOptions?: CreateQuoteOptions) => {
     setIsLoading(true);
     setError(null);
 
@@ -36,10 +35,6 @@ export const useCreateQuote = () => {
           accessToken: token.access_token,
           onBehalfOf
         };
-      }
-
-      if (!createQuoteData) {
-        createQuoteData = createQuoteBody as CreateQuoteData;
       }
 
       return await createQuoteRequest(createQuoteData, createQuoteOptions);

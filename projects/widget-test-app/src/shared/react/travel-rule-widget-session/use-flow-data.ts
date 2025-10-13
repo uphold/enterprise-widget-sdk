@@ -3,7 +3,6 @@
  */
 
 import { type CreateQuoteData, useCreateQuote } from '../../api';
-import type { PaymentWidgetFlow } from '@uphold/enterprise-widget-messaging-types';
 import { config } from '../../../../config';
 
 /**
@@ -16,12 +15,8 @@ export const useFlowData = () => {
   const error = createQuoteError;
   const isLoading = isCreatingQuote;
 
-  const loadFlowData = async (flow: PaymentWidgetFlow) => {
-    if (flow !== 'authorize') {
-      return {};
-    }
-
-    const createQuoteBody = config.widgets.payment.flows.authorize.createQuoteBody as CreateQuoteData;
+  const loadFlowData = async () => {
+    const createQuoteBody = config.widgets.travelRule.flows['withdrawal-form'].createQuoteBody as CreateQuoteData;
     const quote = await createQuote(createQuoteBody);
 
     return { quoteId: quote.id };

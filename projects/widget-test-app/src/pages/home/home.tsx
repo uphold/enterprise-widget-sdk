@@ -25,6 +25,9 @@ export default function Home() {
       <Link to={'/payment-widget'} className="button">
         Payment Widget
       </Link>
+      <Link to={'/travel-rule-widget'} className="button">
+        Travel Rule Widget
+      </Link>
     </div>
   );
 }

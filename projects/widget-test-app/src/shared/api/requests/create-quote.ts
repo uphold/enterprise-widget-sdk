@@ -21,12 +21,16 @@ export type CreateQuoteOptions = {
 
 export type CreateQuoteData = {
   origin: {
-    type: 'account' | 'external-account';
-    id: string;
+    type: 'account' | 'external-account' | 'crypto-address';
+    id?: string;
+    network?: string;
+    address?: string;
   };
   destination: {
-    type: 'account' | 'external-account';
-    id: string;
+    type: 'account' | 'external-account' | 'crypto-address';
+    id?: string;
+    network?: string;
+    address?: string;
   };
   denomination: {
     asset: string;

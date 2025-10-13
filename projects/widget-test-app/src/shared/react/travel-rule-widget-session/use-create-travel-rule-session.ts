@@ -2,8 +2,8 @@
  * Module dependencies.
  */
 
-import { type CreatePaymentSessionData, createPaymentSession } from '../../api/requests';
-import type { PaymentWidgetSession } from '@uphold/enterprise-widget-messaging-types';
+import { type CreateTravelRuleSessionData, createTravelRuleSession } from '../../api/requests';
+import type { TravelRuleWidgetSession } from '@uphold/enterprise-widget-messaging-types';
 import { config } from '../../../../config';
 import { useCreateToken } from '../../api';
 import { useEffect, useState } from 'react';
@@ -13,14 +13,14 @@ import { useEffect, useState } from 'react';
  */
 
 const { onBehalfOf } = config.enterpriseApi.authentication;
-const paymentSessionUrlOverride = config.widgets.payment.session.urlOverride;
+const travelRuleSessionUrlOverride = config.widgets.travelRule.session.urlOverride;
 
 /**
  * Exports.
  */
 
-export const useCreatePaymentSession = (createPaymentSessionData?: CreatePaymentSessionData) => {
-  const [paymentSession, setPaymentSession] = useState<PaymentWidgetSession>();
+export const useCreateTravelRuleSession = (createTravelRuleSessionData?: CreateTravelRuleSessionData) => {
+  const [travelRuleSession, setTravelRuleSession] = useState<TravelRuleWidgetSession>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -28,7 +28,7 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
 
   useEffect(() => {
     async function start() {
-      if (paymentSession || !createPaymentSessionData || error || isLoading) {
+      if (travelRuleSession || !createTravelRuleSessionData || error || isLoading) {
         return;
       }
 
@@ -38,13 +38,13 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
       try {
         const token = await createToken();
 
-        const paymentSession = await createPaymentSession(createPaymentSessionData, {
+        const travelRuleSession = await createTravelRuleSession(createTravelRuleSessionData, {
           accessToken: token.access_token,
           onBehalfOf,
-          paymentSessionUrlOverride
+          travelRuleSessionUrlOverride
         });
 
-        setPaymentSession(paymentSession);
+        setTravelRuleSession(travelRuleSession);
       } catch (e) {
         setError(e as Error);
       } finally {
@@ -53,11 +53,11 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
     }
 
     start();
-  }, [createPaymentSessionData]);
+  }, [createTravelRuleSessionData]);
 
   return {
     error,
     isLoading,
-    paymentSession
+    travelRuleSession
   };
 };
