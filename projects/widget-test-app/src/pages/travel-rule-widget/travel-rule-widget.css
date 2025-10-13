@@ -1,0 +1,92 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.travel-rule-widget-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.loading {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.error-icon {
+  margin-right: 15px;
+  font-size: 36px;
+}
+
+.error-message {
+  flex: 1;
+  font-size: 20px;
+}
+
+.message {
+  font-size: 16px;
+  color: #333;
+}
+
+.widget-container {
+  flex: 1;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+}
+
+.action-button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  min-width: 200px;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+.select-flow-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}

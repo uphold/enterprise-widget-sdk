@@ -5,11 +5,11 @@
  * Module dependencies.
  */
 
-import type { PaymentWidgetEvent } from './types';
+import type { TravelRuleWidgetEvent } from './types';
 import type {
-  PaymentWidgetFlow,
-  PaymentWidgetMessageEvent,
-  PaymentWidgetSession
+  TravelRuleWidgetFlow,
+  TravelRuleWidgetMessageEvent,
+  TravelRuleWidgetSession
 } from '@uphold/enterprise-widget-messaging-types';
 import {
   Widget,
@@ -19,64 +19,64 @@ import {
 } from '@uphold/enterprise-widget-sdk-core';
 
 /**
- * The `PaymentWidget` class provides an interface for embedding and interacting with
- * the Enterprise Payment Widget in web applications. It extends the base `Widget` class
- * and is specifically designed to handle payment-related sessions and events.
+ * The `TravelRuleWidget` class provides an interface for embedding and interacting with
+ * the Enterprise Travel Rule Widget in web applications. It extends the base `Widget` class
+ * and is specifically designed to handle travel rule related sessions and events.
  *
  * This class allows developers to:
- * - Mount the payment widget into a specified DOM element.
+ * - Mount the travel rule widget into a specified DOM element.
  * - Manage the lifecycle of the widget, including initialization and unmounting.
- * - Listen for and handle payment-related events, such as completion, cancellation, or errors.
+ * - Listen for and handle travel rule related events, such as completion, cancellation, or errors.
  *
  * Example usage:
  *
  * ```typescript
- * import { PaymentWidget } from '@uphold/enterprise-payment-widget-web-sdk';
+ * import { TravelRuleWidget } from '@uphold/enterprise-travel-rule-widget-web-sdk';
  *
- * const paymentWidget = new PaymentWidget(paymentSession);
- * paymentWidget.mountIframe(document.getElementById('widget-container'));
+ * const travelRuleWidget = new TravelRuleWidget(travelRuleSession);
+ * travelRuleWidget.mountIframe(document.getElementById('widget-container'));
  *
- * paymentWidget.on('complete', (event) => {
- *   console.log('Payment completed. Selected account id: ', event.detail.externalAccountId);
+ * travelRuleWidget.on('complete', (event) => {
+ *   console.log('Travel Rule completed. Selected account id: ', event.detail.externalAccountId);
  *
- *   paymentWidget.unmount();
+ *   travelRuleWidget.unmount();
  * });
- * @template TFlow - (optional) The type of the payment widget flow. This determines the specific
+ * @template TFlow - (optional) The type of the travel rule widget flow. This determines the specific
  * flow-related events and data that the widget will handle.
  * @public
  * ```
  */
-class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends Widget<
-  PaymentWidgetSession,
-  PaymentWidgetMessageEvent,
-  PaymentWidgetEvent<TFlow>
+class TravelRuleWidget<TFlow extends TravelRuleWidgetFlow = TravelRuleWidgetFlow> extends Widget<
+  TravelRuleWidgetSession,
+  TravelRuleWidgetMessageEvent,
+  TravelRuleWidgetEvent<TFlow>
 > {
   /**
-   * Creates a new instance of a Payment Widget.
+   * Creates a new instance of a Travel Rule Widget.
    *
-   * This constructor initializes the payment widget with the provided session data, which includes
+   * This constructor initializes the travel rule widget with the provided session data, which includes
    * the session URL and other configuration details required for the widget's operation.
    *
    * ### Example Usage:
    * ```typescript
    * const session = { url: 'https://example.com/widget-session' };
-   * const paymentWidget = new PaymentWidget(session);
+   * const travelRuleWidget = new TravelRuleWidget(session);
    * ```
    *
    * @param session The session object containing the configuration details for the widget.
    * This includes the session URL and any other data required to initialize the widget.
    */
-  constructor(session: PaymentWidgetSession, options?: WidgetOptions) {
+  constructor(session: TravelRuleWidgetSession, options?: WidgetOptions) {
     super(session, options);
 
-    this[logSymbol].log('Initialized payment widget. session: ', session, ' options: ', options);
+    this[logSymbol].log('Initialized travel rule widget. session: ', session, ' options: ', options);
   }
 
   /**
-   * Mounts the payment widget in an iframe under the specified DOM element.
+   * Mounts the travel rule widget in an iframe under the specified DOM element.
    *
-   * It initializes the payment widget with the provided payment session
-   * and configures it to handle payment-related events.
+   * It initializes the travel rule widget with the provided travel rule session
+   * and configures it to handle travel rule-related events.
    *
    * @param element The DOM element where the iframe will be mounted.
    * This element must be a valid `HTMLElement` and should exist in the DOM.
@@ -92,7 +92,7 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
 
   /**
    * Adds an event listener for the specified event type. This allows you to listen for
-   * and handle events emitted by the payment widget during its lifecycle. The available events
+   * and handle events emitted by the travel rule widget during its lifecycle. The available events
    * and their descriptions are as follows:
    *
    * - **load**: Triggered when the widget has been loaded but is not yet ready for interaction.
@@ -105,7 +105,7 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    * Example usage:
    *
    * ```typescript
-   * paymentWidget.on('complete', (event) => {
+   * travelRuleWidget.on('complete', (event) => {
    *   console.log('Flow completed: ', event.detail);
    * });
    * ```
@@ -114,9 +114,9 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    * @param listener The callback function to execute when the event is triggered.
    * The callback receives the event object as a parameter, which contains additional details about the event.
    */
-  override on<T extends PaymentWidgetEvent['detail']['type']>(
+  override on<T extends TravelRuleWidgetEvent['detail']['type']>(
     event: T,
-    listener: (event: Extract<PaymentWidgetEvent<TFlow>, { detail: { type: T } }>) => void
+    listener: (event: Extract<TravelRuleWidgetEvent<TFlow>, { detail: { type: T } }>) => void
   ) {
     super.on(event, listener);
   }
@@ -134,8 +134,8 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    *   console.log('Flow completed: ', event.detail);
    * };
    *
-   * paymentWidget.on('complete', onComplete);
-   * paymentWidget.off('complete', onComplete); // Removes the listener
+   * travelRuleWidget.on('complete', onComplete);
+   * travelRuleWidget.off('complete', onComplete); // Removes the listener
    * ```
    *
    * @param event The name of the event to remove the listener from. Examples: `'complete'`, `'cancel'`, `'error'`.
@@ -145,27 +145,27 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    *
    * @throws {Error} If the `listener` parameter is not a function.
    */
-  override off<T extends PaymentWidgetEvent['detail']['type']>(
+  override off<T extends TravelRuleWidgetEvent['detail']['type']>(
     event: T,
-    listener: (event: Extract<PaymentWidgetEvent<TFlow>, { detail: { type: T } }>) => void
+    listener: (event: Extract<TravelRuleWidgetEvent<TFlow>, { detail: { type: T } }>) => void
   ) {
     super.off(event, listener);
   }
 
   /**
-   * Unmounts the payment widget and removes any registered event listeners.
+   * Unmounts the travel rule widget and removes any registered event listeners.
    *
-   * This method is used to clean up the payment widget when it is no longer needed. It performs the following actions:
+   * This method is used to clean up the travel rule widget when it is no longer needed. It performs the following actions:
    * - Unregisters all event listeners that were added using the `on` method.
    * - Removes the iframe element from the DOM, ensuring that the widget is fully unmounted.
    *
    * ### Example Usage:
    * ```typescript
-   * const paymentWidget = new PaymentWidget(session);
-   * paymentWidget.mountIframe(document.getElementById('widget-container'));
+   * const travelRuleWidget = new TravelRuleWidget(session);
+   * travelRuleWidget.mountIframe(document.getElementById('widget-container'));
    *
    * // Later, when the widget is no longer needed
-   * paymentWidget.unmount();
+   * travelRuleWidget.unmount();
    * ```
    *
    * @remarks
@@ -182,4 +182,4 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
  * Exports.
  */
 
-export { PaymentWidget };
+export { TravelRuleWidget };

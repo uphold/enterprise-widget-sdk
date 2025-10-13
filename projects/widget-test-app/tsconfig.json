@@ -12,6 +12,9 @@
     "paths": {
       "@uphold/enterprise-payment-widget-web-sdk": [
         "../../packages/payment-widget-web-sdk/src"
+      ],
+      "@uphold/enterprise-travel-rule-widget-web-sdk": [
+        "../../packages/travel-rule-widget-web-sdk/src"
       ]
     }
   },

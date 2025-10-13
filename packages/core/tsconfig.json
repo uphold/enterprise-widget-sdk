@@ -17,8 +17,7 @@
     "typeRoots": ["./types", "node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@uphold/enterprise-widget-sdk-core": ["../core/src"]
-    }
+      "@/*": ["./src/*"]
+    },
   }
 }
