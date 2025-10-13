@@ -10,3 +10,4 @@ npm-debug.log*
 yarn.lock
 .env
 .env.local
+**/*.tsbuildinfo

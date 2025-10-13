@@ -16,7 +16,12 @@ import type {
   Transaction,
   WithdrawalSelection
 } from '@uphold/enterprise-widget-messaging-types';
-import type { WidgetCancelEvent, WidgetCompleteEvent, WidgetErrorEvent, WidgetReadyEvent } from './base';
+import type {
+  WidgetCancelEvent,
+  WidgetCompleteEvent,
+  WidgetErrorEvent,
+  WidgetReadyEvent
+} from '@uphold/enterprise-widget-sdk-core';
 
 /**
  * Exports.

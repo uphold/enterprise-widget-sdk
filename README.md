@@ -40,6 +40,7 @@ Please ensure your machine is using the correct versions of Node.js and NPM befo
 The project is organized as follows:
 
 - [`packages/payment-widget-web-sdk`](./packages/payment-widget-web-sdk): The implementation of the Payment Widget SDK for the web.
+- [`packages/travel-rule-widget-web-sdk`](./packages/travel-rule-widget-web-sdk): The implementation of the Travel Rule Widget SDK for the web.
 - [`projects/widget-test-app`](./projects/widget-test-app/): A test application for all widget SDKs.
 
 ### Installation
