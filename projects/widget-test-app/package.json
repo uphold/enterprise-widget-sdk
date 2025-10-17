@@ -26,6 +26,7 @@
   "dependencies": {
     "@react-router/node": "^7.4.0",
     "@uphold/enterprise-payment-widget-web-sdk": "../../packages/payment-widget-web-sdk",
+    "@uphold/enterprise-travel-rule-widget-web-sdk": "../../packages/travel-rule-widget-web-sdk",
     "isbot": "^5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
