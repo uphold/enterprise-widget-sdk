@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc -b tsconfig.build.json --force",
     "lint": "eslint .",
-    "release": "npx --yes release-it@^18 --config ../../.release-it.cjs",
+    "release": "npx --yes release-it@^19 --config ../../.release-it.cjs",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
