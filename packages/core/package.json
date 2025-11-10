@@ -21,6 +21,9 @@
     "url": "https://github.com/uphold/enterprise-widget-sdk",
     "directory": "packages/core"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "lint-staged": {
     "*.ts*": [
       "eslint"
