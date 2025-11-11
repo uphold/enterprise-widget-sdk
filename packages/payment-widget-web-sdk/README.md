@@ -115,3 +115,10 @@ To create a production build, run:
 ```sh
 npm run build
 ```
+
+### Generating a new release
+
+Releases are performed manually via a specific `Release` GitHub workflow. After merging the changes to the `master` branch, trigger the workflow selecting that branch and the appropriate version bump to apply to the new version.
+
+> [!IMPORTANT]
+> If there is a change to the core package that affects this package, make sure to update the dependency version in the `package.json` file before creating the release as it will not be automatically updated. Check the core package README for more details.
