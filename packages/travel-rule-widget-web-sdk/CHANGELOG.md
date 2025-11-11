@@ -1,5 +1,11 @@
 # Changelog
 
+## [@uphold/enterprise-travel-rule-widget-web-sdk@v0.3.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-travel-rule-widget-web-sdk@v0.3.0) (2025-11-11)
+
+- Reintroduce dependencies [\#31](https://github.com/uphold/enterprise-widget-sdk/pull/31) ([boliveira](https://github.com/boliveira))
+- Remove core dependency temporarily [\#30](https://github.com/uphold/enterprise-widget-sdk/pull/30) ([boliveira](https://github.com/boliveira))
+- Move postinstall from core package [\#29](https://github.com/uphold/enterprise-widget-sdk/pull/29) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-travel-rule-widget-web-sdk@v0.2.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-travel-rule-widget-web-sdk@v0.2.0) (2025-11-10)
 
 - Fix core dependencies version [\#28](https://github.com/uphold/enterprise-widget-sdk/pull/28) ([boliveira](https://github.com/boliveira))
