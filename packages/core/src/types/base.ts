@@ -74,5 +74,3 @@ export type WidgetMountIframeOptions = Record<string, unknown>;
 export type WidgetOptions = {
   debug?: boolean;
 };
-
-export type PaymentWidgetOptions = WidgetOptions;

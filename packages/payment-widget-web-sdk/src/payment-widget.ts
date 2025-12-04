@@ -5,18 +5,13 @@
  * Module dependencies.
  */
 
-import type { PaymentWidgetEvent } from './types';
+import type { PaymentWidgetEvent, PaymentWidgetOptions } from './types';
 import type {
   PaymentWidgetFlow,
   PaymentWidgetMessageEvent,
   PaymentWidgetSession
 } from '@uphold/enterprise-widget-messaging-types';
-import {
-  Widget,
-  type WidgetMountIframeOptions,
-  type WidgetOptions,
-  logSymbol
-} from '@uphold/enterprise-widget-sdk-core';
+import { Widget, type WidgetMountIframeOptions, logSymbol } from '@uphold/enterprise-widget-sdk-core';
 
 /**
  * The `PaymentWidget` class provides an interface for embedding and interacting with
@@ -49,7 +44,8 @@ import {
 class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends Widget<
   PaymentWidgetSession,
   PaymentWidgetMessageEvent,
-  PaymentWidgetEvent<TFlow>
+  PaymentWidgetEvent<TFlow>,
+  PaymentWidgetOptions
 > {
   /**
    * Creates a new instance of a Payment Widget.
@@ -59,14 +55,28 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    *
    * ### Example Usage:
    * ```typescript
-   * const session = { url: 'https://example.com/widget-session' };
+   * const session = { url: 'https://example.com' };
    * const paymentWidget = new PaymentWidget(session);
+   * ```
+   *
+   * ### Advanced Usage with Payment Methods:
+   * You can optionally specify payment methods that should be available on the payment widget using the `options` parameter:
+   * ```typescript
+   * const session = { url: 'https://example.com' };
+   * const options = {
+   *   paymentMethods: [
+   *     { type: 'card' },
+   *     { type: 'crypto' },
+   *     { type: 'bank' }
+   *   ]
+   * };
+   * const paymentWidget = new PaymentWidget(session, options);
    * ```
    *
    * @param session The session object containing the configuration details for the widget.
    * This includes the session URL and any other data required to initialize the widget.
    */
-  constructor(session: PaymentWidgetSession, options?: WidgetOptions) {
+  constructor(session: PaymentWidgetSession, options?: PaymentWidgetOptions) {
     super(session, options);
 
     this[logSymbol].log('Initialized payment widget. session: ', session, ' options: ', options);

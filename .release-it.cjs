@@ -17,5 +17,9 @@ module.exports = {
       npm run build &&
       git add ../..
     `
+  },
+  npm: {
+    publish: true,
+    skipChecks: true
   }
 };

@@ -233,4 +233,68 @@ describe('Widget', () => {
 
     expect(listener).toHaveBeenCalledTimes(0);
   });
+
+  it('should send init message with options when `load` message is received', () => {
+    const widget = new Widget(session, { debug: true });
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe');
+    const postMessage = vi.fn();
+
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: { postMessage }
+    });
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'load' },
+      origin: session.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(postMessage).toHaveBeenCalledTimes(1);
+    expect(postMessage).toHaveBeenCalledWith(
+      {
+        ...session,
+        options: { debug: true },
+        type: 'init'
+      },
+      '*'
+    );
+  });
+
+  it('should send init message with options undefined when no options are provided', () => {
+    const widget = new Widget(session);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe');
+    const postMessage = vi.fn();
+
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: { postMessage }
+    });
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'load' },
+      origin: session.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(postMessage).toHaveBeenCalledTimes(1);
+    expect(postMessage).toHaveBeenCalledWith(
+      {
+        ...session,
+        options: undefined,
+        type: 'init'
+      },
+      '*'
+    );
+  });
 });

@@ -17,13 +17,14 @@ import { logSymbol } from './constants';
 class Widget<
   TSession extends WidgetSession,
   TMessageEvent extends WidgetMessageEvent,
-  TEvent extends WidgetEvent<TMessageEvent>
+  TEvent extends WidgetEvent<TMessageEvent>,
+  TWidgetOptions extends WidgetOptions = WidgetOptions
 > extends EventTarget {
   #iframe?: HTMLIFrameElement;
   #eventListeners: Map<TEvent['detail']['type'], ((event: TEvent) => void)[]> = new Map();
   session: TSession;
   mountOptions?: WidgetMountIframeOptions;
-  options?: WidgetOptions;
+  options?: TWidgetOptions;
   [logSymbol] = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     log: (message?: any, ...optionalParams: any[]) => {
@@ -35,7 +36,7 @@ class Widget<
     }
   };
 
-  constructor(session: TSession, options?: WidgetOptions) {
+  constructor(session: TSession, options?: TWidgetOptions) {
     super();
 
     this.session = session;
@@ -169,6 +170,7 @@ class Widget<
       case 'load': {
         const widgetInitMessage = {
           ...this.session,
+          options: this.options,
           type: 'init'
         } as const;
 
