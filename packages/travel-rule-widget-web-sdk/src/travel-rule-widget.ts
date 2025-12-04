@@ -49,7 +49,8 @@ import {
 class TravelRuleWidget<TFlow extends TravelRuleWidgetFlow = TravelRuleWidgetFlow> extends Widget<
   TravelRuleWidgetSession,
   TravelRuleWidgetMessageEvent,
-  TravelRuleWidgetEvent<TFlow>
+  TravelRuleWidgetEvent<TFlow>,
+  WidgetOptions
 > {
   /**
    * Creates a new instance of a Travel Rule Widget.

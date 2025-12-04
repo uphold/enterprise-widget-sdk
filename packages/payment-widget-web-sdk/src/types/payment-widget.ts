@@ -7,6 +7,7 @@ import type {
   AccountDepositMethod,
   AccountDepositMethodSelection,
   AuthorizeResult,
+  PaymentWidgetOptions as BasePaymentWidgetOptions,
   DepositSelection,
   ExternalAccount,
   ExternalAccountSelection,
@@ -20,6 +21,7 @@ import type {
   WidgetCancelEvent,
   WidgetCompleteEvent,
   WidgetErrorEvent,
+  WidgetOptions,
   WidgetReadyEvent
 } from '@uphold/enterprise-widget-sdk-core';
 
@@ -56,3 +58,4 @@ export type PaymentWidgetEvent<TFlow extends PaymentWidgetFlow = PaymentWidgetFl
   | PaymentWidgetCompleteEvent<TFlow>
   | PaymentWidgetCancelEvent
   | PaymentWidgetErrorEvent;
+export type PaymentWidgetOptions = WidgetOptions & BasePaymentWidgetOptions;
