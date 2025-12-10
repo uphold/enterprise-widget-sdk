@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@react-router/dev": "^7.4.0",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "^19.2.1",
+    "@types/react-dom": "^19.2.1",
     "typescript": "~5.7.2",
     "vite": "^6.3.6",
     "vite-tsconfig-paths": "^5.1.4"
@@ -28,8 +28,8 @@
     "@uphold/enterprise-payment-widget-web-sdk": "../../packages/payment-widget-web-sdk",
     "@uphold/enterprise-travel-rule-widget-web-sdk": "../../packages/travel-rule-widget-web-sdk",
     "isbot": "^5",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "react-router": "^7.5.2"
   }
 }
