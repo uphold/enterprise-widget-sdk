@@ -43,6 +43,14 @@ export const config = {
               type: 'external_account'
             }
           }
+        },
+        'select-for-deposit': {
+          // default options to be injected on the widget initialization (optional)
+          options: {
+            // maximum number of accounts that can be created per asset (as destination) (optional)
+            // value between 1 and 100, default is 0 (unlimited)
+            maxAccountsPerAsset: 1
+          }
         }
       },
       session: {

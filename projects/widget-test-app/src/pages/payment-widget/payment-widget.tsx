@@ -10,7 +10,8 @@ import {
   type PaymentWidgetCompleteEvent,
   type PaymentWidgetErrorEvent
 } from '@uphold/enterprise-payment-widget-web-sdk';
-import type { PaymentWidgetFlow } from '@uphold/enterprise-widget-messaging-types';
+import type { PaymentWidgetFlow, PaymentWidgetSession } from '@uphold/enterprise-widget-messaging-types';
+import { config } from '../../../config';
 import { useCreatePaymentSession } from '../../shared/react/payment-widget-session';
 import { useEffect, useMemo, useState } from 'react';
 import { useFlowData } from '../../shared/react/payment-widget-session/use-flow-data';
@@ -47,7 +48,16 @@ export default function PaymentWidget() {
 
   const widget = useMemo(() => {
     if (paymentSession) {
-      const widget = new PaymentWidgetClass(paymentSession, { debug: true });
+      const widget = new PaymentWidgetClass(
+        {
+          ...paymentSession,
+          options:
+            (config.widgets.payment.flows as unknown as Record<PaymentWidgetFlow, Record<string, unknown>>)?.[
+              paymentSession.flow
+            ]?.options ?? {}
+        } as PaymentWidgetSession,
+        { debug: true }
+      );
 
       const errorHandler = (e: PaymentWidgetErrorEvent) => {
         setMessage(`[PWSDK] 'error' event raised with error: ${JSON.stringify(e.detail.error)}`);
