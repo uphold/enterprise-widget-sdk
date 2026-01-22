@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.5.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.5.0) (2026-01-22)
+
+- Update widgets dependencies [\#40](https://github.com/uphold/enterprise-widget-sdk/pull/40) ([LuisRego](https://github.com/LuisRego))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.4.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.4.0) (2026-01-22)
 
 - Add support to enable or disable deposit methods [\#34](https://github.com/uphold/enterprise-widget-sdk/pull/34) ([LuisRego](https://github.com/LuisRego))
