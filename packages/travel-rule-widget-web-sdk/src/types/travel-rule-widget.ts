@@ -11,6 +11,7 @@ import type {
   WidgetCancelEvent,
   WidgetCompleteEvent,
   WidgetErrorEvent,
+  WidgetOptions,
   WidgetReadyEvent
 } from '@uphold/enterprise-widget-sdk-core';
 
@@ -19,6 +20,7 @@ import type {
  */
 
 export type { TravelRuleWidgetFlow, TravelRuleWidgetSession };
+export type TravelRuleWidgetOptions = WidgetOptions;
 
 export type TravelRuleWidgetReadyEvent = WidgetReadyEvent<TravelRuleWidgetMessageEvent>;
 export type TravelRuleWidgetCompleteEvent<TFlow extends TravelRuleWidgetFlow> = WidgetCompleteEvent<

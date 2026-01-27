@@ -22,33 +22,35 @@ console.warn = vi.fn();
 describe('TravelRuleWidget', () => {
   const session = {
     data: {
-      formParameters: {
-        authToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9',
-        nodeUrl: 'https://api.notabene.dev',
-        nonCustodialDeclarationType: 'DECLARATION',
+      parameters: {
+        init: {
+          authToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9',
+          nodeUrl: 'https://api.notabene.dev'
+        },
         options: {
           allowedAgentTypes: ['WALLET', 'VASP'],
           allowedCounterpartyTypes: ['natural', 'legal', 'self'],
           counterpartyAssist: false,
           proofs: {
-            fallbacks: ['self-declaration', 'screenshot'],
+            deminimis: {
+              currency: 'USD',
+              proofTypes: [],
+              threshold: 9007199254740991
+            },
+            fallbacks: ['self-declaration'],
             reuseProof: true
           },
           vasps: {
             addUnknown: true
           }
         },
-        transactionTypeAllowed: 'ALL',
-        vaspDid: 'did:ethr:0x0e8538d083f8a5f3d7682cd2a6fdd3458badd3ff',
-        widget: 'https://beta-widget.notabene.dev'
+        transaction: {
+          amountDecimal: 17.825402,
+          asset: 'XRP',
+          destination: 'rpJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+        }
       },
-      quote: {
-        amount: '1734.623137',
-        amountInLowestUnit: '1734623137',
-        asset: 'XRP',
-        beneficiaryAddress: 'rpJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        id: '623000c8-9bdf-4a2b-aa3d-6a6b44a7f6a0'
-      }
+      provider: 'notabene'
     },
     flow: 'withdrawal-form',
     token: 'eyJhbGciOiJFZERTQSIsImtpZCI6IjllNmUzNmM3LWQ2MzgtNDgyYS1hMTVmLTlkNjg4OWNmNDZkNyIsInR5cCI6IkpXVCJ9',
@@ -81,10 +83,11 @@ describe('TravelRuleWidget', () => {
         "Initialized travel rule widget. session: ",
         {
           "data": {
-            "formParameters": {
-              "authToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9",
-              "nodeUrl": "https://api.notabene.dev",
-              "nonCustodialDeclarationType": "DECLARATION",
+            "parameters": {
+              "init": {
+                "authToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9",
+                "nodeUrl": "https://api.notabene.dev",
+              },
               "options": {
                 "allowedAgentTypes": [
                   "WALLET",
@@ -97,9 +100,13 @@ describe('TravelRuleWidget', () => {
                 ],
                 "counterpartyAssist": false,
                 "proofs": {
+                  "deminimis": {
+                    "currency": "USD",
+                    "proofTypes": [],
+                    "threshold": 9007199254740991,
+                  },
                   "fallbacks": [
                     "self-declaration",
-                    "screenshot",
                   ],
                   "reuseProof": true,
                 },
@@ -107,17 +114,13 @@ describe('TravelRuleWidget', () => {
                   "addUnknown": true,
                 },
               },
-              "transactionTypeAllowed": "ALL",
-              "vaspDid": "did:ethr:0x0e8538d083f8a5f3d7682cd2a6fdd3458badd3ff",
-              "widget": "https://beta-widget.notabene.dev",
+              "transaction": {
+                "amountDecimal": 17.825402,
+                "asset": "XRP",
+                "destination": "rpJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              },
             },
-            "quote": {
-              "amount": "1734.623137",
-              "amountInLowestUnit": "1734623137",
-              "asset": "XRP",
-              "beneficiaryAddress": "rpJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "id": "623000c8-9bdf-4a2b-aa3d-6a6b44a7f6a0",
-            },
+            "provider": "notabene",
           },
           "flow": "withdrawal-form",
           "token": "eyJhbGciOiJFZERTQSIsImtpZCI6IjllNmUzNmM3LWQ2MzgtNDgyYS1hMTVmLTlkNjg4OWNmNDZkNyIsInR5cCI6IkpXVCJ9",

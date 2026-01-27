@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-import { type CreateQuoteData, type CreateQuoteOptions, createQuote as createQuoteRequest } from '../../api/requests';
+import { type CreateQuoteData, createQuote } from '../requests/create-quote';
 import { config } from '../../../../config';
 import { useCreateToken } from './use-create-token';
 import { useState } from 'react';
@@ -23,21 +23,19 @@ export const useCreateQuote = () => {
 
   const { createToken } = useCreateToken();
 
-  const createQuote = async (createQuoteData: CreateQuoteData, createQuoteOptions?: CreateQuoteOptions) => {
+  const doCreateQuote = async (createQuoteData: CreateQuoteData) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      if (!createQuoteOptions) {
-        const token = await createToken();
+      const token = await createToken();
 
-        createQuoteOptions = {
-          accessToken: token.access_token,
-          onBehalfOf
-        };
-      }
+      const quote = await createQuote(createQuoteData, {
+        accessToken: token.access_token,
+        onBehalfOf
+      });
 
-      return await createQuoteRequest(createQuoteData, createQuoteOptions);
+      return quote;
     } catch (e) {
       setError(e as Error);
 
@@ -48,7 +46,7 @@ export const useCreateQuote = () => {
   };
 
   return {
-    createQuote,
+    createQuote: doCreateQuote,
     error,
     isLoading
   };
