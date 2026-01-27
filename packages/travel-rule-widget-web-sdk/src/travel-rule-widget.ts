@@ -5,18 +5,13 @@
  * Module dependencies.
  */
 
-import type { TravelRuleWidgetEvent } from './types';
+import type { TravelRuleWidgetEvent, TravelRuleWidgetOptions } from './types';
 import type {
   TravelRuleWidgetFlow,
   TravelRuleWidgetMessageEvent,
   TravelRuleWidgetSession
 } from '@uphold/enterprise-widget-messaging-types';
-import {
-  Widget,
-  type WidgetMountIframeOptions,
-  type WidgetOptions,
-  logSymbol
-} from '@uphold/enterprise-widget-sdk-core';
+import { Widget, type WidgetMountIframeOptions, logSymbol } from '@uphold/enterprise-widget-sdk-core';
 
 /**
  * The `TravelRuleWidget` class provides an interface for embedding and interacting with
@@ -50,7 +45,7 @@ class TravelRuleWidget<TFlow extends TravelRuleWidgetFlow = TravelRuleWidgetFlow
   TravelRuleWidgetSession,
   TravelRuleWidgetMessageEvent,
   TravelRuleWidgetEvent<TFlow>,
-  WidgetOptions
+  TravelRuleWidgetOptions
 > {
   /**
    * Creates a new instance of a Travel Rule Widget.
@@ -67,7 +62,7 @@ class TravelRuleWidget<TFlow extends TravelRuleWidgetFlow = TravelRuleWidgetFlow
    * @param session The session object containing the configuration details for the widget.
    * This includes the session URL and any other data required to initialize the widget.
    */
-  constructor(session: TravelRuleWidgetSession, options?: WidgetOptions) {
+  constructor(session: TravelRuleWidgetSession, options?: TravelRuleWidgetOptions) {
     super(session, options);
 
     this[logSymbol].log('Initialized travel rule widget. session: ', session, ' options: ', options);

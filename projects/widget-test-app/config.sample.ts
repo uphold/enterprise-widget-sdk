@@ -54,28 +54,6 @@ export const config = {
       }
     },
     travelRule: {
-      flows: {
-        'withdrawal-form': {
-          // Body for the create quote request used in `withdrawal-form` flow.
-          createQuoteBody: {
-            denomination: {
-              amount: '10',
-              asset: 'GBP',
-              target: 'origin'
-            },
-            destination: {
-              address: '<destination_address>',
-              asset: 'XRP',
-              network: 'xrp-ledger',
-              type: 'crypto-address'
-            },
-            origin: {
-              id: '<account_id>',
-              type: 'account'
-            }
-          }
-        }
-      },
       session: {
         // URL to override the response url from the travel rule widget session.
         // required when you want to test the travel rule widget locally.

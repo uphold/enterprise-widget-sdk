@@ -26,6 +26,15 @@ export const useCreateTravelRuleSession = (createTravelRuleSessionData?: CreateT
 
   const { createToken } = useCreateToken();
 
+  // Reset state when createTravelRuleSessionData is cleared
+  useEffect(() => {
+    if (!createTravelRuleSessionData) {
+      setTravelRuleSession(undefined);
+      setError(null);
+      setIsLoading(false);
+    }
+  }, [createTravelRuleSessionData]);
+
   useEffect(() => {
     async function start() {
       if (travelRuleSession || !createTravelRuleSessionData || error || isLoading) {
