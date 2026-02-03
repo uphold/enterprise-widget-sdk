@@ -8,8 +8,8 @@
   "compilerOptions": {
     "verbatimModuleSyntax": true,
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "declaration": true,
     "declarationMap": true,

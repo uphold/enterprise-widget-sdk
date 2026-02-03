@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-import { PaymentWidget } from './payment-widget';
+import { PaymentWidget } from './payment-widget.js';
 import type { PaymentWidgetSession } from '@uphold/enterprise-widget-messaging-types';
 import { describe, expect, it, vi } from 'vitest';
 

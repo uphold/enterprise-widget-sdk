@@ -8,6 +8,7 @@
     "src/**/*.test.ts"
   ],
   "compilerOptions": {
-    "noEmit": false
+    "noEmit": false,
+    "tsBuildInfoFile": "./tsconfig.build.tsbuildinfo"
   }
 }

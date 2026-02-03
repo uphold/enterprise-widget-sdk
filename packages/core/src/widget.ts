@@ -2,13 +2,13 @@
  * Module dependencies.
  */
 
-import type { WidgetEvent, WidgetMountIframeOptions, WidgetOptions } from './types/base';
+import type { WidgetEvent, WidgetMountIframeOptions, WidgetOptions } from './types/base.js';
 import type {
   WidgetInitCommandMessage,
   WidgetMessageEvent,
   WidgetSession
 } from '@uphold/enterprise-widget-messaging-types';
-import { logSymbol } from './constants';
+import { logSymbol } from './constants.js';
 
 /**
  * Widget base class.
