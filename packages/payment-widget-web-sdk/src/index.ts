@@ -2,5 +2,5 @@
  * Exports.
  */
 
-export * from './payment-widget';
-export * from './types';
+export * from './payment-widget.js';
+export * from './types/index.js';

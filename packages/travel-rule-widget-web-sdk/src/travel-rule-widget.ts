@@ -5,7 +5,7 @@
  * Module dependencies.
  */
 
-import type { TravelRuleWidgetEvent, TravelRuleWidgetOptions } from './types';
+import type { TravelRuleWidgetEvent, TravelRuleWidgetOptions } from './types/index.js';
 import type {
   TravelRuleWidgetFlow,
   TravelRuleWidgetMessageEvent,

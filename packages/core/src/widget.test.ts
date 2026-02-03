@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-import { Widget } from './widget';
+import { Widget } from './widget.js';
 import type { WidgetSession } from '@uphold/enterprise-widget-messaging-types';
 import { describe, expect, it, vi } from 'vitest';
 

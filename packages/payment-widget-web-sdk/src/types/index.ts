@@ -2,4 +2,4 @@
  * Exports.
  */
 
-export * from './payment-widget';
+export * from './payment-widget.js';

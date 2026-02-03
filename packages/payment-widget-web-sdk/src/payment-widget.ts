@@ -5,7 +5,7 @@
  * Module dependencies.
  */
 
-import type { PaymentWidgetEvent, PaymentWidgetOptions } from './types';
+import type { PaymentWidgetEvent, PaymentWidgetOptions } from './types/index.js';
 import type {
   PaymentWidgetFlow,
   PaymentWidgetMessageEvent,
@@ -61,6 +61,7 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    *
    * ### Advanced Usage with Payment Methods:
    * You can optionally specify payment methods that should be available on the payment widget using the `options` parameter:
+   *
    * ```typescript
    * const session = { url: 'https://example.com' };
    * const options = {

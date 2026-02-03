@@ -2,6 +2,6 @@
  * Exports.
  */
 
-export * from './constants';
-export * from './types';
-export * from './widget';
+export * from './constants.js';
+export * from './types/index.js';
+export * from './widget.js';

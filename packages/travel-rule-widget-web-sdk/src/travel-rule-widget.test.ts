@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-import { TravelRuleWidget } from './travel-rule-widget';
+import { TravelRuleWidget } from './travel-rule-widget.js';
 import type { TravelRuleWidgetSession } from '@uphold/enterprise-widget-messaging-types';
 import { describe, expect, it, vi } from 'vitest';
 
