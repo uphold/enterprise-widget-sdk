@@ -16,7 +16,8 @@
     "lint-staged": "lint-staged",
     "postinstall": "npm run build -w @uphold/enterprise-widget-sdk-core",
     "test": "npm run test --workspaces --if-present -- run",
-    "typecheck": "npm run typecheck --workspaces --if-present --"
+    "typecheck": "npm run typecheck --workspaces --if-present --",
+    "update-core-dependents": "node scripts/update-core-dependents.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
