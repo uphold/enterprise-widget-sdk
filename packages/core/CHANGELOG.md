@@ -1,5 +1,10 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.6.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.6.0) (2026-02-06)
+
+- Change the imports in the sdk [\#43](https://github.com/uphold/enterprise-widget-sdk/pull/43) ([MCysneiros](https://github.com/MCysneiros))
+- Update travel rule widget sdk [\#42](https://github.com/uphold/enterprise-widget-sdk/pull/42) ([andreffvalente](https://github.com/andreffvalente))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.5.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.5.0) (2026-01-22)
 
 - Update widgets dependencies [\#40](https://github.com/uphold/enterprise-widget-sdk/pull/40) ([LuisRego](https://github.com/LuisRego))
