@@ -1,5 +1,11 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.8.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.8.0) (2026-02-06)
+
+- Improve release process [\#44](https://github.com/uphold/enterprise-widget-sdk/pull/44) ([boliveira](https://github.com/boliveira))
+- Change the imports in the sdk [\#43](https://github.com/uphold/enterprise-widget-sdk/pull/43) ([MCysneiros](https://github.com/MCysneiros))
+- Update travel rule widget sdk [\#42](https://github.com/uphold/enterprise-widget-sdk/pull/42) ([andreffvalente](https://github.com/andreffvalente))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.7.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.7.0) (2026-01-22)
 
 - Update the widgets core dependency [\#41](https://github.com/uphold/enterprise-widget-sdk/pull/41) ([LuisRego](https://github.com/LuisRego))
