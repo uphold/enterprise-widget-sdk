@@ -15,6 +15,9 @@ module.exports = {
     'after:bump': `
       echo "$(npx @uphold/github-changelog-generator -rtp \${npm.name} -f \${npm.name}@v\${version})\n$(tail -n +2 CHANGELOG.md)" > CHANGELOG.md &&
       npm run build &&
+      if [ "\${npm.name}" = "@uphold/enterprise-widget-sdk-core" ]; then
+        npm run update-core-dependents --prefix ../..
+      fi &&
       git add ../..
     `
   },
