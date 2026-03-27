@@ -9,9 +9,9 @@ import {
   type TravelRuleWidgetCancelEvent,
   TravelRuleWidget as TravelRuleWidgetClass,
   type TravelRuleWidgetCompleteEvent,
-  type TravelRuleWidgetErrorEvent
+  type TravelRuleWidgetErrorEvent,
+  type TravelRuleWidgetFlow
 } from '@uphold/enterprise-travel-rule-widget-web-sdk';
-import type { TravelRuleWidgetFlow } from '@uphold/enterprise-widget-messaging-types';
 import { config } from '../../../config';
 import { createToken } from '../../shared/api/requests/create-token';
 import { getRequestsForInformation } from '../../shared/api/requests/get-requests-for-information';

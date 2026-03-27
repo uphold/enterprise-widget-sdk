@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-import type { PaymentWidgetFlow } from '@uphold/enterprise-widget-messaging-types';
+import type { PaymentWidgetFlow } from '@uphold/enterprise-payment-widget-web-sdk';
 import { config } from '../../../../config';
 
 /**

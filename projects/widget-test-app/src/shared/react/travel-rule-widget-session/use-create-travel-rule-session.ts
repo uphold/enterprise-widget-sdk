@@ -3,7 +3,7 @@
  */
 
 import { type CreateTravelRuleSessionData, createTravelRuleSession } from '../../api/requests';
-import type { TravelRuleWidgetSession } from '@uphold/enterprise-widget-messaging-types';
+import type { TravelRuleWidgetSession } from '@uphold/enterprise-travel-rule-widget-web-sdk';
 import { config } from '../../../../config';
 import { useCreateToken } from '../../api';
 import { useEffect, useState } from 'react';

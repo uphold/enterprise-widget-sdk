@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-import type { TravelRuleWidgetFlow } from '@uphold/enterprise-widget-messaging-types';
+import type { TravelRuleWidgetFlow } from '@uphold/enterprise-travel-rule-widget-web-sdk';
 import { config } from '../../../../config';
 
 /**

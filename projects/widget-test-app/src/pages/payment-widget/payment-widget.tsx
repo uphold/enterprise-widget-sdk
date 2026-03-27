@@ -8,9 +8,9 @@ import {
   type PaymentWidgetCancelEvent,
   PaymentWidget as PaymentWidgetClass,
   type PaymentWidgetCompleteEvent,
-  type PaymentWidgetErrorEvent
+  type PaymentWidgetErrorEvent,
+  type PaymentWidgetFlow
 } from '@uphold/enterprise-payment-widget-web-sdk';
-import type { PaymentWidgetFlow } from '@uphold/enterprise-widget-messaging-types';
 import { useCreatePaymentSession } from '../../shared/react/payment-widget-session';
 import { useEffect, useMemo, useState } from 'react';
 import { useFlowData } from '../../shared/react/payment-widget-session/use-flow-data';

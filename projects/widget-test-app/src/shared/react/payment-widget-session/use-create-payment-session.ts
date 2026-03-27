@@ -3,7 +3,7 @@
  */
 
 import { type CreatePaymentSessionData, createPaymentSession } from '../../api/requests';
-import type { PaymentWidgetSession } from '@uphold/enterprise-widget-messaging-types';
+import type { PaymentWidgetSession } from '@uphold/enterprise-payment-widget-web-sdk';
 import { config } from '../../../../config';
 import { useCreateToken } from '../../api';
 import { useEffect, useState } from 'react';
