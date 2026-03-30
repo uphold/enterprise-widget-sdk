@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.9.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.9.0) (2026-03-30)
+
+- Bump messaging-types dependency [\#45](https://github.com/uphold/enterprise-widget-sdk/pull/45) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.8.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.8.0) (2026-02-06)
 
 - Improve release process [\#44](https://github.com/uphold/enterprise-widget-sdk/pull/44) ([boliveira](https://github.com/boliveira))
