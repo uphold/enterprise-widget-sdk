@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.7.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.7.0) (2026-03-30)
+
+- Bump messaging-types dependency [\#45](https://github.com/uphold/enterprise-widget-sdk/pull/45) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.6.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.6.0) (2026-02-06)
 
 - Change the imports in the sdk [\#43](https://github.com/uphold/enterprise-widget-sdk/pull/43) ([MCysneiros](https://github.com/MCysneiros))
