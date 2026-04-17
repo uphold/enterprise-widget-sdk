@@ -31,7 +31,7 @@ jobs:
         run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
 
       - name: Restore NPM cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
           key: ${{ runner.os }}-arc-npm-${{ hashFiles('**/package-lock.json') }}
