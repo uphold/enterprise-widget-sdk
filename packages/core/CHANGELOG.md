@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.8.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.8.0) (2026-04-17)
+
+- Add support for `force_repaint` message [\#47](https://github.com/uphold/enterprise-widget-sdk/pull/47) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.7.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.7.0) (2026-03-30)
 
 - Bump messaging-types dependency [\#45](https://github.com/uphold/enterprise-widget-sdk/pull/45) ([boliveira](https://github.com/boliveira))
