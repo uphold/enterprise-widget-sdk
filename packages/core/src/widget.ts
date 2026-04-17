@@ -167,6 +167,27 @@ class Widget<
     this[logSymbol].log('[Widget -> Host] ', event.data);
 
     switch (event.data.type) {
+      // This is to force a repaint of the iframe to address
+      // a bug that happens when using view transitions API
+      // while running the widget in a WKWebView on iOS.
+      case 'force_repaint': {
+        if (!this.#iframe) {
+          break;
+        }
+
+        this.#iframe.style.opacity = '0.99';
+
+        setTimeout(() => {
+          if (!this.#iframe) {
+            return;
+          }
+
+          this.#iframe.style.opacity = '1';
+        }, 0);
+
+        break;
+      }
+
       case 'load': {
         const widgetInitMessage = {
           ...this.session,

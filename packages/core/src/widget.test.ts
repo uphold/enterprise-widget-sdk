@@ -213,6 +213,59 @@ describe('Widget', () => {
     `);
   });
 
+  it('should handle `force_repaint` message by temporarily setting iframe opacity to 0.99 then back to 1', () => {
+    vi.useFakeTimers();
+
+    const widget = new Widget(session);
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe') as HTMLIFrameElement;
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'force_repaint' },
+      origin: session.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(iframe.style.opacity).toBe('0.99');
+
+    vi.runAllTimers();
+
+    expect(iframe.style.opacity).toBe('1');
+
+    vi.useRealTimers();
+  });
+
+  it('should not set opacity back to 1 on `force_repaint` if iframe is unmounted before the timeout fires', () => {
+    vi.useFakeTimers();
+
+    const widget = new Widget(session);
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe') as HTMLIFrameElement;
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'force_repaint' },
+      origin: session.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(iframe.style.opacity).toBe('0.99');
+
+    widget.unmount();
+    vi.runAllTimers();
+
+    expect(iframe.style.opacity).toBe('0.99');
+
+    vi.useRealTimers();
+  });
+
   it('should ignore messages from unknown origins', () => {
     const widget = new Widget(session, { debug: true });
 
