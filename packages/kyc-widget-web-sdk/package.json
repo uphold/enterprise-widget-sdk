@@ -1,0 +1,36 @@
+{
+  "name": "@uphold/enterprise-kyc-widget-web-sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "!dist/**/*.d.ts.map"
+  ],
+  "description": "Enterprise KYC Widget Web SDK",
+  "scripts": {
+    "build": "rm -rf dist && tsc -b tsconfig.build.json --force",
+    "lint": "eslint .",
+    "release": "npx --yes release-it@^19 --config ../../.release-it.cjs",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uphold/enterprise-widget-sdk",
+    "directory": "packages/kyc-widget-web-sdk"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "*.ts*": [
+      "eslint"
+    ]
+  },
+  "dependencies": {
+    "@uphold/enterprise-widget-messaging-types": "^0.12.0",
+    "@uphold/enterprise-widget-sdk-core": "^0.7.0"
+  }
+}

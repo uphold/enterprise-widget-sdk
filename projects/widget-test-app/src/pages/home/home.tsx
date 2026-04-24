@@ -29,6 +29,9 @@ export default function Home() {
         <Link to={'/travel-rule-widget'} className="button">
           Travel Rule Widget
         </Link>
+        <Link to={'/kyc-widget'} className="button">
+          KYC Widget
+        </Link>
       </div>
     </div>
   );

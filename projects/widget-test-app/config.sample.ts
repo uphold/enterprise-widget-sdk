@@ -24,6 +24,15 @@ export const config = {
     }
   },
   widgets: {
+    kyc: {
+      session: {
+        // URL to override the response url from the kyc widget session.
+        // required when you want to test the kyc widget locally.
+        // Uncomment the line below to override the kyc widget session's url
+        // to point to the local kyc widget.
+        // urlOverride: 'http://localhost:8790'
+      }
+    },
     payment: {
       flows: {
         authorize: {

@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@react-router/node": "^7.4.0",
+    "@uphold/enterprise-kyc-widget-web-sdk": "../../packages/kyc-widget-web-sdk",
     "@uphold/enterprise-payment-widget-web-sdk": "../../packages/payment-widget-web-sdk",
     "@uphold/enterprise-travel-rule-widget-web-sdk": "../../packages/travel-rule-widget-web-sdk",
     "isbot": "^5",
