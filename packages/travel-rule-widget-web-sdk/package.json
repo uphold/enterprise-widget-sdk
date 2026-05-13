@@ -30,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "@uphold/enterprise-widget-messaging-types": "^0.15.0",
+    "@uphold/enterprise-widget-messaging-types": "^0.16.0",
     "@uphold/enterprise-widget-sdk-core": "^0.10.0"
   }
 }
