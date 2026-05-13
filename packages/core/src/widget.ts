@@ -128,7 +128,13 @@ class Widget<
   #createIframe(element: HTMLElement) {
     const iframe = document.createElement('iframe');
 
-    iframe.setAttribute('src', this.session.url);
+    const url = new URL(this.session.url);
+
+    if (this.options?.theme?.appearance) {
+      url.searchParams.set('theme_appearance', this.options.theme.appearance);
+    }
+
+    iframe.setAttribute('src', url.toString());
     iframe.setAttribute('allow', 'clipboard-write *; clipboard-read *');
     iframe.style.width = '100%';
     iframe.style.height = '100%';
@@ -155,10 +161,11 @@ class Widget<
 
   #widgetEventListener = (event: TMessageEvent) => {
     const eventOrigin = new URL(event.origin).origin;
+    const sessionOrigin = new URL(this.session.url).origin;
 
-    if (eventOrigin !== this.session.url) {
+    if (eventOrigin !== sessionOrigin) {
       this[logSymbol].warn(
-        `[Widget -> Host] ⚠️ Discarding message from '${eventOrigin}' as it does not match widget URL '${this.session.url}' ⚠️`
+        `[Widget -> Host] ⚠️ Discarding message from '${eventOrigin}' as it does not match widget origin '${sessionOrigin}' ⚠️`
       );
 
       return;

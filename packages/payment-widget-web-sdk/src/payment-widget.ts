@@ -106,7 +106,6 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    * and handle events emitted by the payment widget during its lifecycle. The available events
    * and their descriptions are as follows:
    *
-   * - **load**: Triggered when the widget has been loaded but is not yet ready for interaction.
    * - **ready**: Triggered when the widget is fully initialized and ready for interaction.
    * - **complete**: Triggered when the user successfully completes the specified flow. The event
    *   will include additional data depending on the flow.
