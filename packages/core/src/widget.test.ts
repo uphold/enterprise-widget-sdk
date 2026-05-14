@@ -75,6 +75,32 @@ describe('Widget', () => {
     expect(listener).not.toHaveBeenCalled();
   });
 
+  it('should set theme_appearance in the iframe src when options.theme.appearance is set', () => {
+    const widget = new Widget(session, { theme: { appearance: 'dark' } });
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('src')).toBe('https://localhost:5000/?theme_appearance=dark');
+  });
+
+  it('should not modify the session when options.theme.appearance is set', () => {
+    const widget = new Widget(session, { theme: { appearance: 'dark' } });
+
+    widget.mountIframe(document.createElement('div'));
+
+    expect(widget.session.url).toBe(session.url);
+  });
+
+  it('should not add theme_appearance to the iframe src when options.theme.appearance is not set', () => {
+    const widget = new Widget(session, { theme: {} });
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('src')).toBe(new URL(session.url).toString());
+  });
+
   it('should mount an iframe and start event listeners', () => {
     const widget = new Widget(session);
 

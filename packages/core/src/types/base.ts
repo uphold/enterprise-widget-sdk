@@ -73,4 +73,7 @@ export type WidgetMountIframeOptions = Record<string, unknown>;
 
 export type WidgetOptions = {
   debug?: boolean;
+  theme?: {
+    appearance?: 'light' | 'dark';
+  };
 };
