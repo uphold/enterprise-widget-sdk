@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.11.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.11.0) (2026-05-28)
+
+- Add KYC widget [\#46](https://github.com/uphold/enterprise-widget-sdk/pull/46) ([LuisRego](https://github.com/LuisRego))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.10.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.10.0) (2026-05-11)
 
 - Bump `@uphold/enterprise-widget-messaging-types` [\#49](https://github.com/uphold/enterprise-widget-sdk/pull/49) ([boliveira](https://github.com/boliveira))
