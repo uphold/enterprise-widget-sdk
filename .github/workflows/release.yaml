@@ -11,6 +11,7 @@ on:
         - core
         - payment-widget-web-sdk
         - travel-rule-widget-web-sdk
+        - kyc-widget-web-sdk
         required: true
       VERSION_BUMP:
         description: 'The version bump'
