@@ -47,7 +47,4 @@ jobs:
         run: npm run typecheck --workspace $NPM_WORKSPACE
 
       - name: Run tests
-        env:
-          VITEST_MAX_THREADS: 4
-          VITEST_MIN_THREADS: 1
         run: npm run test --workspace $NPM_WORKSPACE
