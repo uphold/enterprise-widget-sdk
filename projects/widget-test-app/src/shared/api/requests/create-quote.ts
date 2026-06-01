@@ -21,8 +21,9 @@ export type CreateQuoteOptions = {
 
 export type CreateQuoteData = {
   origin: {
-    type: 'account' | 'external-account' | 'crypto-address';
+    type: 'account' | 'external-account' | 'crypto-address' | 'apm';
     id?: string;
+    method?: string;
     network?: string;
     address?: string;
   };
