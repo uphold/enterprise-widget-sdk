@@ -52,6 +52,48 @@ export const config = {
               type: 'external_account'
             }
           }
+        },
+        'paypal-authorize': {
+          // Example `authorize` configuration for the `paypal` flow.
+          // Body for the create quote request used in `paypal-authorize` flow.
+          // Creates a quote with a PayPal APM origin, then fetches a Braintree client token
+          // and riskCorrelationId automatically before launching the authorize widget.
+          createQuoteBody: {
+            denomination: {
+              amount: '50',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              id: '<account_id>',
+              type: 'account'
+            },
+            origin: {
+              method: 'paypal',
+              type: 'apm'
+            }
+          }
+        },
+        'venmo-authorize': {
+          // Example `authorize` configuration for the `venmo` flow.
+          // Body for the create quote request used in `venmo-authorize` flow.
+          // Creates a quote with a Venmo APM origin, then fetches a Braintree client token
+          // and riskCorrelationId automatically before launching the authorize widget.
+          createQuoteBody: {
+            denomination: {
+              amount: '50',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              id: '<account_id>',
+              type: 'account'
+            },
+            origin: {
+              method: 'venmo',
+              type: 'apm'
+            }
+          }
         }
       },
       session: {
