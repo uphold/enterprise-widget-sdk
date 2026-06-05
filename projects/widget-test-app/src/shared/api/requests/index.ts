@@ -3,7 +3,6 @@
  */
 
 export * from './create-kyc-session';
-export * from './create-payment-method-session';
 export * from './create-payment-session';
 export * from './create-quote';
 export * from './create-token';

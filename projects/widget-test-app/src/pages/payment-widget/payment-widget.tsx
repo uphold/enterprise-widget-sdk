@@ -11,9 +11,9 @@ import {
   type PaymentWidgetErrorEvent,
   type PaymentWidgetFlow
 } from '@uphold/enterprise-payment-widget-web-sdk';
-import { type TestAppFlow, useFlowData } from '../../shared/react/payment-widget-session/use-flow-data';
 import { useCreatePaymentSession } from '../../shared/react/payment-widget-session';
 import { useEffect, useMemo, useState } from 'react';
+import { useFlowData } from '../../shared/react/payment-widget-session/use-flow-data';
 
 /**
  * Export component.
@@ -23,13 +23,13 @@ export default function PaymentWidget() {
   const [createPaymentSessionData, setCreatePaymentSessionData] = useState<CreatePaymentSessionData>();
   const { error: loadFlowDataError, isLoading: isLoadingFlowData, loadFlowData } = useFlowData();
 
-  const onFlowButtonClick = (flow: TestAppFlow) => {
+  const onFlowButtonClick = (flow: PaymentWidgetFlow) => {
     const load = async () => {
-      const { data, widgetFlow } = await loadFlowData(flow);
+      const data = await loadFlowData(flow);
 
       setCreatePaymentSessionData({
         data,
-        flow: widgetFlow
+        flow
       });
     };
 
@@ -115,12 +115,6 @@ export default function PaymentWidget() {
           </button>
           <button className="action-button" onClick={() => onFlowButtonClick('authorize')}>
             Authorize
-          </button>
-          <button className="action-button" onClick={() => onFlowButtonClick('paypal-authorize')}>
-            Authorize (PayPal)
-          </button>
-          <button className="action-button" onClick={() => onFlowButtonClick('paypal-authorize-withdrawal')}>
-            Authorize (PayPal Withdrawal)
           </button>
         </div>
       )}

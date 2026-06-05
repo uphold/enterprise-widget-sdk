@@ -28,10 +28,11 @@ export type CreateQuoteData = {
     address?: string;
   };
   destination: {
-    type: 'account' | 'external-account' | 'crypto-address';
+    type: 'account' | 'external-account' | 'crypto-address' | 'apm';
     id?: string;
     network?: string;
     address?: string;
+    method?: string;
   };
   denomination: {
     asset: string;
