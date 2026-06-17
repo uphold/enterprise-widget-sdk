@@ -74,6 +74,45 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    * const paymentWidget = new PaymentWidget(session, options);
    * ```
    *
+   * ### Advanced Usage with Theme:
+   * You can optionally define a theme to customize the widget's appearance using the `options` parameter:
+   *
+   * ```typescript
+   * const session = { url: 'https://example.com' };
+   * const options = {
+   *   theme: {
+   *     appearance: 'light',
+   *     background: {
+   *       dark: '#111113',
+   *       light: '#edf2ed'
+   *     },
+   *     components: {
+   *       button: { borderRadius: '999px' },
+   *       card: { borderRadius: '10px' },
+   *       input: { borderRadius: '8px' }
+   *     },
+   *     fontFamily: 'Helvetica',
+   *     foreground: {
+   *       dark: '#FFFFFF',
+   *       light: '#000000'
+   *     },
+   *     primary: {
+   *       dark: '#16cb3e',
+   *       light: '#0c2801'
+   *     },
+   *     primaryForeground: {
+   *       dark: '#111111',
+   *       light: '#FFFFFF'
+   *     },
+   *     emphasisForeground: {
+   *       dark: '#FFFFFF',
+   *       light: '#000000'
+   *     }
+   *   }
+   * };
+   * const paymentWidget = new PaymentWidget(session, options);
+   * ```
+   *
    * @param session The session object containing the configuration details for the widget.
    * This includes the session URL and any other data required to initialize the widget.
    */

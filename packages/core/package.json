@@ -30,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "@uphold/enterprise-widget-messaging-types": "^0.16.0"
+    "@uphold/enterprise-widget-messaging-types": "^0.17.0"
   },
   "devDependencies": {
     "jsdom": "^27.4.0"

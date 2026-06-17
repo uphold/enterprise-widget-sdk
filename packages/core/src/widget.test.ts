@@ -92,6 +92,30 @@ describe('Widget', () => {
     expect(widget.session.url).toBe(session.url);
   });
 
+  it('should not add theme properties other than appearance to the iframe src', () => {
+    const widget = new Widget(session, {
+      theme: {
+        appearance: 'dark',
+        background: { dark: '#111113', light: '#edf2ed' },
+        components: {
+          button: { borderRadius: '999px' },
+          card: { borderRadius: '10px' },
+          input: { borderRadius: '8px' }
+        },
+        emphasisForeground: { dark: '#FFFFFF', light: '#000000' },
+        fontFamily: 'Helvetica',
+        foreground: { dark: '#FFFFFF', light: '#000000' },
+        primary: '#16cb3e',
+        primaryForeground: { dark: '#111111', light: '#FFFFFF' }
+      }
+    });
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('src')).toBe('https://localhost:5000/?theme_appearance=dark');
+  });
+
   it('should not add theme_appearance to the iframe src when options.theme.appearance is not set', () => {
     const widget = new Widget(session, { theme: {} });
     const element = document.createElement('div');
