@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.12.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.12.0) (2026-06-17)
+
+- Add support for custom theming on the payment widget [\#55](https://github.com/uphold/enterprise-widget-sdk/pull/55) ([nibsa](https://github.com/nibsa))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.11.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.11.0) (2026-05-28)
 
 - Add KYC widget [\#46](https://github.com/uphold/enterprise-widget-sdk/pull/46) ([LuisRego](https://github.com/LuisRego))
