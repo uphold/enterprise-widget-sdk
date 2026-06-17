@@ -11,14 +11,21 @@ import type {
   WidgetErrorMessageEventData,
   WidgetErrorMessageType,
   WidgetMessageEvent,
-  WidgetReadyMessageType
+  WidgetReadyMessageType,
+  WidgetThemeOption
 } from '@uphold/enterprise-widget-messaging-types';
 
 /**
  * External API Types.
  */
 
-export type { WidgetError, WidgetErrorMessageEventData, WidgetCompleteMessageEventData, WidgetCancelMessageEventData };
+export type {
+  WidgetError,
+  WidgetErrorMessageEventData,
+  WidgetCompleteMessageEventData,
+  WidgetCancelMessageEventData,
+  WidgetThemeOption
+};
 
 export type WidgetReadyEventType = WidgetReadyMessageType;
 export type WidgetCompleteEventType = WidgetCompleteMessageType;
@@ -73,7 +80,5 @@ export type WidgetMountIframeOptions = Record<string, unknown>;
 
 export type WidgetOptions = {
   debug?: boolean;
-  theme?: {
-    appearance?: 'light' | 'dark';
-  };
+  theme?: WidgetThemeOption;
 };
