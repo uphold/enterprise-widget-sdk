@@ -60,6 +60,44 @@ widget.on('error', (e: TravelRuleWidgetErrorEvent) => {
 widget.mountIframe(document.getElementById('travel-rule-widget-root'));
 ```
 
+### Theming
+
+You can optionally define a theme to customize the widget's appearance using the `theme` option:
+
+```javascript
+const widget = new TravelRuleWidget(travelRuleSession, {
+  theme: {
+    appearance: 'light',
+    background: {
+      dark: '#111113',
+      light: '#edf2ed'
+    },
+    components: {
+      button: { borderRadius: '999px' },
+      card: { borderRadius: '10px' },
+      input: { borderRadius: '8px' }
+    },
+    fontFamily: 'Helvetica',
+    foreground: {
+      dark: '#FFFFFF',
+      light: '#000000'
+    },
+    primary: {
+      dark: '#16cb3e',
+      light: '#0c2801'
+    },
+    primaryForeground: {
+      dark: '#111111',
+      light: '#FFFFFF'
+    },
+    emphasisForeground: {
+      dark: '#FFFFFF',
+      light: '#000000'
+    }
+  }
+});
+```
+
 ### Debugging
 
 The `debug` option enables additional logging to the console, which can help during development. To enable debugging, set the `debug` option to `true` when initializing the widget:
