@@ -3,6 +3,7 @@
  */
 
 import type {
+  TravelRuleWidgetOptions as BaseTravelRuleWidgetOptions,
   TravelRuleWidgetFlow,
   TravelRuleWidgetMessageEvent,
   TravelRuleWidgetSession
@@ -20,7 +21,7 @@ import type {
  */
 
 export type { TravelRuleWidgetFlow, TravelRuleWidgetSession };
-export type TravelRuleWidgetOptions = WidgetOptions;
+export type TravelRuleWidgetOptions = WidgetOptions & BaseTravelRuleWidgetOptions;
 
 export type TravelRuleWidgetReadyEvent = WidgetReadyEvent<TravelRuleWidgetMessageEvent>;
 export type TravelRuleWidgetCompleteEvent<TFlow extends TravelRuleWidgetFlow> = WidgetCompleteEvent<
