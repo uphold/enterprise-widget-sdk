@@ -1,71 +1,79 @@
-# payment-widget-web-sdk
+# kyc-widget-web-sdk
 
-[![npm version](https://img.shields.io/npm/v/@uphold/enterprise-payment-widget-web-sdk.svg?style=flat-square)](https://www.npmjs.com/package/@uphold/enterprise-payment-widget-web-sdk)
+[![npm version](https://img.shields.io/npm/v/@uphold/enterprise-kyc-widget-web-sdk.svg?style=flat-square)](https://www.npmjs.com/package/@uphold/enterprise-kyc-widget-web-sdk)
 
-A Web SDK for the Enterprise Payment Widget.
+A Web SDK for the Enterprise KYC Widget.
 
 ## Installation
 
 To install the package, run:
 
 ```bash
-npm install @uphold/payment-widget-web-sdk
+npm install @uphold/enterprise-kyc-widget-web-sdk
 ```
 
 ## Usage
 
-You must obtain a payment widget session before you can use the widget. Use the [`Create Payment Widget Session`](https://developer.uphold.com/rest-apis/widgets-api/payment/create-session) endpoint from the **Enterprise REST API**, providing the desired widget flow and the user context for the operation.
+You must obtain a KYC widget session before you can use the widget. Use the [`Create KYC Widget Session`](https://developer.uphold.com/rest-apis/widgets-api/kyc/create-session) endpoint from the **Enterprise REST API**, providing the desired widget flow and the user context for the operation.
 
 > [!CAUTION]
-> Always make the `Create Payment Widget Session` request from your backend, not the browser. This ensures sensitive information, such as client credentials, is not exposed to the client-side.
+> Always make the `Create KYC Widget Session` request from your backend, not the browser. This ensures sensitive information, such as client credentials, is not exposed to the client-side.
 
-With the payment session in hand, you can initialize the widget and mount it to a DOM element:
+With the KYC session in hand, you can initialize the widget and mount it to a DOM element:
 
 ```javascript
 import {
-  PaymentWidget,
-  type PaymentWidgetCompleteEvent,
-  type WidgetCancelEvent,
-  type WidgetErrorEvent
-} from '@uphold/enterprise-payment-widget-web-sdk';
+  KycWidget,
+  type KycWidgetCompleteEvent,
+  type KycWidgetCancelEvent,
+  type KycWidgetErrorEvent,
+  type KycWidgetReadyEvent
+} from '@uphold/enterprise-kyc-widget-web-sdk';
 
-// This is the payment session object you received from the `Create Payment Widget Session`.
-const paymentSession = {};
+// This is the KYC session object you received from the `Create KYC Widget Session`.
+const kycSession = {};
 
-// Initialize the widget with the payment session.
-// Accepts an optional type parameter `TFlow` which narrows
-// the type of the `complete` event.
-const widget = new PaymentWidget<'select-for-deposit'>(paymentSession);
+// Initialize the widget with the KYC session.
+const widget = new KycWidget(kycSession);
 
 // Register event handlers.
-widget.on('complete', (e: PaymentWidgetCompleteEvent) => {
+widget.on('ready', (_: KycWidgetReadyEvent) => {
+  // 'ready' event is raised when the widget is fully initialized and ready for interaction.
+  console.log(`'ready' event raised`);
+});
+
+widget.on('complete', (e: KycWidgetCompleteEvent) => {
   // 'complete' event is raised when the user completes the flow.
-  console.log(`'complete' event raised. Account id: `, e.detail.selection.id);
+  console.log(`'complete' event raised. detail: `, e.detail);
   widget.unmount();
 });
 
-widget.on('cancel', (_: PaymentWidgetCancelEvent) => {
+widget.on('cancel', (_: KycWidgetCancelEvent) => {
   // 'cancel' event is raised when the user cancels the flow.
   console.log(`'cancel' event raised`);
   widget.unmount();
 });
 
-widget.on('error', (e: PaymentWidgetErrorEvent) => {
+widget.on('error', (e: KycWidgetErrorEvent) => {
   // 'error' event is raised when the widget encounters an unrecoverable error.
   console.log(`'error' event raised. error: `, e.detail.error);
   widget.unmount();
 });
 
 // Mount the widget in an iframe on a DOM element.
-widget.mountIframe(document.getElementById('payment-widget-root'));
+widget.mountIframe(document.getElementById('kyc-widget-root'));
 ```
+
+### Selecting KYC processes
+
+The KYC processes available on the widget (e.g. `identity`, `proof-of-address`) are configured when you create the session, via the `Create KYC Widget Session` request from your backend.
 
 ### Theming
 
 You can optionally define a theme to customize the widget's appearance using the `theme` option:
 
 ```javascript
-const widget = new PaymentWidget(paymentSession, {
+const widget = new KycWidget(kycSession, {
   theme: {
     appearance: 'light',
     background: {
@@ -103,7 +111,7 @@ const widget = new PaymentWidget(paymentSession, {
 The `debug` option enables additional logging to the console, which can help during development. To enable debugging, set the `debug` option to `true` when initializing the widget:
 
 ```javascript
-const widget = new PaymentWidget(paymentSession, { debug: true });
+const widget = new KycWidget(kycSession, { debug: true });
 ```
 
 ## Contributing
@@ -118,7 +126,7 @@ npm install
 
 ### Running the project
 
-Check the documentation for the [`widget-test-app`](../../projects/widget-test-app/README.md) project to see how to run the payment gateway web SDK test application.
+Check the documentation for the [`widget-test-app`](../../projects/widget-test-app/README.md) project to see how to run the KYC web SDK test application.
 
 ### Development
 
