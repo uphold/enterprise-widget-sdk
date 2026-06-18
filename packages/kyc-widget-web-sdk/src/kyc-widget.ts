@@ -48,16 +48,9 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    * const kycWidget = new KycWidget(session);
    * ```
    *
-   * ### Advanced Usage with KYC Processes:
-   * You can optionally specify which KYC processes should be available on the widget using the `options` parameter:
-   *
-   * ```typescript
-   * const session = { url: 'https://example.com', token: 'token' };
-   * const options = {
-   *   processes: ['identity', 'proof-of-address']
-   * };
-   * const kycWidget = new KycWidget(session, options);
-   * ```
+   * ### KYC Processes:
+   * The KYC processes available on the widget (e.g. `identity`, `proof-of-address`) are configured
+   * when creating the session via the `Create KYC Widget Session` request from your backend.
    *
    * ### Advanced Usage with Theme:
    * You can optionally define a theme to customize the widget's appearance using the `options` parameter:
