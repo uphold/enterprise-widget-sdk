@@ -1,5 +1,10 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.13.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.13.0) (2026-06-18)
+
+- Add support for custom theming on the payment widget [\#55](https://github.com/uphold/enterprise-widget-sdk/pull/55) ([nibsa](https://github.com/nibsa))
+- Add KYC widget [\#46](https://github.com/uphold/enterprise-widget-sdk/pull/46) ([LuisRego](https://github.com/LuisRego))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.12.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.12.0) (2026-05-11)
 
 - Bump `@uphold/enterprise-widget-messaging-types` [\#49](https://github.com/uphold/enterprise-widget-sdk/pull/49) ([boliveira](https://github.com/boliveira))
