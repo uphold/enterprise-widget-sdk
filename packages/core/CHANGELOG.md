@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.13.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.13.0) (2026-06-19)
+
+- Update TravelRuleWidgetOptions type and README [\#58](https://github.com/uphold/enterprise-widget-sdk/pull/58) ([nibsa](https://github.com/nibsa))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.12.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.12.0) (2026-06-17)
 
 - Add support for custom theming on the payment widget [\#55](https://github.com/uphold/enterprise-widget-sdk/pull/55) ([nibsa](https://github.com/nibsa))
