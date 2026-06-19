@@ -1,5 +1,15 @@
 # Changelog
 
+## [@uphold/enterprise-travel-rule-widget-web-sdk@v0.6.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-travel-rule-widget-web-sdk@v0.6.0) (2026-06-19)
+
+- Update TravelRuleWidgetOptions type and README [\#58](https://github.com/uphold/enterprise-widget-sdk/pull/58) ([nibsa](https://github.com/nibsa))
+- Add support for custom theming on the payment widget [\#55](https://github.com/uphold/enterprise-widget-sdk/pull/55) ([nibsa](https://github.com/nibsa))
+- Add KYC widget [\#46](https://github.com/uphold/enterprise-widget-sdk/pull/46) ([LuisRego](https://github.com/LuisRego))
+- Bump `@uphold/enterprise-widget-messaging-types` [\#49](https://github.com/uphold/enterprise-widget-sdk/pull/49) ([boliveira](https://github.com/boliveira))
+- Bump widget-messaging-types package [\#48](https://github.com/uphold/enterprise-widget-sdk/pull/48) ([boliveira](https://github.com/boliveira))
+- Add support for `force_repaint` message [\#47](https://github.com/uphold/enterprise-widget-sdk/pull/47) ([boliveira](https://github.com/boliveira))
+- Bump messaging-types dependency [\#45](https://github.com/uphold/enterprise-widget-sdk/pull/45) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-travel-rule-widget-web-sdk@v0.5.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-travel-rule-widget-web-sdk@v0.5.0) (2026-02-06)
 
 - Improve release process [\#44](https://github.com/uphold/enterprise-widget-sdk/pull/44) ([boliveira](https://github.com/boliveira))
