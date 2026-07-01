@@ -10,6 +10,7 @@ import type {
   WidgetError,
   WidgetErrorMessageEventData,
   WidgetErrorMessageType,
+  WidgetLayout,
   WidgetMessageEvent,
   WidgetReadyMessageType,
   WidgetThemeOption
@@ -24,6 +25,7 @@ export type {
   WidgetErrorMessageEventData,
   WidgetCompleteMessageEventData,
   WidgetCancelMessageEventData,
+  WidgetLayout,
   WidgetThemeOption
 };
 
@@ -80,5 +82,6 @@ export type WidgetMountIframeOptions = Record<string, unknown>;
 
 export type WidgetOptions = {
   debug?: boolean;
+  layout?: WidgetLayout;
   theme?: WidgetThemeOption;
 };
