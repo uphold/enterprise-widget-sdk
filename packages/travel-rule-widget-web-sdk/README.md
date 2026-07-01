@@ -98,6 +98,17 @@ const widget = new TravelRuleWidget(travelRuleSession, {
 });
 ```
 
+### Layout
+
+You can optionally control how the widget is laid out on wider viewports using the `layout` option:
+
+- `'boxed'` (default): on wider viewports (≥768px wide and ≥600px tall — i.e. tablet and up), centers the widget and frames its content as a fixed-size card. On smaller viewports, including landscape phones, it renders full-bleed.
+- `'fluid'`: renders the widget full-bleed with no frame or centering, so your own container (e.g. a modal) acts as the frame.
+
+```javascript
+const widget = new TravelRuleWidget(travelRuleSession, { layout: 'fluid' });
+```
+
 ### Debugging
 
 The `debug` option enables additional logging to the console, which can help during development. To enable debugging, set the `debug` option to `true` when initializing the widget:
