@@ -1,5 +1,5 @@
 .DS_Store
-!.vscode
+.vscode
 **/.chart/charts
 **/coverage
 **/node_modules
