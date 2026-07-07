@@ -66,7 +66,7 @@ widget.mountIframe(document.getElementById('kyc-widget-root'));
 
 ### Selecting KYC processes
 
-The KYC processes available on the widget (e.g. `identity`, `proof-of-address`) are configured when you create the session, via the `Create KYC Widget Session` request from your backend.
+The KYC processes available on the widget (e.g. `identity`, `profile`, `proof-of-address`) are configured when you create the session, via the `Create KYC Widget Session` request from your backend.
 
 ### Theming
 

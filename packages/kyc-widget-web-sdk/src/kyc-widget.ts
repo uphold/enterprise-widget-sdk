@@ -49,7 +49,7 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    * ```
    *
    * ### KYC Processes:
-   * The KYC processes available on the widget (e.g. `identity`, `proof-of-address`) are configured
+   * The KYC processes available on the widget (e.g. `identity`, `profile`, `proof-of-address`) are configured
    * when creating the session via the `Create KYC Widget Session` request from your backend.
    *
    * ### Advanced Usage with Theme:

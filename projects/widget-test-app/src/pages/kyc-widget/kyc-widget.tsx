@@ -56,6 +56,14 @@ function ProcessSelectionScreen({ onLaunch }: { onLaunch: (processes: KycWidgetP
           />
           Proof of Address
         </label>
+        <label>
+          <input
+            checked={selectedProcesses.includes('profile')}
+            onChange={() => toggleProcess('profile')}
+            type="checkbox"
+          />
+          Profile
+        </label>
       </div>
       <button className="action-button" onClick={() => onLaunch(selectedProcesses)}>
         Launch KYC Widget
