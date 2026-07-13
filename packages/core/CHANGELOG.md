@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.14.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.14.0) (2026-07-13)
+
+- Add support for widget layout option [\#59](https://github.com/uphold/enterprise-widget-sdk/pull/59) ([nibsa](https://github.com/nibsa))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.13.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.13.0) (2026-06-19)
 
 - Update TravelRuleWidgetOptions type and README [\#58](https://github.com/uphold/enterprise-widget-sdk/pull/58) ([nibsa](https://github.com/nibsa))
