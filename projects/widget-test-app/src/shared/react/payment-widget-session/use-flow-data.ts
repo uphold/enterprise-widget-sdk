@@ -26,6 +26,7 @@ export const useFlowData = () => {
     const { id: quoteId, requirements } = await createQuote(createQuoteBody);
 
     return {
+      domain: window.location.hostname,
       quoteId,
       requirements
     };
