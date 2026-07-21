@@ -21,6 +21,7 @@
     "@types/react-dom": "^19.0.4",
     "typescript": "~5.7.2",
     "vite": "^6.3.6",
+    "vite-plugin-mkcert": "^2.1.0",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {

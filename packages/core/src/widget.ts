@@ -135,7 +135,7 @@ class Widget<
     }
 
     iframe.setAttribute('src', url.toString());
-    iframe.setAttribute('allow', 'clipboard-write *; clipboard-read *');
+    iframe.setAttribute('allow', 'clipboard-write *; clipboard-read *; payment *;');
     iframe.style.width = '100%';
     iframe.style.height = '100%';
     iframe.style.border = 'none';
