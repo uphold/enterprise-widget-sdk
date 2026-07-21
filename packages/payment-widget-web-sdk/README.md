@@ -60,62 +60,8 @@ widget.on('error', (e: PaymentWidgetErrorEvent) => {
 widget.mountIframe(document.getElementById('payment-widget-root'));
 ```
 
-### Theming
-
-You can optionally define a theme to customize the widget's appearance using the `theme` option:
-
-```javascript
-const widget = new PaymentWidget(paymentSession, {
-  theme: {
-    appearance: 'light',
-    background: {
-      dark: '#111113',
-      light: '#edf2ed'
-    },
-    components: {
-      button: { borderRadius: '999px' },
-      card: { borderRadius: '10px' },
-      input: { borderRadius: '8px' }
-    },
-    fontFamily: 'Helvetica',
-    foreground: {
-      dark: '#FFFFFF',
-      light: '#000000'
-    },
-    primary: {
-      dark: '#16cb3e',
-      light: '#0c2801'
-    },
-    primaryForeground: {
-      dark: '#111111',
-      light: '#FFFFFF'
-    },
-    emphasisForeground: {
-      dark: '#FFFFFF',
-      light: '#000000'
-    }
-  }
-});
-```
-
-### Layout
-
-You can optionally control how the widget is laid out on wider viewports using the `layout` option:
-
-- `'boxed'` (default): on wider viewports (≥768px wide and ≥600px tall — i.e. tablet and up), centers the widget and frames its content as a fixed-size card. On smaller viewports, including landscape phones, it renders full-bleed.
-- `'fluid'`: renders the widget full-bleed with no frame or centering, so your own container (e.g. a modal) acts as the frame.
-
-```javascript
-const widget = new PaymentWidget(paymentSession, { layout: 'fluid' });
-```
-
-### Debugging
-
-The `debug` option enables additional logging to the console, which can help during development. To enable debugging, set the `debug` option to `true` when initializing the widget:
-
-```javascript
-const widget = new PaymentWidget(paymentSession, { debug: true });
-```
+> [!TIP]
+> This README covers only the basics. For the full API reference — all constructor options (`theme`, `layout`, `debug`, …), events, and type definitions — see the **[Payment Widget SDK Reference](https://developer.uphold.com/widgets/payment/sdk-reference)**.
 
 ## Contributing
 

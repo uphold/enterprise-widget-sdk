@@ -22,9 +22,14 @@ export const useFlowData = () => {
     }
 
     const createQuoteBody = config.widgets.payment.flows.authorize.createQuoteBody as CreateQuoteData;
-    const quote = await createQuote(createQuoteBody);
 
-    return { quoteId: quote.id };
+    const { id: quoteId, requirements } = await createQuote(createQuoteBody);
+
+    return {
+      domain: window.location.hostname,
+      quoteId,
+      requirements
+    };
   };
 
   return {

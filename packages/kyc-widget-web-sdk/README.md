@@ -64,66 +64,8 @@ widget.on('error', (e: KycWidgetErrorEvent) => {
 widget.mountIframe(document.getElementById('kyc-widget-root'));
 ```
 
-### Selecting KYC processes
-
-The KYC processes available on the widget (e.g. `identity`, `proof-of-address`) are configured when you create the session, via the `Create KYC Widget Session` request from your backend.
-
-### Theming
-
-You can optionally define a theme to customize the widget's appearance using the `theme` option:
-
-```javascript
-const widget = new KycWidget(kycSession, {
-  theme: {
-    appearance: 'light',
-    background: {
-      dark: '#111113',
-      light: '#edf2ed'
-    },
-    components: {
-      button: { borderRadius: '999px' },
-      card: { borderRadius: '10px' },
-      input: { borderRadius: '8px' }
-    },
-    fontFamily: 'Helvetica',
-    foreground: {
-      dark: '#FFFFFF',
-      light: '#000000'
-    },
-    primary: {
-      dark: '#16cb3e',
-      light: '#0c2801'
-    },
-    primaryForeground: {
-      dark: '#111111',
-      light: '#FFFFFF'
-    },
-    emphasisForeground: {
-      dark: '#FFFFFF',
-      light: '#000000'
-    }
-  }
-});
-```
-
-### Layout
-
-You can optionally control how the widget is laid out on wider viewports using the `layout` option:
-
-- `'boxed'` (default): on wider viewports (≥768px wide and ≥600px tall — i.e. tablet and up), centers the widget and frames its content as a fixed-size card. On smaller viewports, including landscape phones, it renders full-bleed.
-- `'fluid'`: renders the widget full-bleed with no frame or centering, so your own container (e.g. a modal) acts as the frame.
-
-```javascript
-const widget = new KycWidget(kycSession, { layout: 'fluid' });
-```
-
-### Debugging
-
-The `debug` option enables additional logging to the console, which can help during development. To enable debugging, set the `debug` option to `true` when initializing the widget:
-
-```javascript
-const widget = new KycWidget(kycSession, { debug: true });
-```
+> [!TIP]
+> This README covers only the basics. For the full API reference — KYC process selection, all constructor options (`theme`, `layout`, `debug`, …), events, and type definitions — see the **[KYC Widget SDK Reference](https://developer.uphold.com/widgets/kyc/sdk-reference)**.
 
 ## Contributing
 
