@@ -140,6 +140,10 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
     super.mountIframe(element, mountOptions);
   }
 
+  protected override getIframeAllowAttribute(): string {
+    return `${super.getIframeAllowAttribute()} payment 'src';`;
+  }
+
   /**
    * Adds an event listener for the specified event type. This allows you to listen for
    * and handle events emitted by the payment widget during its lifecycle. The available events
