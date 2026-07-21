@@ -108,6 +108,18 @@ describe('PaymentWidget', () => {
     expect(appendChildSpy).toHaveBeenCalledWith(expect.any(HTMLIFrameElement));
   });
 
+  it(`should add "payment 'src'" to the iframe allow attribute`, () => {
+    const widget = new PaymentWidget(session);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('allow')).toBe(
+      "clipboard-write 'src'; clipboard-read 'src'; payment 'src';"
+    );
+  });
+
   it('should throw an error if the element is invalid during mounting', () => {
     const widget = new PaymentWidget(session);
 
