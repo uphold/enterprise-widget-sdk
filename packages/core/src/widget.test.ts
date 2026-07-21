@@ -125,6 +125,15 @@ describe('Widget', () => {
     expect(element.querySelector('iframe')?.getAttribute('src')).toBe(new URL(session.url).toString());
   });
 
+  it('should set the default allow attribute on the iframe', () => {
+    const widget = new Widget(session);
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('allow')).toBe("clipboard-write 'src'; clipboard-read 'src';");
+  });
+
   it('should mount an iframe and start event listeners', () => {
     const widget = new Widget(session);
 

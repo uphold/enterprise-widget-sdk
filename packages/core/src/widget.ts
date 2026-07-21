@@ -109,6 +109,10 @@ class Widget<
     }
   }
 
+  protected getIframeAllowAttribute(): string {
+    return "clipboard-write 'src'; clipboard-read 'src';";
+  }
+
   unmount() {
     window.removeEventListener('message', this.#widgetEventListener as EventListener);
 
@@ -135,7 +139,7 @@ class Widget<
     }
 
     iframe.setAttribute('src', url.toString());
-    iframe.setAttribute('allow', 'clipboard-write *; clipboard-read *');
+    iframe.setAttribute('allow', this.getIframeAllowAttribute());
     iframe.style.width = '100%';
     iframe.style.height = '100%';
     iframe.style.border = 'none';
