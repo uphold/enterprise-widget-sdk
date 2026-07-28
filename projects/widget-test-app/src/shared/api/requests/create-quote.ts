@@ -19,19 +19,27 @@ export type CreateQuoteOptions = {
   onBehalfOf?: string;
 };
 
+type AccountTarget = {
+  type: 'account' | 'external-account';
+  id: string;
+};
+
+type CryptoAddressTarget = {
+  type: 'crypto-address';
+  network: string;
+  address: string;
+};
+
+type ApmTarget = {
+  type: 'apm';
+  method: 'paypal' | 'venmo' | 'apple-pay';
+};
+
+type QuoteTarget = AccountTarget | CryptoAddressTarget | ApmTarget;
+
 export type CreateQuoteData = {
-  origin: {
-    type: 'account' | 'external-account' | 'crypto-address';
-    id?: string;
-    network?: string;
-    address?: string;
-  };
-  destination: {
-    type: 'account' | 'external-account' | 'crypto-address';
-    id?: string;
-    network?: string;
-    address?: string;
-  };
+  origin: QuoteTarget;
+  destination: QuoteTarget;
   denomination: {
     asset: string;
     amount: string;
