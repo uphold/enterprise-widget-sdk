@@ -9,11 +9,72 @@ import {
   PaymentWidget as PaymentWidgetClass,
   type PaymentWidgetCompleteEvent,
   type PaymentWidgetErrorEvent,
-  type PaymentWidgetFlow
+  type PaymentWidgetFlow,
+  type PaymentWidgetOptions
 } from '@uphold/enterprise-payment-widget-web-sdk';
 import { useCreatePaymentSession } from '../../shared/react/payment-widget-session';
 import { useEffect, useMemo, useState } from 'react';
 import { useFlowData } from '../../shared/react/payment-widget-session/use-flow-data';
+
+/**
+ * Flow button configs.
+ *
+ */
+
+type WidgetOptions = PaymentWidgetOptions & Record<string, unknown>;
+
+type FlowButton = {
+  label: string;
+  flow: PaymentWidgetFlow;
+  options?: WidgetOptions;
+};
+
+const DEFAULT_WIDGET_OPTIONS: WidgetOptions = {
+  debug: true
+};
+
+const FLOW_BUTTONS: FlowButton[] = [
+  { flow: 'select-for-deposit', label: 'Select for Deposit' },
+  { flow: 'select-for-withdrawal', label: 'Select for Withdrawal' },
+  {
+    // WIP
+    flow: 'e2e-dev',
+    label: 'E2E ',
+    options: {
+      e2e: {
+        type: 'deposit'
+      }
+    }
+  },
+  {
+    // WIP
+    flow: 'e2e-dev',
+    label: 'E2E  (card only)',
+    options: {
+      e2e: {
+        // externalAccount: {
+        //   id: '664b1aa5-a524-4b0d-ac7c-d908ae3d49d1',
+        //   type: 'external-account'
+        // },
+        internalAccount: {
+          id: '4d01eedb-ea43-48aa-b73c-14f9bfee0e69',
+          type: 'account'
+        },
+        type: 'deposit'
+      },
+      paymentMethods: [{ type: 'card' }]
+    }
+  },
+  {
+    flow: 'authorize',
+    label: 'Authorize',
+    options: {
+      authorize: {
+        mode: 'default'
+      }
+    }
+  }
+];
 
 /**
  * Export component.
@@ -21,12 +82,14 @@ import { useFlowData } from '../../shared/react/payment-widget-session/use-flow-
 
 export default function PaymentWidget() {
   const [createPaymentSessionData, setCreatePaymentSessionData] = useState<CreatePaymentSessionData>();
+  const [selectedOptions, setSelectedOptions] = useState<WidgetOptions>();
   const { error: loadFlowDataError, isLoading: isLoadingFlowData, loadFlowData } = useFlowData();
 
-  const onFlowButtonClick = (flow: PaymentWidgetFlow) => {
+  const onFlowButtonClick = (flow: PaymentWidgetFlow, options?: WidgetOptions) => {
     const load = async () => {
       const data = await loadFlowData(flow);
 
+      setSelectedOptions(options);
       setCreatePaymentSessionData({
         data,
         flow
@@ -47,7 +110,16 @@ export default function PaymentWidget() {
 
   const widget = useMemo(() => {
     if (paymentSession) {
-      const widget = new PaymentWidgetClass(paymentSession, { debug: true });
+      const options: WidgetOptions = {
+        ...DEFAULT_WIDGET_OPTIONS,
+        ...selectedOptions
+      };
+
+      const widget = new PaymentWidgetClass(
+        paymentSession,
+
+        options
+      );
 
       const errorHandler = (e: PaymentWidgetErrorEvent) => {
         setMessage(`[PWSDK] 'error' event raised with error: ${JSON.stringify(e.detail.error)}`);
@@ -75,7 +147,7 @@ export default function PaymentWidget() {
 
       return widget;
     }
-  }, [paymentSession]);
+  }, [paymentSession, selectedOptions]);
 
   useEffect(() => {
     return () => {
@@ -88,34 +160,40 @@ export default function PaymentWidget() {
       <h1>Payment Widget Web SDK Test Page</h1>
       {isLoading && <div className="loading">Loading...</div>}
       {error && (
-        <div>
-          <div className="error">
+        <details className="error-details">
+          <summary className="error">
             <span className="error-icon">⚠️</span>
             <span className="error-message">An error occurred. Please try again later.</span>
-          </div>
+          </summary>
           <div>
             <br />
             <span>{error.toString()}</span>
           </div>
-        </div>
+        </details>
       )}
       {message && (
-        <div id="message" className="message">
-          {message}
-        </div>
+        <details className="message-details">
+          <summary className="message" id="message">
+            Message
+          </summary>
+          <div>
+            <br />
+            <span>{message}</span>
+          </div>
+        </details>
       )}
       {!createPaymentSessionData && !isLoading && !error && (
         <div className="button-container">
           <p className="select-flow-text">Select flow:</p>
-          <button className="action-button" onClick={() => onFlowButtonClick('select-for-deposit')}>
-            Select for Deposit
-          </button>
-          <button className="action-button" onClick={() => onFlowButtonClick('select-for-withdrawal')}>
-            Select for Withdrawal
-          </button>
-          <button className="action-button" onClick={() => onFlowButtonClick('authorize')}>
-            Authorize
-          </button>
+          {FLOW_BUTTONS.map((button, index) => (
+            <button
+              key={`${button.flow}-${index}`}
+              className="action-button"
+              onClick={() => onFlowButtonClick(button.flow, button.options)}
+            >
+              {button.label}
+            </button>
+          ))}
         </div>
       )}
 
