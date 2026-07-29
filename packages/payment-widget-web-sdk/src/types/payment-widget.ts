@@ -94,7 +94,23 @@ type DeprecatedPaymentWidgetOptions = {
   paymentMethods?: BasePaymentWidgetOptions['paymentMethods'];
 };
 
-export type PaymentWidgetOptions = Pick<WidgetOptions, 'debug'> &
-  Omit<BasePaymentWidgetOptions, keyof EarlyRenderPaymentWidgetOptions | keyof DeprecatedPaymentWidgetOptions> &
-  EarlyRenderPaymentWidgetOptions &
-  DeprecatedPaymentWidgetOptions;
+type SessionOnlyPaymentWidgetOptions = Pick<
+  BasePaymentWidgetOptions,
+  'amountSuggestions' | 'availableAssets' | 'fees' | 'initialSelection'
+>;
+
+type PrettifyType<T> = {
+  [K in keyof T]: T[K];
+} & {};
+
+export type PaymentWidgetOptions = PrettifyType<
+  Pick<WidgetOptions, 'debug'> &
+    Omit<
+      BasePaymentWidgetOptions,
+      | keyof EarlyRenderPaymentWidgetOptions
+      | keyof DeprecatedPaymentWidgetOptions
+      | keyof SessionOnlyPaymentWidgetOptions
+    > &
+    EarlyRenderPaymentWidgetOptions &
+    DeprecatedPaymentWidgetOptions
+>;
