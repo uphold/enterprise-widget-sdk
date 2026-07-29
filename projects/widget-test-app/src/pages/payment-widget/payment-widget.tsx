@@ -9,11 +9,95 @@ import {
   PaymentWidget as PaymentWidgetClass,
   type PaymentWidgetCompleteEvent,
   type PaymentWidgetErrorEvent,
-  type PaymentWidgetFlow
+  type PaymentWidgetFlow,
+  type PaymentWidgetOptions
 } from '@uphold/enterprise-payment-widget-web-sdk';
 import { useCreatePaymentSession } from '../../shared/react/payment-widget-session';
 import { useEffect, useMemo, useState } from 'react';
 import { useFlowData } from '../../shared/react/payment-widget-session/use-flow-data';
+
+/**
+ * Flow button configs.
+ */
+
+type FlowButton = {
+  label: string;
+  flow: PaymentWidgetFlow;
+  options?: PaymentWidgetOptions;
+};
+
+const DEFAULT_WIDGET_OPTIONS: PaymentWidgetOptions = {
+  debug: true
+};
+
+const FLOW_BUTTONS: FlowButton[] = [
+  {
+    flow: 'select-for-deposit',
+    label: 'Select for Deposit'
+  },
+  { flow: 'select-for-withdrawal', label: 'Select for Withdrawal' },
+  {
+    flow: 'deposit',
+    label: 'E2E Deposit (w/ Asset opt)',
+    options: {
+      e2e: {
+        asset: 'ACN',
+        fees: { display: 'only-total' },
+        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] }
+        // targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561'
+      }
+    }
+  },
+
+  {
+    flow: 'deposit',
+    label: 'E2E Deposit (w/ targetAccountId opt)',
+    options: {
+      e2e: {
+        // asset: 'BTC',
+        fees: { display: 'only-total' },
+        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] },
+        targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561-----error'
+      }
+    }
+  },
+  {
+    flow: 'deposit',
+    label: 'E2E Deposit (w/ all fees opt)',
+    options: {
+      e2e: {
+        fees: { display: 'all' },
+        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] },
+        targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561'
+      }
+    }
+  },
+  {
+    flow: 'withdrawal',
+    label: 'E2E Withdraw (w/ targetAccountId opt)',
+    options: {
+      e2e: {
+        fees: { display: 'only-total' },
+        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] },
+        targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561'
+      }
+    }
+  },
+  {
+    flow: 'authorize',
+    label: 'Authorize',
+    options: {}
+  },
+  {
+    flow: 'authorize',
+    label: 'Authorize headless',
+    options: {
+      authorize: {
+        mode: 'headless'
+      }
+    }
+  }
+];
 
 /**
  * Export component.
@@ -21,12 +105,14 @@ import { useFlowData } from '../../shared/react/payment-widget-session/use-flow-
 
 export default function PaymentWidget() {
   const [createPaymentSessionData, setCreatePaymentSessionData] = useState<CreatePaymentSessionData>();
+  const [selectedOptions, setSelectedOptions] = useState<PaymentWidgetOptions>();
   const { error: loadFlowDataError, isLoading: isLoadingFlowData, loadFlowData } = useFlowData();
 
-  const onFlowButtonClick = (flow: PaymentWidgetFlow) => {
+  const onFlowButtonClick = (flow: PaymentWidgetFlow, options?: PaymentWidgetOptions) => {
     const load = async () => {
       const data = await loadFlowData(flow);
 
+      setSelectedOptions(options);
       setCreatePaymentSessionData({
         data,
         flow
@@ -47,7 +133,16 @@ export default function PaymentWidget() {
 
   const widget = useMemo(() => {
     if (paymentSession) {
-      const widget = new PaymentWidgetClass(paymentSession, { debug: true });
+      const options: PaymentWidgetOptions = {
+        ...DEFAULT_WIDGET_OPTIONS,
+        ...selectedOptions
+      };
+
+      const widget = new PaymentWidgetClass(
+        paymentSession,
+
+        options
+      );
 
       const errorHandler = (e: PaymentWidgetErrorEvent) => {
         setMessage(`[PWSDK] 'error' event raised with error: ${JSON.stringify(e.detail.error)}`);
@@ -75,7 +170,7 @@ export default function PaymentWidget() {
 
       return widget;
     }
-  }, [paymentSession]);
+  }, [paymentSession, selectedOptions]);
 
   useEffect(() => {
     return () => {
@@ -88,34 +183,40 @@ export default function PaymentWidget() {
       <h1>Payment Widget Web SDK Test Page</h1>
       {isLoading && <div className="loading">Loading...</div>}
       {error && (
-        <div>
-          <div className="error">
+        <details className="error-details">
+          <summary className="error">
             <span className="error-icon">⚠️</span>
             <span className="error-message">An error occurred. Please try again later.</span>
-          </div>
+          </summary>
           <div>
             <br />
             <span>{error.toString()}</span>
           </div>
-        </div>
+        </details>
       )}
       {message && (
-        <div id="message" className="message">
-          {message}
-        </div>
+        <details className="message-details">
+          <summary className="message" id="message">
+            Message
+          </summary>
+          <div>
+            <br />
+            <span>{message}</span>
+          </div>
+        </details>
       )}
       {!createPaymentSessionData && !isLoading && !error && (
         <div className="button-container">
           <p className="select-flow-text">Select flow:</p>
-          <button className="action-button" onClick={() => onFlowButtonClick('select-for-deposit')}>
-            Select for Deposit
-          </button>
-          <button className="action-button" onClick={() => onFlowButtonClick('select-for-withdrawal')}>
-            Select for Withdrawal
-          </button>
-          <button className="action-button" onClick={() => onFlowButtonClick('authorize')}>
-            Authorize
-          </button>
+          {FLOW_BUTTONS.map((button, index) => (
+            <button
+              key={`${button.flow}-${index}`}
+              className="action-button"
+              onClick={() => onFlowButtonClick(button.flow, button.options)}
+            >
+              {button.label}
+            </button>
+          ))}
         </div>
       )}
 
