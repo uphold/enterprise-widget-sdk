@@ -1,5 +1,10 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.15.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.15.0) (2026-07-31)
+
+- Bump messaging-types to v0.22.0 [\#65](https://github.com/uphold/enterprise-widget-sdk/pull/65) ([nibsa](https://github.com/nibsa))
+- Add support for Apple Pay [\#62](https://github.com/uphold/enterprise-widget-sdk/pull/62) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.14.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.14.0) (2026-07-13)
 
 - Add support for widget layout option [\#59](https://github.com/uphold/enterprise-widget-sdk/pull/59) ([nibsa](https://github.com/nibsa))
