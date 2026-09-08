@@ -49,8 +49,9 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    * ```
    *
    * ### KYC Processes:
-   * The KYC processes available on the widget (e.g. `identity`, `profile`, `proof-of-address`) are configured
-   * when creating the session via the `Create KYC Widget Session` request from your backend.
+   * The KYC processes available on the widget (e.g. `identity`, `profile`, `proof-of-address`,
+   * `customer-due-diligence`) are configured when creating the session via the `Create KYC Widget Session`
+   * request from your backend.
    *
    * ### Advanced Usage with Theme:
    * You can optionally define a theme to customize the widget's appearance using the `options` parameter:
