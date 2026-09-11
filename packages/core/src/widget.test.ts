@@ -38,7 +38,7 @@ describe('Widget', () => {
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     expect(consoleSpy.mock.calls[0]).toMatchInlineSnapshot(`
       [
-        "[Widget] ",
+        "[WidgetSDK] ",
         "Debug mode is enabled.",
       ]
     `);
@@ -370,7 +370,6 @@ describe('Widget', () => {
     expect(postMessage).toHaveBeenCalledTimes(1);
     expect(postMessage).toHaveBeenCalledWith(
       {
-        ...session,
         options: { debug: true },
         type: 'init'
       },
@@ -402,11 +401,114 @@ describe('Widget', () => {
     expect(postMessage).toHaveBeenCalledTimes(1);
     expect(postMessage).toHaveBeenCalledWith(
       {
-        ...session,
         options: undefined,
         type: 'init'
       },
       '*'
     );
+  });
+
+  it('should preserve a `sessionToken` query param from the session url when mounting the iframe', () => {
+    const sessionWithToken = { url: 'https://localhost:5000?sessionToken=abc123' } as WidgetSession;
+    const widget = new Widget(sessionWithToken);
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframeSrc = element.querySelector('iframe')?.getAttribute('src');
+
+    expect(new URL(iframeSrc!).searchParams.get('sessionToken')).toBe('abc123');
+  });
+
+  it('should keep the `sessionToken` query param and add `theme_appearance` to the iframe src', () => {
+    const sessionWithToken = { url: 'https://localhost:5000?sessionToken=abc123' } as WidgetSession;
+    const widget = new Widget(sessionWithToken, { theme: { appearance: 'dark' } });
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('src')).toBe(
+      'https://localhost:5000/?sessionToken=abc123&theme_appearance=dark'
+    );
+  });
+
+  it('should send only the options in the init message when the session url has a `sessionToken`, even if the session has a `token`', () => {
+    const sessionWithToken = { token: 'token', url: 'https://localhost:5000?sessionToken=abc123' } as WidgetSession;
+    const widget = new Widget(sessionWithToken, { debug: true });
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe');
+    const postMessage = vi.fn();
+
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: { postMessage }
+    });
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'load' },
+      origin: 'https://localhost:5000'
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(postMessage).toHaveBeenCalledTimes(1);
+    expect(postMessage).toHaveBeenCalledWith(
+      {
+        options: { debug: true },
+        type: 'init'
+      },
+      '*'
+    );
+    expect(consoleSpy).not.toHaveBeenCalled();
+
+    consoleSpy.mockRestore();
+  });
+
+  it('should send the legacy init message with the session data and log a warning when the session has a `token` but the session url has no `sessionToken`', () => {
+    const legacySession = { token: 'token', url: 'https://localhost:5000' } as WidgetSession;
+    const widget = new Widget(legacySession, { debug: true });
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe');
+    const postMessage = vi.fn();
+
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: { postMessage }
+    });
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'load' },
+      origin: legacySession.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(postMessage).toHaveBeenCalledTimes(1);
+    expect(postMessage).toHaveBeenCalledWith(
+      {
+        options: { debug: true },
+        token: 'token',
+        type: 'init',
+        url: 'https://localhost:5000'
+      },
+      '*'
+    );
+    expect(consoleSpy).toHaveBeenCalledTimes(1);
+    expect(consoleSpy.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "[WidgetSDK] ",
+        "⚠️ The session \`url\` is missing its \`sessionToken\` query param. Pass the session \`url\` unmodified, including its query string. ⚠️",
+      ]
+    `);
+
+    consoleSpy.mockRestore();
   });
 });

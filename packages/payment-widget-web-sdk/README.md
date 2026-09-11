@@ -30,6 +30,7 @@ import {
 } from '@uphold/enterprise-payment-widget-web-sdk';
 
 // This is the payment session object you received from the `Create Payment Widget Session`.
+// Pass it unmodified: its `url`, including the query string, is required to load the session.
 const paymentSession = {};
 
 // Initialize the widget with the payment session.
@@ -60,8 +61,11 @@ widget.on('error', (e: PaymentWidgetErrorEvent) => {
 widget.mountIframe(document.getElementById('payment-widget-root'));
 ```
 
+> [!NOTE]
+> Pass the widget options when creating the payment session in your backend. Until a future release, also pass the same `theme`, `layout` and `authorize.mode` to the constructor to avoid a brief change in appearance while the widget loads the session. Values set when creating the session take precedence. Passing `paymentMethods` or `maxAccountsPerAsset` to the constructor is deprecated.
+
 > [!TIP]
-> This README covers only the basics. For the full API reference — all constructor options (`theme`, `layout`, `debug`, …), events, and type definitions — see the **[Payment Widget SDK Reference](https://developer.uphold.com/widgets/payment/sdk-reference)**.
+> This README covers only the basics. For the full API reference — constructor options (`debug`, `theme`, `layout`, …), events, and type definitions — see the **[Payment Widget SDK Reference](https://developer.uphold.com/widgets/payment/sdk-reference)**.
 
 ## Contributing
 

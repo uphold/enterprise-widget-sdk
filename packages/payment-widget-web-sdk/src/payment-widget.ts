@@ -55,15 +55,16 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    *
    * ### Example Usage:
    * ```typescript
-   * const session = { url: 'https://example.com' };
+   * const session = { url: 'https://example.com/?sessionToken=...' };
    * const paymentWidget = new PaymentWidget(session);
    * ```
    *
    * ### Advanced Usage with Payment Methods:
-   * You can optionally specify payment methods that should be available on the payment widget using the `options` parameter:
+   * You can optionally specify payment methods that should be available on the payment widget using the `options` parameter.
+   * This option is deprecated - pass `paymentMethods` when creating the session in the back-end instead:
    *
    * ```typescript
-   * const session = { url: 'https://example.com' };
+   * const session = { url: 'https://example.com/?sessionToken=...' };
    * const options = {
    *   paymentMethods: [
    *     { type: 'card' },
@@ -75,10 +76,12 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    * ```
    *
    * ### Advanced Usage with Theme:
-   * You can optionally define a theme to customize the widget's appearance using the `options` parameter:
+   * You can optionally define a theme to customize the widget's appearance using the `options` parameter.
+   * Set `theme` when creating the session in the back-end. Until a future release, also pass the same `theme`
+   * here to avoid a brief change in appearance while the Widget loads the session:
    *
    * ```typescript
-   * const session = { url: 'https://example.com' };
+   * const session = { url: 'https://example.com/?sessionToken=...' };
    * const options = {
    *   theme: {
    *     appearance: 'light',
@@ -114,7 +117,10 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    * ```
    *
    * @param session The session object containing the configuration details for the widget.
-   * This includes the session URL and any other data required to initialize the widget.
+   * @param options The widget options containing configurable widget properties.
+   * Set the widget options when creating the session in the back-end. Until a future release, also pass the same
+   * `theme`, `layout` and `authorize.mode` here to avoid a brief change in appearance while the Widget loads the
+   * session. Passing `paymentMethods` or `maxAccountsPerAsset` here is deprecated.
    */
   constructor(session: PaymentWidgetSession, options?: PaymentWidgetOptions) {
     super(session, options);

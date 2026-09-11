@@ -31,6 +31,7 @@ import {
 } from '@uphold/enterprise-kyc-widget-web-sdk';
 
 // This is the KYC session object you received from the `Create KYC Widget Session`.
+// Pass it unmodified: its `url`, including the query string, is required to load the session.
 const kycSession = {};
 
 // Initialize the widget with the KYC session.
@@ -64,8 +65,11 @@ widget.on('error', (e: KycWidgetErrorEvent) => {
 widget.mountIframe(document.getElementById('kyc-widget-root'));
 ```
 
+> [!NOTE]
+> Pass the widget options when creating the KYC session in your backend. The KYC processes are also selected when creating the session. Until a future release, also pass the same `theme` and `layout` to the constructor to avoid a brief change in appearance while the widget loads the session. Values set when creating the session take precedence.
+
 > [!TIP]
-> This README covers only the basics. For the full API reference — KYC process selection, all constructor options (`theme`, `layout`, `debug`, …), events, and type definitions — see the **[KYC Widget SDK Reference](https://developer.uphold.com/widgets/kyc/sdk-reference)**.
+> This README covers only the basics. For the full API reference — constructor options (`debug`, `theme`, `layout`, …), events, and type definitions — see the **[KYC Widget SDK Reference](https://developer.uphold.com/widgets/kyc/sdk-reference)**.
 
 ## Contributing
 

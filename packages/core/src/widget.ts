@@ -24,7 +24,6 @@ class Widget<
   #eventListeners: Map<TEvent['detail']['type'], ((event: TEvent) => void)[]> = new Map();
   session: TSession;
   mountOptions?: WidgetMountIframeOptions;
-  options?: TWidgetOptions;
   [logSymbol] = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     log: (message?: any, ...optionalParams: any[]) => {
@@ -35,6 +34,13 @@ class Widget<
       this.#consoleWrapper('warn', message, ...optionalParams);
     }
   };
+
+  /**
+   * The options passed to the constructor.
+   * Set the widget options when creating the session in the back-end. Only `debug` and the options the Widget
+   * renders before it loads the session (such as `theme` and `layout`) belong here.
+   */
+  options?: TWidgetOptions;
 
   constructor(session: TSession, options?: TWidgetOptions) {
     super();
@@ -149,6 +155,18 @@ class Widget<
     this.#iframe = iframe;
   }
 
+  #isLegacySession() {
+    if (!this.session.token) {
+      return false;
+    }
+
+    try {
+      return !new URL(this.session.url).searchParams.has('sessionToken');
+    } catch {
+      return false;
+    }
+  }
+
   #emit<T extends TEvent['detail']['type']>(event: T, data?: Extract<TEvent['detail'], { type: T }>) {
     this[logSymbol].log(`'${event}' event raised. Details: `, data);
 
@@ -200,11 +218,18 @@ class Widget<
       }
 
       case 'load': {
-        const widgetInitMessage = {
-          ...this.session,
-          options: this.options,
-          type: 'init'
-        } as const;
+        const isLegacySession = this.#isLegacySession();
+
+        if (isLegacySession) {
+          this[logSymbol].warn(
+            '⚠️ The session `url` is missing its `sessionToken` query param. Pass the session `url` unmodified, including its query string. ⚠️'
+          );
+        }
+
+        // Legacy fallback: send the session data when the session `url` does not include a `sessionToken`.
+        const widgetInitMessage = isLegacySession
+          ? ({ ...this.session, options: this.options, type: 'init' } as const)
+          : ({ options: this.options, type: 'init' } as const);
 
         this.#sendMessageToWidget(widgetInitMessage);
 
@@ -241,7 +266,7 @@ class Widget<
   #consoleWrapper(prop: 'log' | 'warn' | 'info' | 'error' | 'debug' | 'trace', ...messages: unknown[]) {
     if (this.options?.debug) {
       // eslint-disable-next-line no-console
-      console[prop](`[${this.constructor.name}] `, ...messages);
+      console[prop](`[${this.constructor.name}SDK] `, ...messages);
     }
   }
 }
