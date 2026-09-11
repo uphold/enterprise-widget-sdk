@@ -30,6 +30,7 @@ import {
 } from '@uphold/enterprise-travel-rule-widget-web-sdk';
 
 // This is the travel rule session object you received from the `Create Travel Rule Widget Session`.
+// Pass it unmodified: its `url`, including the query string, is required to load the session.
 const travelRuleSession = {};
 
 // Initialize the widget with the travel rule session.
@@ -60,8 +61,11 @@ widget.on('error', (e: TravelRuleWidgetErrorEvent) => {
 widget.mountIframe(document.getElementById('travel-rule-widget-root'));
 ```
 
+> [!NOTE]
+> Pass the widget options when creating the travel rule session in your backend. Until a future release, also pass the same `theme` and `layout` to the constructor to avoid a brief change in appearance while the widget loads the session. Values set when creating the session take precedence.
+
 > [!TIP]
-> This README covers only the basics. For the full API reference — all constructor options (`theme`, `layout`, `debug`, …), events, and type definitions — see the **[Travel Rule Widget SDK Reference](https://developer.uphold.com/widgets/travel-rule/sdk-reference)**.
+> This README covers only the basics. For the full API reference — constructor options (`debug`, `theme`, `layout`, …), events, and type definitions — see the **[Travel Rule Widget SDK Reference](https://developer.uphold.com/widgets/travel-rule/sdk-reference)**.
 
 ## Contributing
 
