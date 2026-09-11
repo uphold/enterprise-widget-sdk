@@ -48,7 +48,12 @@ export const createKycSession = async (
     const kycSession = responseBody.session;
 
     if (options.kycSessionUrlOverride) {
-      kycSession.url = options.kycSessionUrlOverride;
+      const oldUrl = new URL(kycSession.url);
+      const newUrl = new URL(options.kycSessionUrlOverride);
+
+      newUrl.search = oldUrl.search;
+
+      kycSession.url = newUrl.toString();
     }
 
     return kycSession;

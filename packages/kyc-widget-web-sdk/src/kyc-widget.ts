@@ -44,7 +44,7 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    *
    * ### Example Usage:
    * ```typescript
-   * const session = { url: 'https://example.com', token: 'token' };
+   * const session = { url: 'https://example.com/?sessionToken=...' };
    * const kycWidget = new KycWidget(session);
    * ```
    *
@@ -53,10 +53,12 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    * when creating the session via the `Create KYC Widget Session` request from your backend.
    *
    * ### Advanced Usage with Theme:
-   * You can optionally define a theme to customize the widget's appearance using the `options` parameter:
+   * You can optionally define a theme to customize the widget's appearance using the `options` parameter.
+   * Set `theme` when creating the session in the back-end. Until a future release, also pass the same `theme`
+   * here to avoid a brief change in appearance while the Widget loads the session:
    *
    * ```typescript
-   * const session = { url: 'https://example.com', token: 'token' };
+   * const session = { url: 'https://example.com/?sessionToken=...' };
    * const options = {
    *   theme: {
    *     appearance: 'light',
@@ -92,7 +94,9 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    * ```
    *
    * @param session The session object containing the configuration details for the widget.
-   * This includes the session URL and any other data required to initialize the widget.
+   * @param options The widget options containing configurable widget properties.
+   * Set the widget options when creating the session in the back-end. Until a future release, also pass the same
+   * `theme` and `layout` here to avoid a brief change in appearance while the Widget loads the session.
    */
   constructor(session: KycWidgetSession, options?: KycWidgetOptions) {
     super(session, options);

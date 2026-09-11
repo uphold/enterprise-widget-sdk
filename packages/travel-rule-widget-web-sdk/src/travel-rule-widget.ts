@@ -55,12 +55,14 @@ class TravelRuleWidget<TFlow extends TravelRuleWidgetFlow = TravelRuleWidgetFlow
    *
    * ### Example Usage:
    * ```typescript
-   * const session = { url: 'https://example.com/widget-session' };
+   * const session = { url: 'https://example.com/widget-session?sessionToken=...' };
    * const travelRuleWidget = new TravelRuleWidget(session);
    * ```
    *
    * @param session The session object containing the configuration details for the widget.
-   * This includes the session URL and any other data required to initialize the widget.
+   * @param options The widget options containing configurable widget properties.
+   * Set the widget options when creating the session in the back-end. Until a future release, also pass the same
+   * `theme` and `layout` here to avoid a brief change in appearance while the Widget loads the session.
    */
   constructor(session: TravelRuleWidgetSession, options?: TravelRuleWidgetOptions) {
     super(session, options);

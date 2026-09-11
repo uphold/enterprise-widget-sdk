@@ -48,7 +48,7 @@ export type WidgetCancelEventDetail = {
 
 export type WidgetErrorEventDetail = {
   type: WidgetErrorEventType;
-  error: string;
+  error: WidgetError;
 };
 
 export type ExtractMessageEventDataForType<
@@ -82,6 +82,18 @@ export type WidgetMountIframeOptions = Record<string, unknown>;
 
 export type WidgetOptions = {
   debug?: boolean;
+
+  /**
+   * Set it when creating the session in the back-end. Until a future release, also pass the same `layout` here to
+   * avoid a brief change in appearance while the Widget loads the session. Values set when creating the session
+   * take precedence.
+   */
   layout?: WidgetLayout;
+
+  /**
+   * Set it when creating the session in the back-end. Until a future release, also pass the same `theme` here to
+   * avoid a brief change in appearance while the Widget loads the session. Values set when creating the session
+   * take precedence.
+   */
   theme?: WidgetThemeOption;
 };
