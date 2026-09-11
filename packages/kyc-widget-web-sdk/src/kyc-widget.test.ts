@@ -21,9 +21,6 @@ console.warn = vi.fn();
 
 describe('KycWidget', () => {
   const session: KycWidgetSession = {
-    data: { processes: [] },
-    token:
-      'eyJhbGciOiJFZERTQSIsImtpZCI6IjllNmUzNmM3LWQ2MzgtNDgyYS1hMTVmLTlkNjg4OWNmNDZkNyIsInR5cCI6IkpXVCJ9.eyJhaWQiOiJjMjIwNmZmMi05MTU1LTQzMmQtYWJlNC0wZTRkMGU1ZTFkYmUiLCJjaWQiOiIwMTkxYzk4YS04NmJlLTcwNzctYWM3My02YTE0ZTUwYjBjMTYiLCJleHAiOjE3NTA0MjA2NDMsImlhdCI6MTc0MjY0NDY0MywianRpIjoiN2ExM2UyM2UtNTNiNC00MGY1LTg1ZjEtMTYzYTE0YzFlOTU2Iiwib3JnIjoiMDE3Yjk3MDgtYWJiNi00NmRiLWE2ZjAtODNiY2RkY2Y4MWNjIiwic2NvcGUiOiIqIiwic3ViIjoidXNlckA5ODg0ZTgxOS1kNTcyLTRkYmMtODQzNS0wZGRiMzU5ZDBmNDgiLCJ0eXAiOiJyZWZyZXNoIn0.fTqFKxukiQz0Z5gGmKMQFj37VAzuYLAtBbn6XtecGy24S6q9KchPkiUfUdfPNCnIQrTCY3PuTqjmThtNmYQ5AA',
     url: 'https://localhost:5000'
   };
 
@@ -52,10 +49,6 @@ describe('KycWidget', () => {
         "[KycWidget] ",
         "Initialized kyc widget. session: ",
         {
-          "data": {
-            "processes": [],
-          },
-          "token": "eyJhbGciOiJFZERTQSIsImtpZCI6IjllNmUzNmM3LWQ2MzgtNDgyYS1hMTVmLTlkNjg4OWNmNDZkNyIsInR5cCI6IkpXVCJ9.eyJhaWQiOiJjMjIwNmZmMi05MTU1LTQzMmQtYWJlNC0wZTRkMGU1ZTFkYmUiLCJjaWQiOiIwMTkxYzk4YS04NmJlLTcwNzctYWM3My02YTE0ZTUwYjBjMTYiLCJleHAiOjE3NTA0MjA2NDMsImlhdCI6MTc0MjY0NDY0MywianRpIjoiN2ExM2UyM2UtNTNiNC00MGY1LTg1ZjEtMTYzYTE0YzFlOTU2Iiwib3JnIjoiMDE3Yjk3MDgtYWJiNi00NmRiLWE2ZjAtODNiY2RkY2Y4MWNjIiwic2NvcGUiOiIqIiwic3ViIjoidXNlckA5ODg0ZTgxOS1kNTcyLTRkYmMtODQzNS0wZGRiMzU5ZDBmNDgiLCJ0eXAiOiJyZWZyZXNoIn0.fTqFKxukiQz0Z5gGmKMQFj37VAzuYLAtBbn6XtecGy24S6q9KchPkiUfUdfPNCnIQrTCY3PuTqjmThtNmYQ5AA",
           "url": "https://localhost:5000",
         },
         " options: ",
@@ -175,5 +168,15 @@ describe('KycWidget', () => {
     window.dispatchEvent(messageEvent);
 
     expect(listener).toHaveBeenCalledTimes(0);
+  });
+
+  it('should mount an iframe when the session only contains a url with a `sessionToken`, since the session data is now loaded via the API', () => {
+    const sessionWithToken: KycWidgetSession = { url: 'https://localhost:5000?sessionToken=abc123' };
+    const widget = new KycWidget(sessionWithToken);
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('src')).toBe('https://localhost:5000/?sessionToken=abc123');
   });
 });

@@ -44,7 +44,7 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    *
    * ### Example Usage:
    * ```typescript
-   * const session = { url: 'https://example.com', token: 'token' };
+   * const session = { url: 'https://example.com' };
    * const kycWidget = new KycWidget(session);
    * ```
    *
@@ -56,7 +56,7 @@ class KycWidget extends Widget<KycWidgetSession, KycWidgetMessageEvent, KycWidge
    * You can optionally define a theme to customize the widget's appearance using the `options` parameter:
    *
    * ```typescript
-   * const session = { url: 'https://example.com', token: 'token' };
+   * const session = { url: 'https://example.com' };
    * const options = {
    *   theme: {
    *     appearance: 'light',

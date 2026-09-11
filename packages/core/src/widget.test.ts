@@ -370,7 +370,6 @@ describe('Widget', () => {
     expect(postMessage).toHaveBeenCalledTimes(1);
     expect(postMessage).toHaveBeenCalledWith(
       {
-        ...session,
         options: { debug: true },
         type: 'init'
       },
@@ -402,7 +401,49 @@ describe('Widget', () => {
     expect(postMessage).toHaveBeenCalledTimes(1);
     expect(postMessage).toHaveBeenCalledWith(
       {
-        ...session,
+        options: undefined,
+        type: 'init'
+      },
+      '*'
+    );
+  });
+
+  it('should preserve a `sessionToken` query param from the session url when mounting the iframe', () => {
+    const sessionWithToken = { url: 'https://localhost:5000?sessionToken=abc123' } as WidgetSession;
+    const widget = new Widget(sessionWithToken);
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframeSrc = element.querySelector('iframe')?.getAttribute('src');
+
+    expect(new URL(iframeSrc!).searchParams.get('sessionToken')).toBe('abc123');
+  });
+
+  it('should not send session data in the init message, since it is now loaded via the API using the `sessionToken`', () => {
+    const sessionWithToken = { url: 'https://localhost:5000?sessionToken=abc123' } as WidgetSession;
+    const widget = new Widget(sessionWithToken);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe');
+    const postMessage = vi.fn();
+
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: { postMessage }
+    });
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'load' },
+      origin: sessionWithToken.url
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(postMessage).toHaveBeenCalledWith(
+      {
         options: undefined,
         type: 'init'
       },
