@@ -22,7 +22,7 @@ import type {
 
 export type { KycWidgetProcess };
 
-export type KycWidgetSession = WidgetSession & { data: { processes: KycWidgetProcess[] } };
+export type KycWidgetSession = WidgetSession;
 
 export type KycWidgetReadyEvent = WidgetReadyEvent<KycWidgetMessageEvent>;
 export type KycWidgetCompleteEvent = WidgetCompleteEvent<KycWidgetMessageEvent>;

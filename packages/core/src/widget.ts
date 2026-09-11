@@ -201,7 +201,6 @@ class Widget<
 
       case 'load': {
         const widgetInitMessage = {
-          ...this.session,
           options: this.options,
           type: 'init'
         } as const;

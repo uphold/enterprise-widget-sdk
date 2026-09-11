@@ -48,7 +48,12 @@ export const createPaymentSession = async (
     const paymentSession = responseBody.session;
 
     if (options.paymentSessionUrlOverride) {
-      paymentSession.url = options.paymentSessionUrlOverride;
+      const oldUrl = new URL(paymentSession.url);
+      const newUrl = new URL(options.paymentSessionUrlOverride);
+
+      newUrl.search = oldUrl.search;
+
+      paymentSession.url = newUrl.toString();
     }
 
     return paymentSession;
