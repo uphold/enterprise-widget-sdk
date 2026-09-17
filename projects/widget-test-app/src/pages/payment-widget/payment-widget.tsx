@@ -38,48 +38,50 @@ const FLOW_BUTTONS: FlowButton[] = [
   { flow: 'select-for-withdrawal', label: 'Select for Withdrawal' },
   {
     flow: 'deposit',
-    label: 'E2E Deposit (w/ Asset opt)',
+    label: 'E2E Deposit (w/ asset opt)',
     options: {
-      e2e: {
-        asset: 'ACN',
-        fees: { display: 'only-total' },
-        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] }
-        // targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561'
+      amountSuggestions: {
+        EUR: [25, 50, 100, 150],
+        GBP: [25, 50, 100, 150],
+        USD: [25, 50, 100, 150]
+      },
+      availableAssets: { include: ['GBP', 'BTC'] },
+      fees: { display: 'total' },
+      initialSelection: {
+        destination: { asset: 'BTC' }
       }
     }
   },
 
   {
     flow: 'deposit',
-    label: 'E2E Deposit (w/ targetAccountId opt)',
+    label: 'E2E Deposit (w/ accountId opt)',
     options: {
-      e2e: {
-        // asset: 'BTC',
-        fees: { display: 'only-total' },
-        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] },
-        targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561-----error'
-      }
-    }
-  },
-  {
-    flow: 'deposit',
-    label: 'E2E Deposit (w/ all fees opt)',
-    options: {
-      e2e: {
-        fees: { display: 'all' },
-        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] },
-        targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561'
+      amountSuggestions: {
+        EUR: [25, 50, 100, 150],
+        GBP: [25, 50, 100, 150],
+        USD: [25, 50, 100, 150]
+      },
+      availableAssets: { include: ['GBP', 'BTC'] },
+      fees: { display: 'breakdown' },
+      initialSelection: {
+        destination: { accountId: 'c83373fd-a0ec-41be-9d9f-37a04370bb69' }
       }
     }
   },
   {
     flow: 'withdrawal',
-    label: 'E2E Withdraw (w/ targetAccountId opt)',
+    label: 'E2E Withdraw (w/ accountId opt)',
     options: {
-      e2e: {
-        fees: { display: 'only-total' },
-        presetAmountsByCurrencyCode: { GBP: [5, 10, 15, 20], USD: [5, 10, 15, 20] },
-        targetAccountId: 'ad123a42-ee77-448d-91c7-5d17b7362561'
+      amountSuggestions: {
+        EUR: [25, 50, 100, 150],
+        GBP: [25, 50, 100, 150],
+        USD: [25, 50, 100, 150]
+      },
+      // availableAssets: { include: ['GBP', 'BTC'] },
+      fees: { display: 'total' },
+      initialSelection: {
+        origin: { accountId: 'c83373fd-a0ec-41be-9d9f-37a04370bb69' }
       }
     }
   },
