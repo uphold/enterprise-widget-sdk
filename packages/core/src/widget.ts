@@ -110,7 +110,7 @@ class Widget<
   }
 
   protected getIframeAllowAttribute(): string {
-    return "clipboard-write 'src'; clipboard-read 'src';";
+    return "clipboard-write 'src'; clipboard-read 'src'; payment 'src'";
   }
 
   unmount() {

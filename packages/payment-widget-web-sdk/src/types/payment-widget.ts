@@ -14,6 +14,7 @@ import type {
   PaymentWidgetFlow,
   PaymentWidgetMessageEvent,
   PaymentWidgetSession,
+  Quote,
   Transaction,
   WithdrawalSelection
 } from '@uphold/enterprise-widget-messaging-types';
@@ -39,6 +40,7 @@ export type {
   ExternalAccountSelection,
   PaymentWidgetFlow,
   PaymentWidgetSession,
+  Quote,
   Transaction,
   WithdrawalSelection
 };
