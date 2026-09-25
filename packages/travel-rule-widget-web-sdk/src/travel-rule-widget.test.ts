@@ -21,39 +21,6 @@ console.warn = vi.fn();
 
 describe('TravelRuleWidget', () => {
   const session = {
-    data: {
-      parameters: {
-        init: {
-          authToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9',
-          nodeUrl: 'https://api.notabene.dev'
-        },
-        options: {
-          allowedAgentTypes: ['WALLET', 'VASP'],
-          allowedCounterpartyTypes: ['natural', 'legal', 'self'],
-          counterpartyAssist: false,
-          proofs: {
-            deminimis: {
-              currency: 'USD',
-              proofTypes: [],
-              threshold: 9007199254740991
-            },
-            fallbacks: ['self-declaration'],
-            reuseProof: true
-          },
-          vasps: {
-            addUnknown: true
-          }
-        },
-        transaction: {
-          amountDecimal: 17.825402,
-          asset: 'XRP',
-          destination: 'rpJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
-        }
-      },
-      provider: 'notabene'
-    },
-    flow: 'withdrawal-form',
-    token: 'eyJhbGciOiJFZERTQSIsImtpZCI6IjllNmUzNmM3LWQ2MzgtNDgyYS1hMTVmLTlkNjg4OWNmNDZkNyIsInR5cCI6IkpXVCJ9',
     url: 'http://localhost:5000'
   } as TravelRuleWidgetSession;
 
@@ -73,57 +40,15 @@ describe('TravelRuleWidget', () => {
     expect(consoleSpy).toHaveBeenCalledTimes(2);
     expect(consoleSpy.mock.calls[0]).toMatchInlineSnapshot(`
       [
-        "[TravelRuleWidget] ",
+        "[TravelRuleWidgetSDK] ",
         "Debug mode is enabled.",
       ]
     `);
     expect(consoleSpy.mock.calls[1]).toMatchInlineSnapshot(`
       [
-        "[TravelRuleWidget] ",
+        "[TravelRuleWidgetSDK] ",
         "Initialized travel rule widget. session: ",
         {
-          "data": {
-            "parameters": {
-              "init": {
-                "authToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9",
-                "nodeUrl": "https://api.notabene.dev",
-              },
-              "options": {
-                "allowedAgentTypes": [
-                  "WALLET",
-                  "VASP",
-                ],
-                "allowedCounterpartyTypes": [
-                  "natural",
-                  "legal",
-                  "self",
-                ],
-                "counterpartyAssist": false,
-                "proofs": {
-                  "deminimis": {
-                    "currency": "USD",
-                    "proofTypes": [],
-                    "threshold": 9007199254740991,
-                  },
-                  "fallbacks": [
-                    "self-declaration",
-                  ],
-                  "reuseProof": true,
-                },
-                "vasps": {
-                  "addUnknown": true,
-                },
-              },
-              "transaction": {
-                "amountDecimal": 17.825402,
-                "asset": "XRP",
-                "destination": "rpJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              },
-            },
-            "provider": "notabene",
-          },
-          "flow": "withdrawal-form",
-          "token": "eyJhbGciOiJFZERTQSIsImtpZCI6IjllNmUzNmM3LWQ2MzgtNDgyYS1hMTVmLTlkNjg4OWNmNDZkNyIsInR5cCI6IkpXVCJ9",
           "url": "http://localhost:5000",
         },
         " options: ",
@@ -247,5 +172,15 @@ describe('TravelRuleWidget', () => {
     window.dispatchEvent(messageEvent);
 
     expect(listener).toHaveBeenCalledTimes(0);
+  });
+
+  it('should mount an iframe when the session only contains a url with a `sessionToken`, since the session data is now loaded via the API', () => {
+    const sessionWithToken = { url: 'http://localhost:5000?sessionToken=abc123' } as TravelRuleWidgetSession;
+    const widget = new TravelRuleWidget(sessionWithToken);
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    expect(element.querySelector('iframe')?.getAttribute('src')).toBe('http://localhost:5000/?sessionToken=abc123');
   });
 });

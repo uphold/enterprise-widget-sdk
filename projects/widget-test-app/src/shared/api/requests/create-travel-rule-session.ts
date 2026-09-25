@@ -48,7 +48,12 @@ export const createTravelRuleSession = async (
     const travelRuleSession = responseBody.session;
 
     if (options.travelRuleSessionUrlOverride) {
-      travelRuleSession.url = options.travelRuleSessionUrlOverride;
+      const oldUrl = new URL(travelRuleSession.url);
+      const newUrl = new URL(options.travelRuleSessionUrlOverride);
+
+      newUrl.search = oldUrl.search;
+
+      travelRuleSession.url = newUrl.toString();
     }
 
     return travelRuleSession;

@@ -21,7 +21,26 @@ import type {
  */
 
 export type { TravelRuleWidgetFlow, TravelRuleWidgetSession };
-export type TravelRuleWidgetOptions = WidgetOptions & BaseTravelRuleWidgetOptions;
+
+type EarlyRenderTravelRuleWidgetOptions = {
+  /**
+   * Set it when creating the session in the back-end. Until a future release, also pass the same `layout` here to
+   * avoid a brief change in appearance while the Widget loads the session. Values set when creating the session
+   * take precedence.
+   */
+  layout?: BaseTravelRuleWidgetOptions['layout'];
+
+  /**
+   * Set it when creating the session in the back-end. Until a future release, also pass the same `theme` here to
+   * avoid a brief change in appearance while the Widget loads the session. Values set when creating the session
+   * take precedence.
+   */
+  theme?: BaseTravelRuleWidgetOptions['theme'];
+};
+
+export type TravelRuleWidgetOptions = Pick<WidgetOptions, 'debug'> &
+  Omit<BaseTravelRuleWidgetOptions, keyof EarlyRenderTravelRuleWidgetOptions> &
+  EarlyRenderTravelRuleWidgetOptions;
 
 export type TravelRuleWidgetReadyEvent = WidgetReadyEvent<TravelRuleWidgetMessageEvent>;
 export type TravelRuleWidgetCompleteEvent<TFlow extends TravelRuleWidgetFlow> = WidgetCompleteEvent<
