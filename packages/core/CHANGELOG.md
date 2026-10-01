@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.16.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.16.0) (2026-10-01)
+
+- Add session-less support [\#68](https://github.com/uphold/enterprise-widget-sdk/pull/68) ([elpinho](https://github.com/elpinho))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.15.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.15.0) (2026-07-31)
 
 - Bump messaging-types to v0.22.0 [\#65](https://github.com/uphold/enterprise-widget-sdk/pull/65) ([nibsa](https://github.com/nibsa))
