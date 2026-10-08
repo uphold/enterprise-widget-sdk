@@ -390,7 +390,8 @@ describe('Widget', () => {
         options: { debug: true },
         type: 'init'
       },
-      '*'
+      // The target origin is the widget session origin, never the '*' wildcard: theinit`n      // payload carries the session token.
+      'https://localhost:5000'
     );
   });
 
@@ -421,7 +422,8 @@ describe('Widget', () => {
         options: undefined,
         type: 'init'
       },
-      '*'
+      // The target origin is the widget session origin, never the '*' wildcard: theinit`n      // payload carries the session token.
+      'https://localhost:5000'
     );
   });
 
@@ -478,7 +480,8 @@ describe('Widget', () => {
         options: { debug: true },
         type: 'init'
       },
-      '*'
+      // The target origin is the widget session origin, never the '*' wildcard: theinit`n      // payload carries the session token.
+      'https://localhost:5000'
     );
     expect(consoleSpy).not.toHaveBeenCalled();
 
@@ -513,7 +516,8 @@ describe('Widget', () => {
         options: { debug: true },
         type: 'init'
       },
-      '*'
+      // The target origin is the widget session origin, never the '*' wildcard: theinit`n      // payload carries the session token.
+      'https://localhost:5000'
     );
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     expect(consoleSpy.mock.calls[0]).toMatchInlineSnapshot(`
@@ -557,7 +561,8 @@ describe('Widget', () => {
         type: 'init',
         url: 'https://localhost:5000'
       },
-      '*'
+      // The target origin is the widget session origin, never the '*' wildcard: theinit`n      // payload carries the session token.
+      'https://localhost:5000'
     );
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     expect(consoleSpy.mock.calls[0]).toMatchInlineSnapshot(`
