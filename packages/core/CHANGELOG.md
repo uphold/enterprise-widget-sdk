@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.17.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.17.0) (2026-10-13)
+
+- Add E2E flow support [\#64](https://github.com/uphold/enterprise-widget-sdk/pull/64) ([TiagoLsLoureiro](https://github.com/TiagoLsLoureiro))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.16.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.16.0) (2026-10-01)
 
 - Add session-less support [\#68](https://github.com/uphold/enterprise-widget-sdk/pull/68) ([elpinho](https://github.com/elpinho))
