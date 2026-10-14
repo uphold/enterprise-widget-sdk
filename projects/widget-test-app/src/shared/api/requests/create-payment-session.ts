@@ -3,6 +3,7 @@
  */
 
 import type { PaymentWidgetFlow } from '@uphold/enterprise-payment-widget-web-sdk';
+import type { PaymentWidgetOptions } from '@uphold/enterprise-widget-messaging-types';
 import { config } from '../../../../config';
 
 /**
@@ -18,6 +19,7 @@ const widgetsApiBaseUrl = config.enterpriseApi.apis.widgets.baseUrl;
 export type CreatePaymentSessionData = {
   flow: PaymentWidgetFlow;
   data?: Record<string, unknown>;
+  options?: PaymentWidgetOptions;
 };
 
 export type CreatePaymentSessionOptions = {
