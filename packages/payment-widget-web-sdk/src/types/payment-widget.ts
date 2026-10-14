@@ -94,7 +94,7 @@ type DeprecatedPaymentWidgetOptions = {
   paymentMethods?: BasePaymentWidgetOptions['paymentMethods'];
 };
 
-type SessionOnlyPaymentWidgetOptions = Pick<
+export type SessionOnlyPaymentWidgetOptions = Pick<
   BasePaymentWidgetOptions,
   'amountSuggestions' | 'availableAssets' | 'fees' | 'initialSelection'
 >;
