@@ -12,6 +12,7 @@
   ],
   "description": "Monorepo for all Enterprise widgets SDKs",
   "scripts": {
+    "preinstall": "case \"${npm_config_user_agent}\" in npm/*|'') ;; *) echo 'This project is installed with npm. Run `npm ci`, or `npm install <package>` to change a dependency.' >&2; exit 1 ;; esac",
     "lint": "npm run lint --workspaces --",
     "lint-staged": "lint-staged",
     "postinstall": "npm run build -w @uphold/enterprise-widget-sdk-core",
@@ -45,6 +46,16 @@
     "typescript-eslint": "^8.26.0",
     "vite": "^6.3.6"
   },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": ">=12.0.2"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "24"
+    }
+  },
   "pre-commit": [
     "lint-staged"
   ],
@@ -56,5 +67,11 @@
   "bugs": {
     "url": "https://github.com/uphold/enterprise-widget-sdk/issues"
   },
-  "homepage": "https://github.com/uphold/enterprise-widget-sdk#readme"
+  "homepage": "https://github.com/uphold/enterprise-widget-sdk#readme",
+  "allowScripts": {
+    "esbuild@0.25.0": true,
+    "fsevents@2.3.3": true,
+    "pre-commit@1.2.2": true,
+    "spawn-sync@1.0.15": true
+  }
 }

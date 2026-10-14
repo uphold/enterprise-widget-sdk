@@ -33,6 +33,8 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    env:
+      NPM_VERSION: '12.0.2'
 
     steps:
     - name: Checkout code
@@ -45,6 +47,11 @@ jobs:
       with:
         node-version: '24'
         registry-url: 'https://registry.npmjs.org/'
+        package-manager-cache: false
+
+    - name: Pin npm
+      working-directory: ${{ runner.temp }}
+      run: npm install -g npm@${{ env.NPM_VERSION }}
 
     - name: Configure git
       run: |
