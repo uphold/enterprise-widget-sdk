@@ -72,6 +72,14 @@ function ProcessSelectionScreen({ onLaunch }: { onLaunch: (processes: KycWidgetP
           />
           Customer Due Diligence
         </label>
+        <label>
+          <input
+            checked={selectedProcesses.includes('tax-details')}
+            onChange={() => toggleProcess('tax-details')}
+            type="checkbox"
+          />
+          Tax Details
+        </label>
       </div>
       <button className="action-button" onClick={() => onLaunch(selectedProcesses)}>
         Launch KYC Widget
