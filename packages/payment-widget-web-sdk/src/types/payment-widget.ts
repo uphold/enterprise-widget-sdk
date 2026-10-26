@@ -7,6 +7,7 @@ import type {
   AccountDepositMethod,
   AccountDepositMethodSelection,
   AuthorizeResult,
+  AuthorizeTriggerReason,
   PaymentWidgetOptions as BasePaymentWidgetOptions,
   DepositSelection,
   ExternalAccount,
@@ -34,6 +35,7 @@ export type {
   AccountDepositMethod,
   AccountDepositMethodSelection,
   AuthorizeResult,
+  AuthorizeTriggerReason,
   DepositSelection,
   ExternalAccount,
   ExternalAccountSelection,
@@ -94,7 +96,7 @@ type DeprecatedPaymentWidgetOptions = {
   paymentMethods?: BasePaymentWidgetOptions['paymentMethods'];
 };
 
-type SessionOnlyPaymentWidgetOptions = Pick<
+export type SessionOnlyPaymentWidgetOptions = Pick<
   BasePaymentWidgetOptions,
   'amountSuggestions' | 'availableAssets' | 'fees' | 'initialSelection'
 >;

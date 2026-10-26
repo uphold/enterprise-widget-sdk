@@ -10,7 +10,8 @@ import {
   type PaymentWidgetCompleteEvent,
   type PaymentWidgetErrorEvent,
   type PaymentWidgetFlow,
-  type PaymentWidgetOptions
+  type PaymentWidgetOptions,
+  type SessionOnlyPaymentWidgetOptions
 } from '@uphold/enterprise-payment-widget-web-sdk';
 import { useCreatePaymentSession } from '../../shared/react/payment-widget-session';
 import { useEffect, useMemo, useState } from 'react';
@@ -24,6 +25,7 @@ type FlowButton = {
   label: string;
   flow: PaymentWidgetFlow;
   options?: PaymentWidgetOptions;
+  sessionOptions?: SessionOnlyPaymentWidgetOptions;
 };
 
 const DEFAULT_WIDGET_OPTIONS: PaymentWidgetOptions = {
@@ -39,13 +41,13 @@ const FLOW_BUTTONS: FlowButton[] = [
   {
     flow: 'deposit',
     label: 'E2E Deposit (w/ asset opt)',
-    options: {
+    sessionOptions: {
       amountSuggestions: {
         EUR: [25, 50, 100, 150],
         GBP: [25, 50, 100, 150],
         USD: [25, 50, 100, 150]
       },
-      availableAssets: { include: ['GBP', 'BTC', 'XRP'] },
+      // availableAssets: { include: ['GBP', 'USD', 'BTC', 'XRP'] },
       fees: { display: 'total' },
       initialSelection: {
         destination: { asset: 'BTC' }
@@ -56,13 +58,13 @@ const FLOW_BUTTONS: FlowButton[] = [
   {
     flow: 'deposit',
     label: 'E2E Deposit (w/ accountId opt)',
-    options: {
+    sessionOptions: {
       amountSuggestions: {
         EUR: [25, 50, 100, 150],
         GBP: [25, 50, 100, 150],
         USD: [25, 50, 100, 150]
       },
-      availableAssets: { include: ['GBP', 'BTC', 'XRP'] },
+      // availableAssets: { include: ['GBP', 'USD', 'BTC', 'XRP'] },
       fees: { display: 'breakdown' },
       initialSelection: {
         destination: { accountId: 'c83373fd-a0ec-41be-9d9f-37a04370bb69' }
@@ -72,7 +74,7 @@ const FLOW_BUTTONS: FlowButton[] = [
   {
     flow: 'withdrawal',
     label: 'E2E Withdraw (w/ accountId opt)',
-    options: {
+    sessionOptions: {
       amountSuggestions: {
         EUR: [25, 50, 100, 150],
         GBP: [25, 50, 100, 150],
@@ -109,14 +111,15 @@ export default function PaymentWidget() {
   const [selectedOptions, setSelectedOptions] = useState<PaymentWidgetOptions>();
   const { error: loadFlowDataError, isLoading: isLoadingFlowData, loadFlowData } = useFlowData();
 
-  const onFlowButtonClick = (flow: PaymentWidgetFlow, options?: PaymentWidgetOptions) => {
+  const onFlowButtonClick = ({ flow, options, sessionOptions }: FlowButton) => {
     const load = async () => {
       const data = await loadFlowData(flow);
 
       setSelectedOptions(options);
       setCreatePaymentSessionData({
         data,
-        flow
+        flow,
+        options: sessionOptions
       });
     };
 
@@ -210,11 +213,7 @@ export default function PaymentWidget() {
         <div className="button-container">
           <p className="select-flow-text">Select flow:</p>
           {FLOW_BUTTONS.map((button, index) => (
-            <button
-              key={`${button.flow}-${index}`}
-              className="action-button"
-              onClick={() => onFlowButtonClick(button.flow, button.options)}
-            >
+            <button key={`${button.flow}-${index}`} className="action-button" onClick={() => onFlowButtonClick(button)}>
               {button.label}
             </button>
           ))}
