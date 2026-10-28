@@ -203,9 +203,9 @@ export const FLOW_BUTTONS: FlowButton[] = [
 
   // Transaction flows (the `<context>:<action>` names of `select-for-deposit`, `select-for-withdrawal` and
   // `authorize`).
-  { flow: 'transaction:select-deposit-origin', label: 'Select Deposit Origin' },
-  { flow: 'transaction:select-withdrawal-destination', label: 'Select Withdrawal Destination' },
-  { flow: 'transaction:authorize', label: 'Authorize', methods: TRANSACTION_AUTHORIZE_METHODS },
+  { flow: 'select-deposit-origin', label: 'Select Deposit Origin' },
+  { flow: 'select-withdrawal-destination', label: 'Select Withdrawal Destination' },
+  { flow: 'authorize', label: 'Authorize', methods: TRANSACTION_AUTHORIZE_METHODS },
 
   // Order flows.
   { flow: 'on-ramp:select-deposit-origin', label: 'Select Deposit Origin' },

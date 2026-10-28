@@ -4,13 +4,13 @@
 
 import type { PaymentWidgetFlow } from '@uphold/enterprise-payment-widget-web-sdk';
 import type { PaymentWidgetOptions } from '@uphold/enterprise-widget-messaging-types';
-import { config } from '../../../../config';
+import { getEnterpriseApi } from '../../user/active-environment';
 
 /**
  * Configs.
  */
 
-const widgetsApiBaseUrl = config.enterpriseApi.apis.widgets.baseUrl;
+const getWidgetsApiBaseUrl = () => getEnterpriseApi().apis.widgets.baseUrl;
 
 /**
  * Exports.
@@ -32,7 +32,7 @@ export const createPaymentSession = async (
   createPaymentSessionData: CreatePaymentSessionData,
   options: CreatePaymentSessionOptions
 ) => {
-  const response = await fetch(`${widgetsApiBaseUrl}/payment/sessions`, {
+  const response = await fetch(`${getWidgetsApiBaseUrl()}/payment/sessions`, {
     body: JSON.stringify({
       ...createPaymentSessionData
     }),

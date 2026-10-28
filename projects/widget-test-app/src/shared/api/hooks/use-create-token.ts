@@ -10,7 +10,12 @@ import { useState } from 'react';
  * Exports.
  */
 
-export const useCreateToken = () => {
+export type EnterpriseApi = {
+  apis: { core: { baseUrl: string } };
+  authentication: { clientId: string; clientSecret: string };
+};
+
+export const useCreateToken = (enterpriseApi: EnterpriseApi = config.enterpriseApi) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -20,9 +25,9 @@ export const useCreateToken = () => {
 
     try {
       if (!createTokenData) {
-        const { clientId, clientSecret } = config.enterpriseApi.authentication;
+        const { clientId, clientSecret } = enterpriseApi.authentication;
 
-        createTokenData = { clientId, clientSecret };
+        createTokenData = { clientId, clientSecret, coreApiBaseUrl: enterpriseApi.apis.core.baseUrl };
       }
 
       return await createTokenRequest(createTokenData as CreateTokenData);

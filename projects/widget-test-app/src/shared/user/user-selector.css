@@ -1,0 +1,26 @@
+.user-selector {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-selector select,
+.user-selector-copy {
+  font-size: 13px;
+  padding: 2px 6px;
+}
+
+.user-selector-copy {
+  cursor: pointer;
+}

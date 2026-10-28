@@ -29,7 +29,17 @@ To test the Payment Widget Web SDK in the browser, follow these steps:
 Copy the `config.sample.ts` file to `config.ts` and set the required values for the flow you want to test. Check the comments of that file for more information.
 
 > [!NOTE]
-> Except for `paymentWidgetSession.urlOverride`, all other values are required.
+> Except for the `environments.<env>.widgets.payment.session.urlOverride` and `widgets.<widget>.session.urlOverride` values, all other values are required.
+
+#### Environments and users
+
+Define every environment you want to test against under `environments` (e.g. `connectivity`, `enterprise`), each with its own `enterpriseApi` and `users`. `defaultEnvironment` picks the environment used when none is selected.
+
+Inside each environment, define every user you want to test with under `users`, each with its `id`, `fiatAsset` and the `accounts` (asset code → account id) used by the flows. `defaultUser` picks the user used when none is selected.
+
+Switch environments and users with the selectors at the top right of the app. Only the users of the selected environment are listed. The choices are remembered across reloads (the user per environment), and the `?env=<key>` and `?user=<key>` query params override them, so you can keep tabs open with different environments and users at the same time.
+
+Environments and users only apply to the payment widget. The kyc and travel rule widgets keep using the top-level `enterpriseApi` and `widgets.<widget>.session` values.
 
 #### Setup authorize flow (optional)
 
@@ -37,7 +47,7 @@ If you want to test the `authorize` flow, you need to configure the create quote
 
 #### Start the payment widget project (optional)
 
-If you want to run the payment widget project locally, start it and ensure it is listening at the URL specified by the `paymentWidgetSession.urlOverride` property in `config.ts` file.
+If you want to run the payment widget project locally, start it and ensure it is listening at the URL specified by the `environments.<env>.widgets.payment.session.urlOverride` property in `config.ts` file, and that it is running against the same environment's API (sessions only exist in the environment that created them).
 
 #### Start the Widget Test App
 

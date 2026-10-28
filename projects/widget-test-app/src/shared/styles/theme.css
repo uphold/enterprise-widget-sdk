@@ -1009,8 +1009,7 @@ details.error-details > div {
 
 /*
  * With a widget mounted, the header of the payment widget page slides out of view, to leave all the room to the widget.
- * It slides back in over the widget when hovering the tab that stays visible (or when it has the focus), without
- * moving the widget.
+ * It slides back in over the widget when clicking the tab that stays visible, without moving the widget.
  */
 .payment-widget-container:has(> .widget-container:not(:empty)) {
   position: relative;
@@ -1031,15 +1030,18 @@ details.error-details > div {
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   box-shadow: var(--shadow-lg);
   transform: translateY(-100%);
-  /* The delay keeps the header from sliding out the moment the pointer leaves it. */
-  transition: transform 0.25s ease 0.25s;
+  transition: transform 0.25s ease;
 }
 
-.payment-widget-container:has(> .widget-container:not(:empty)) > .page-header::after {
-  content: '▾  Navigation';
+.page-header-toggle {
+  display: none;
+}
+
+.payment-widget-container:has(> .widget-container:not(:empty)) > .page-header > .page-header-toggle {
+  display: block;
   position: absolute;
   top: 100%;
-  left: 50%;
+  /* left: 50%; */
   padding: 3px 14px;
   font-size: 12px;
   font-weight: 600;
@@ -1049,18 +1051,12 @@ details.error-details > div {
   border: 1px solid var(--border);
   border-top: 0;
   border-radius: 0 0 10px 10px;
-  transform: translateX(-50%);
+  cursor: pointer;
+  /* transform: translateX(-50%); */
 }
 
-.payment-widget-container:has(> .widget-container:not(:empty)) > .page-header:hover,
-.payment-widget-container:has(> .widget-container:not(:empty)) > .page-header:focus-within {
+.payment-widget-container:has(> .widget-container:not(:empty)) > .page-header.is-open {
   transform: translateY(0);
-  transition-delay: 0s;
-}
-
-.payment-widget-container:has(> .widget-container:not(:empty)) > .page-header:hover::after,
-.payment-widget-container:has(> .widget-container:not(:empty)) > .page-header:focus-within::after {
-  content: '▴  Navigation';
 }
 
 .widget-container iframe {

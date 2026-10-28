@@ -3,25 +3,34 @@
  */
 
 import { type CreateQuoteData, createQuote } from '../requests/create-quote';
+import { type EnterpriseApi, useCreateToken } from './use-create-token';
 import { config } from '../../../../config';
-import { useCreateToken } from './use-create-token';
 import { useState } from 'react';
 
 /**
  * Configs.
  */
 
-const { onBehalfOf } = config.enterpriseApi.authentication;
+const defaultOnBehalfOf = config.enterpriseApi.authentication.onBehalfOf;
 
 /**
  * Exports.
  */
 
-export const useCreateQuote = () => {
+type UseCreateQuoteOptions = {
+  // Defaults to `config.enterpriseApi`.
+  enterpriseApi?: EnterpriseApi;
+  onBehalfOf?: string;
+};
+
+export const useCreateQuote = ({
+  enterpriseApi = config.enterpriseApi,
+  onBehalfOf = defaultOnBehalfOf
+}: UseCreateQuoteOptions = {}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const { createToken } = useCreateToken();
+  const { createToken } = useCreateToken(enterpriseApi);
 
   const doCreateQuote = async (createQuoteData: CreateQuoteData) => {
     setIsLoading(true);
@@ -32,6 +41,7 @@ export const useCreateQuote = () => {
 
       const quote = await createQuote(createQuoteData, {
         accessToken: token.access_token,
+        coreApiBaseUrl: enterpriseApi.apis.core.baseUrl,
         onBehalfOf
       });
 

@@ -4,16 +4,9 @@
 
 import { type CreatePaymentSessionData, createPaymentSession } from '../../api/requests';
 import type { PaymentWidgetSession } from '@uphold/enterprise-payment-widget-web-sdk';
-import { config } from '../../../../config';
+import { getEnterpriseApi, getOnBehalfOf, getWidgetSessionUrlOverride } from '../../user';
 import { useCreateToken } from '../../api';
 import { useEffect, useState } from 'react';
-
-/**
- * Configs.
- */
-
-const { onBehalfOf } = config.enterpriseApi.authentication;
-const paymentSessionUrlOverride = config.widgets.payment.session.urlOverride;
 
 /**
  * Exports.
@@ -24,7 +17,7 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const { createToken } = useCreateToken();
+  const { createToken } = useCreateToken(getEnterpriseApi());
 
   useEffect(() => {
     async function start() {
@@ -48,8 +41,8 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
 
         const paymentSession = await createPaymentSession(createPaymentSessionData, {
           accessToken: token.access_token,
-          onBehalfOf,
-          paymentSessionUrlOverride
+          onBehalfOf: getOnBehalfOf(),
+          paymentSessionUrlOverride: getWidgetSessionUrlOverride('payment')
         });
 
         setPaymentSession(paymentSession);

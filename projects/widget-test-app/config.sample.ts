@@ -3,6 +3,10 @@
  */
 
 export const config = {
+  // Key of the environment selected when none was picked in the UI (or via the `?env=<key>` query param). (required)
+  defaultEnvironment: 'connectivity',
+
+  // API used by the kyc and travel rule widgets, which don't follow the environment selector.
   enterpriseApi: {
     apis: {
       core: {
@@ -25,6 +29,99 @@ export const config = {
       clientSecret: '<client_secret>',
       // Value used for the header `X-On-Behalf-Of` in requests that require it. (required)
       onBehalfOf: 'user <user_id>'
+    }
+  },
+
+  // Environments you can switch between using the selector at the top right of the app. (required)
+  // Each environment has its own API, credentials and users.
+  environments: {
+    connectivity: {
+      // Key of the user selected when none was picked in the UI (or via the `?user=<key>` query param). (required)
+      defaultUser: 'us-1',
+      enterpriseApi: {
+        apis: {
+          core: {
+            // Base url for the enterprise `core` API. (required)
+            baseUrl: '<core_api_base_url>'
+          },
+          widgets: {
+            // Base url for the enterprise `widgets` API. (required)
+            baseUrl: '<widgets_api_base_url>'
+          }
+        },
+        authentication: {
+          // Client ID used for authenticating against the API. (required)
+          clientId: '<client_id>',
+          // Corresponding client secret in plain-text. (required)
+          clientSecret: '<client_secret>'
+        }
+      },
+      // Label shown in the environment selector.
+      label: 'Connectivity',
+      // Users of this environment. (required)
+      // The selected user is sent in the `X-On-Behalf-Of` header and its accounts are used by the flows.
+      users: {
+        'gb-1': {
+          // Account ids keyed by asset code.
+          accounts: {
+            BTC: '<btc_account_id>',
+            GBP: '<gbp_account_id>'
+          },
+          // Main fiat asset of the user, used to pick its fiat account.
+          fiatAsset: 'GBP',
+          // User id.
+          id: '<user_id>',
+          // Label shown in the user selector.
+          label: 'GB #1'
+        },
+
+        'us-1': {
+          accounts: {
+            BTC: '<btc_account_id>',
+            USD: '<usd_account_id>'
+          },
+          fiatAsset: 'USD',
+          id: '<user_id>',
+          label: 'US #1'
+        }
+      },
+      // Widget settings of this environment. (optional)
+      widgets: {
+        payment: {
+          session: {
+            // URL to override the response url from the payment widget session.
+            // required when you want to test the payment widget locally.
+            // The local widget must be running against this environment's API, as the session only exists here.
+            // Uncomment the line below to override the payment widget session's url
+            // to point to the local payment widget.
+            // urlOverride: 'http://localhost:8788'
+          }
+        }
+      }
+    },
+    enterprise: {
+      defaultUser: 'gb-1',
+      enterpriseApi: {
+        apis: {
+          core: { baseUrl: '<core_api_base_url>' },
+          widgets: { baseUrl: '<widgets_api_base_url>' }
+        },
+        authentication: {
+          clientId: '<client_id>',
+          clientSecret: '<client_secret>'
+        }
+      },
+      label: 'Enterprise',
+      users: {
+        'gb-1': {
+          accounts: {
+            GBP: '<gbp_account_id>'
+          },
+          fiatAsset: 'GBP',
+          id: '<user_id>',
+          label: 'GB #1'
+        }
+      }
     }
   },
   widgets: {
@@ -60,21 +157,22 @@ export const config = {
         },
         authorize: {
           // Body for the create quote request used in `authorize` flow. (Optional when flow is not `authorize`)
-          createQuoteBody: {
+          // Can be a static body or a function receiving the selected user.
+          createQuoteBody: user => ({
             denomination: {
               amount: '10',
-              asset: 'XRP',
+              asset: user.fiatAsset,
               target: 'origin'
             },
             destination: {
-              id: '<account_id>',
+              id: user.accounts[user.fiatAsset],
               type: 'account'
             },
             origin: {
               id: '<external_account_id>',
               type: 'external_account'
             }
-          }
+          })
         },
         'google-pay-authorize': {
           // Body for the create quote request used in the `authorize` flow with a Google Pay origin.
@@ -223,13 +321,6 @@ export const config = {
             }
           }
         }
-      },
-      session: {
-        // URL to override the response url from the payment widget session.
-        // required when you want to test the payment widget locally.
-        // Uncomment the line below to override the payment widget session's url
-        // to point to the local payment widget.
-        // urlOverride: 'http://localhost:8788'
       }
     },
     travelRule: {

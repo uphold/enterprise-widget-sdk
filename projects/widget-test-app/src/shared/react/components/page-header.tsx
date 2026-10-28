@@ -3,7 +3,7 @@
  */
 
 import { Link } from 'react-router';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 
 /**
  * Types.
@@ -40,8 +40,35 @@ export function PageHeader({
   subtitle,
   title
 }: PageHeaderProps) {
+  // Only used when a widget is mounted, where the header is hidden behind a tab that toggles it.
+  const [isOpen, setIsOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Closes the header when clicking outside of it. Clicks inside the widget iframe don't reach the document, but
+  // they blur the window, so that closes it too.
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const close = () => setIsOpen(false);
+    const onPointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        close();
+      }
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('blur', close);
+
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('blur', close);
+    };
+  }, [isOpen]);
+
   return (
-    <header className="page-header">
+    <header ref={headerRef} className={isOpen ? 'page-header is-open' : 'page-header'}>
       <div className="page-header-top">
         <span className="brand">
           <span aria-hidden className="brand-mark">
@@ -83,6 +110,14 @@ export function PageHeader({
       )}
       <h1 className="page-title">{title}</h1>
       {subtitle && <p className="page-subtitle">{subtitle}</p>}
+      <button
+        aria-expanded={isOpen}
+        className="page-header-toggle"
+        onClick={() => setIsOpen(current => !current)}
+        type="button"
+      >
+        {isOpen ? '▴  Navigation' : '▾  Navigation'}
+      </button>
     </header>
   );
 }

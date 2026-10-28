@@ -10,6 +10,13 @@ import { FlowSections } from './components/flow-sections';
 import { type LastEvent, LastEventDetails } from './components/last-event';
 import { OptionTags } from './components/option-tags';
 import type { PaymentWidgetOptions } from '@uphold/enterprise-payment-widget-web-sdk';
+import {
+  UserSelector,
+  getActiveEnvironmentKey,
+  getActiveUserKey,
+  setActiveEnvironmentKey,
+  setActiveUserKey
+} from '../../shared/user';
 import { summarizeOptions } from './options/options-summary';
 import { useAppearance } from './hooks/use-appearance';
 import { useCreatePaymentSession } from '../../shared/react/payment-widget-session';
@@ -65,10 +72,10 @@ const buildBreadcrumbs = ({
 };
 
 /**
- * Export component.
+ * Payment widget content, remounted whenever the active user changes.
  */
 
-export default function PaymentWidget() {
+function PaymentWidgetContent() {
   const [createPaymentSessionData, setCreatePaymentSessionData] = useState<CreatePaymentSessionData>();
   // The options the widget is created with, which are the ones of the launched flow.
   const [selectedOptions, setSelectedOptions] = useState<PaymentWidgetOptions>();
@@ -210,5 +217,39 @@ export default function PaymentWidget() {
 
       <div id="root" className="widget-container"></div>
     </div>
+  );
+}
+
+/**
+ * Export component.
+ */
+
+export default function PaymentWidget() {
+  const [activeEnvironmentKey, setActiveEnvironmentKeyState] = useState(getActiveEnvironmentKey);
+  const [activeUserKey, setActiveUserKeyState] = useState(getActiveUserKey);
+
+  const onEnvironmentChange = (key: string) => {
+    setActiveEnvironmentKey(key);
+    setActiveEnvironmentKeyState(key);
+    // Users are scoped to an environment, so pick the one remembered (or default) for the new environment.
+    setActiveUserKeyState(getActiveUserKey());
+  };
+
+  const onUserChange = (key: string) => {
+    setActiveUserKey(key);
+    setActiveUserKeyState(key);
+  };
+
+  // Keying the content discards any session or widget created for the previous environment or user.
+  return (
+    <>
+      <UserSelector
+        environment={activeEnvironmentKey}
+        value={activeUserKey}
+        onChange={onUserChange}
+        onEnvironmentChange={onEnvironmentChange}
+      />
+      <PaymentWidgetContent key={`${activeEnvironmentKey}:${activeUserKey}`} />
+    </>
   );
 }

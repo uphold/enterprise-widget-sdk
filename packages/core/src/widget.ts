@@ -116,7 +116,7 @@ class Widget<
   }
 
   protected getIframeAllowAttribute(): string {
-    return "clipboard-write 'src'; clipboard-read 'src';";
+    return "clipboard-write 'src'; clipboard-read 'src';  web-share 'src'; camera 'src'";
   }
 
   unmount() {

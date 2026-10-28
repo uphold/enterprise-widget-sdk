@@ -8,7 +8,7 @@ import { config } from '../../../../config';
  * Configs.
  */
 
-const coreApiBaseUrl = config.enterpriseApi.apis.core.baseUrl;
+const defaultCoreApiBaseUrl = config.enterpriseApi.apis.core.baseUrl;
 
 /**
  * Exports.
@@ -17,9 +17,15 @@ const coreApiBaseUrl = config.enterpriseApi.apis.core.baseUrl;
 export type CreateTokenData = {
   clientId: string;
   clientSecret: string;
+  // Defaults to `config.enterpriseApi.apis.core.baseUrl`.
+  coreApiBaseUrl?: string;
 };
 
-export const createToken = async ({ clientId, clientSecret }: CreateTokenData) => {
+export const createToken = async ({
+  clientId,
+  clientSecret,
+  coreApiBaseUrl = defaultCoreApiBaseUrl
+}: CreateTokenData) => {
   const credentials = btoa(`${clientId}:${clientSecret}`);
 
   const response = await fetch(`${coreApiBaseUrl}/oauth2/token`, {

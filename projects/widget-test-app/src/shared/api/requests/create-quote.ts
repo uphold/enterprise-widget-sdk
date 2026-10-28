@@ -8,7 +8,7 @@ import { config } from '../../../../config';
  * Configs.
  */
 
-const coreApiBaseUrl = config.enterpriseApi.apis.core.baseUrl;
+const defaultCoreApiBaseUrl = config.enterpriseApi.apis.core.baseUrl;
 
 /**
  * Exports.
@@ -16,6 +16,8 @@ const coreApiBaseUrl = config.enterpriseApi.apis.core.baseUrl;
 
 export type CreateQuoteOptions = {
   accessToken: string;
+  // Defaults to `config.enterpriseApi.apis.core.baseUrl`.
+  coreApiBaseUrl?: string;
   onBehalfOf?: string;
 };
 
@@ -48,7 +50,7 @@ export type CreateQuoteData = {
 };
 
 export const createQuote = async (createQuoteData: CreateQuoteData, options: CreateQuoteOptions) => {
-  const response = await fetch(`${coreApiBaseUrl}/transactions/quote`, {
+  const response = await fetch(`${options.coreApiBaseUrl ?? defaultCoreApiBaseUrl}/transactions/quote`, {
     body: JSON.stringify({
       ...createQuoteData
     }),

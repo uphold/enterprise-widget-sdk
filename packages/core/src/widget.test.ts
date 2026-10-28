@@ -148,7 +148,9 @@ describe('Widget', () => {
 
     widget.mountIframe(element);
 
-    expect(element.querySelector('iframe')?.getAttribute('allow')).toBe("clipboard-write 'src'; clipboard-read 'src';");
+    expect(element.querySelector('iframe')?.getAttribute('allow')).toBe(
+      "clipboard-write 'src'; clipboard-read 'src'; payment 'src'; web-share 'src'; camera 'src'"
+    );
   });
 
   it('should mount an iframe and start event listeners', () => {

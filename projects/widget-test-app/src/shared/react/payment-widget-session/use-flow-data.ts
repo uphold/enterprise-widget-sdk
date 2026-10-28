@@ -2,9 +2,10 @@
  * Module dependencies.
  */
 
-import { type CreateOrderQuoteData, type CreateQuoteData, useCreateOrderQuote, useCreateQuote } from '../../api';
+import { type CreateOrderQuoteData, useCreateOrderQuote, useCreateQuote } from '../../api';
 import type { PaymentWidgetFlow } from '@uphold/enterprise-payment-widget-web-sdk';
-import { config } from '../../../../config';
+import { type QuoteBodyConfig, config } from '../../../../config';
+import { getEnterpriseApi, getOnBehalfOf, resolveQuoteBody } from '../../user';
 
 /**
  * Types.
@@ -50,7 +51,15 @@ const getCreateQuoteBody = <T>(key: QuoteConfigKey) => {
  */
 
 export const useFlowData = () => {
-  const { createQuote, error: createQuoteError, isLoading: isCreatingQuote, reset: resetQuote } = useCreateQuote();
+  const {
+    createQuote,
+    error: createQuoteError,
+    isLoading: isCreatingQuote,
+    reset: resetQuote
+  } = useCreateQuote({
+    enterpriseApi: getEnterpriseApi(),
+    onBehalfOf: getOnBehalfOf()
+  });
   const {
     createOrderQuote,
     error: createOrderQuoteError,
@@ -79,7 +88,7 @@ export const useFlowData = () => {
     }
 
     const { id: quoteId, requirements } = await createQuote(
-      getCreateQuoteBody<CreateQuoteData>(quoteConfigKey ?? 'authorize')
+      resolveQuoteBody(getCreateQuoteBody<QuoteBodyConfig>(quoteConfigKey ?? 'authorize'))
     );
 
     return {
