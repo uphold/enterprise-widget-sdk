@@ -28,7 +28,15 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
 
   useEffect(() => {
     async function start() {
-      if (paymentSession || !createPaymentSessionData || error || isLoading) {
+      // Going back to the flow list clears the data, which makes the next flow start from scratch.
+      if (!createPaymentSessionData) {
+        setPaymentSession(undefined);
+        setError(null);
+
+        return;
+      }
+
+      if (paymentSession || error || isLoading) {
         return;
       }
 
