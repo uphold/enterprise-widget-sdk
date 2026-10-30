@@ -27,8 +27,20 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
   const { createToken } = useCreateToken();
 
   useEffect(() => {
+    // Set when the data changes before the session is created, so the result of that creation is dropped.
+    let ignore = false;
+
     async function start() {
-      if (paymentSession || !createPaymentSessionData || error || isLoading) {
+      // Going back to the flow list clears the data, which makes the next flow start from scratch.
+      if (!createPaymentSessionData) {
+        setPaymentSession(undefined);
+        setError(null);
+        setIsLoading(false);
+
+        return;
+      }
+
+      if (paymentSession || error || isLoading) {
         return;
       }
 
@@ -44,15 +56,25 @@ export const useCreatePaymentSession = (createPaymentSessionData?: CreatePayment
           paymentSessionUrlOverride
         });
 
-        setPaymentSession(paymentSession);
+        if (!ignore) {
+          setPaymentSession(paymentSession);
+        }
       } catch (e) {
-        setError(e as Error);
+        if (!ignore) {
+          setError(e as Error);
+        }
       } finally {
-        setIsLoading(false);
+        if (!ignore) {
+          setIsLoading(false);
+        }
       }
     }
 
     start();
+
+    return () => {
+      ignore = true;
+    };
   }, [createPaymentSessionData]);
 
   return {

@@ -5,13 +5,21 @@
  * Module dependencies.
  */
 
-import type { PaymentWidgetEvent, PaymentWidgetOptions } from './types/index.js';
 import type {
+  DeprecatedPaymentWidgetFlow,
   PaymentWidgetFlow,
   PaymentWidgetMessageEvent,
   PaymentWidgetSession
 } from '@uphold/enterprise-widget-messaging-types';
+import type { PaymentWidgetEvent, PaymentWidgetOptions } from './types/index.js';
 import { Widget, type WidgetMountIframeOptions, logSymbol } from '@uphold/enterprise-widget-sdk-core';
+
+/**
+ * Types.
+ */
+
+// Wrapped in a tuple so the default `PaymentWidgetFlow` union, which includes the deprecated flows, is not deprecated.
+type IsDeprecatedFlow<TFlow extends PaymentWidgetFlow> = [TFlow] extends [DeprecatedPaymentWidgetFlow] ? true : false;
 
 /**
  * The `PaymentWidget` class provides an interface for embedding and interacting with
@@ -122,6 +130,34 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
    * `theme`, `layout` and `authorize.mode` here to avoid a brief change in appearance while the Widget loads the
    * session. Passing `paymentMethods` or `maxAccountsPerAsset` here is deprecated.
    */
+  constructor(
+    session: IsDeprecatedFlow<TFlow> extends true ? never : PaymentWidgetSession,
+    options?: PaymentWidgetOptions
+  );
+
+  /**
+   * Creates a new instance of a Payment Widget for a deprecated flow.
+   *
+   * @param session The session object containing the configuration details for the widget.
+   * @param options The widget options containing configurable widget properties.
+   * @deprecated The `select-for-deposit`, `select-for-withdrawal` and `authorize` flows are deprecated. Use
+   * `transaction:select-deposit-origin`, `transaction:select-withdrawal-destination` and `transaction:authorize`
+   * instead, both in the session and as the type of the widget.
+   */
+  constructor(
+    session: IsDeprecatedFlow<TFlow> extends true ? PaymentWidgetSession : never,
+    options?: PaymentWidgetOptions
+  );
+
+  /**
+   * Creates a new instance of a Payment Widget for a flow that is only known at runtime, such as a generic type
+   * parameter. The flow-specific overloads above take precedence whenever the flow is known.
+   *
+   * @param session The session object containing the configuration details for the widget.
+   * @param options The widget options containing configurable widget properties.
+   */
+  constructor(session: PaymentWidgetSession, options?: PaymentWidgetOptions);
+
   constructor(session: PaymentWidgetSession, options?: PaymentWidgetOptions) {
     super(session, options);
 

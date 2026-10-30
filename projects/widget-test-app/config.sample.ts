@@ -9,6 +9,10 @@ export const config = {
         // Base url for the enterprise `core` API. (required)
         baseUrl: '<core_api_base_url>'
       },
+      onOffRamp: {
+        // Base url for the enterprise `on-off-ramp` API. (required for the `order:authorize-deposit` flow)
+        baseUrl: '<on_off_ramp_api_base_url>'
+      },
       widgets: {
         // Base url for the enterprise `widgets` API. (required)
         baseUrl: '<widgets_api_base_url>'
@@ -35,6 +39,25 @@ export const config = {
     },
     payment: {
       flows: {
+        'apple-pay-authorize': {
+          // Body for the create quote request used in the `authorize` flow with an Apple Pay origin.
+          // The widget fetches the payment sheet of the quote by itself.
+          createQuoteBody: {
+            denomination: {
+              amount: '50',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              id: '<account_id>',
+              type: 'account'
+            },
+            origin: {
+              method: 'apple-pay',
+              type: 'apm'
+            }
+          }
+        },
         authorize: {
           // Body for the create quote request used in `authorize` flow. (Optional when flow is not `authorize`)
           createQuoteBody: {
@@ -51,6 +74,111 @@ export const config = {
               id: '<external_account_id>',
               type: 'external_account'
             }
+          }
+        },
+        'google-pay-authorize': {
+          // Body for the create quote request used in the `authorize` flow with a Google Pay origin.
+          // The widget fetches the payment sheet of the quote by itself.
+          createQuoteBody: {
+            denomination: {
+              amount: '50',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              id: '<account_id>',
+              type: 'account'
+            },
+            origin: {
+              method: 'google-pay',
+              type: 'apm'
+            }
+          }
+        },
+        'order-authorize-deposit-apple-pay': {
+          // Body for the create order quote request used in the `order:authorize-deposit` flow, with an Apple Pay origin.
+          createQuoteBody: {
+            denomination: {
+              amount: '100',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              address: '<crypto_address>',
+              asset: 'XRP',
+              network: 'xrp-ledger',
+              type: 'crypto-address'
+            },
+            origin: {
+              method: 'apple-pay',
+              type: 'apm'
+            },
+            type: 'on-ramp'
+          }
+        },
+        'order-authorize-deposit-card': {
+          // Body for the create order quote request used in the `order:authorize-deposit` flow, with a card origin.
+          // The card must be an external account of the user.
+          createQuoteBody: {
+            denomination: {
+              amount: '100',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              address: '<crypto_address>',
+              asset: 'XRP',
+              network: 'xrp-ledger',
+              type: 'crypto-address'
+            },
+            origin: {
+              id: '<card_external_account_id>',
+              type: 'external-account'
+            },
+            type: 'on-ramp'
+          }
+        },
+        'order-authorize-deposit-google-pay': {
+          // Body for the create order quote request used in the `order:authorize-deposit` flow, with a Google Pay origin.
+          createQuoteBody: {
+            denomination: {
+              amount: '100',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              address: '<crypto_address>',
+              asset: 'XRP',
+              network: 'xrp-ledger',
+              type: 'crypto-address'
+            },
+            origin: {
+              method: 'google-pay',
+              type: 'apm'
+            },
+            type: 'on-ramp'
+          }
+        },
+        'order-authorize-deposit-paypal': {
+          // Body for the create order quote request used in the `order:authorize-deposit` flow, with a PayPal origin.
+          // Change `method` to test the other alternative payment methods (`venmo`, `apple-pay`, `google-pay`).
+          createQuoteBody: {
+            denomination: {
+              amount: '100',
+              asset: 'USD',
+              target: 'origin'
+            },
+            destination: {
+              address: '<crypto_address>',
+              asset: 'XRP',
+              network: 'xrp-ledger',
+              type: 'crypto-address'
+            },
+            origin: {
+              method: 'paypal',
+              type: 'apm'
+            },
+            type: 'on-ramp'
           }
         },
         'paypal-authorize': {
