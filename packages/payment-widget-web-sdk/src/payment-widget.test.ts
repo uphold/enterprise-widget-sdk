@@ -31,6 +31,14 @@ describe('PaymentWidget', () => {
     expect(widget.options?.debug).toBe(true);
   });
 
+  it('should initialize with both the deprecated and the new flow names', () => {
+    const deprecatedWidget = new PaymentWidget<'authorize'>(session);
+    const widget = new PaymentWidget<'transaction:authorize'>(session);
+
+    expect(deprecatedWidget.session).toEqual(session);
+    expect(widget.session).toEqual(session);
+  });
+
   it('should log debug messages when debug mode is enabled', () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 

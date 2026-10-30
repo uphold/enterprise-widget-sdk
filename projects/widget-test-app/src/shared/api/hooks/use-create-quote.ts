@@ -5,7 +5,7 @@
 import { type CreateQuoteData, createQuote } from '../requests/create-quote';
 import { config } from '../../../../config';
 import { useCreateToken } from './use-create-token';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 /**
  * Configs.
@@ -22,8 +22,13 @@ export const useCreateQuote = () => {
   const [error, setError] = useState<Error | null>(null);
 
   const { createToken } = useCreateToken();
+  // Bumped on reset, so a request still in flight at that point does not update the state once it settles.
+  const requestIdRef = useRef(0);
 
   const doCreateQuote = async (createQuoteData: CreateQuoteData) => {
+    const requestId = ++requestIdRef.current;
+    const isCurrent = () => requestId === requestIdRef.current;
+
     setIsLoading(true);
     setError(null);
 
@@ -37,17 +42,26 @@ export const useCreateQuote = () => {
 
       return quote;
     } catch (e) {
-      setError(e as Error);
+      if (isCurrent()) {
+        setError(e as Error);
+      }
 
       throw e;
     } finally {
-      setIsLoading(false);
+      if (isCurrent()) {
+        setIsLoading(false);
+      }
     }
   };
 
   return {
     createQuote: doCreateQuote,
     error,
-    isLoading
+    isLoading,
+    reset: () => {
+      requestIdRef.current += 1;
+      setError(null);
+      setIsLoading(false);
+    }
   };
 };

@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 
+import './shared/styles/theme.css';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse } from 'react-router';
 import { type ReactNode } from 'react';
 import type { Route } from './+types/root';
