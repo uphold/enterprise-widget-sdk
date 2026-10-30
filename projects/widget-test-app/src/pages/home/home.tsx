@@ -2,8 +2,44 @@
  * Module dependencies.
  */
 
-import './home.css';
 import { Link } from 'react-router';
+import { PageHeader } from '../../shared/react/components';
+
+/**
+ * Types.
+ */
+
+type WidgetLink = {
+  description: string;
+  icon: string;
+  label: string;
+  to: string;
+};
+
+/**
+ * Constants.
+ */
+
+const WIDGET_LINKS: WidgetLink[] = [
+  {
+    description: 'Select payment methods and authorize transactions and on/off-ramp orders.',
+    icon: '💳',
+    label: 'Payment Widget',
+    to: '/payment-widget'
+  },
+  {
+    description: 'Collect and verify the information required by Travel Rule regulations.',
+    icon: '🧭',
+    label: 'Travel Rule Widget',
+    to: '/travel-rule-widget'
+  },
+  {
+    description: 'Run identity, address, profile and due diligence verification processes.',
+    icon: '🪪',
+    label: 'KYC Widget',
+    to: '/kyc-widget'
+  }
+];
 
 /**
  * Gets page metadata.
@@ -19,20 +55,25 @@ export const meta = () => {
 
 export default function Home() {
   return (
-    <div className="home-container">
-      <h1>Widget Test Page</h1>
-      <div className="button-container">
-        <p>Select your widget:</p>
-        <Link to={'/payment-widget'} className="button">
-          Payment Widget
-        </Link>
-        <Link to={'/travel-rule-widget'} className="button">
-          Travel Rule Widget
-        </Link>
-        <Link to={'/kyc-widget'} className="button">
-          KYC Widget
-        </Link>
-      </div>
+    <div className="app-shell">
+      <PageHeader
+        showBackLink={false}
+        subtitle="Pick a widget to launch it against your configured environment."
+        title="Widget Test Page"
+      />
+
+      <nav aria-label="Widgets" className="widget-grid">
+        {WIDGET_LINKS.map(({ description, icon, label, to }) => (
+          <Link key={to} className="widget-card" to={to}>
+            <span aria-hidden className="widget-card-icon">
+              {icon}
+            </span>
+            <span className="widget-card-title">{label}</span>
+            <span className="widget-card-description">{description}</span>
+            <span className="widget-card-cta">Open →</span>
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }
