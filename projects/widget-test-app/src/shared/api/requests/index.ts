@@ -4,6 +4,7 @@
 
 export * from './create-kyc-session';
 export * from './create-payment-session';
+export * from './create-order-quote';
 export * from './create-quote';
 export * from './create-token';
 export * from './create-travel-rule-session';

@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 
-import './kyc-widget.css';
 import type { CreateKycSessionData } from '../../shared/api/requests/create-kyc-session';
 import {
   type KycWidgetCancelEvent,
@@ -11,6 +10,7 @@ import {
   type KycWidgetErrorEvent,
   type KycWidgetProcess
 } from '@uphold/enterprise-kyc-widget-web-sdk';
+import { PageHeader } from '../../shared/react/components';
 import { useCallback, useEffect, useState } from 'react';
 import { useCreateKycSession } from '../../shared/react/kyc-widget-session';
 
@@ -188,7 +188,15 @@ export default function KycWidget() {
 
   return (
     <div className="kyc-widget-container">
-      <h1>KYC Widget Web SDK Test Page</h1>
+      {/* The description is dropped once the widget is launched, to leave more room for it. */}
+      <PageHeader
+        subtitle={
+          createKycSessionData && !widgetResult
+            ? undefined
+            : 'Run identity, address, profile and due diligence verification processes.'
+        }
+        title="KYC Widget"
+      />
 
       {!widgetResult && !createKycSessionData && <ProcessSelectionScreen onLaunch={handleLaunch} />}
 

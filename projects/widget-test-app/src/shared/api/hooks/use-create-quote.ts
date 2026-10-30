@@ -48,6 +48,7 @@ export const useCreateQuote = () => {
   return {
     createQuote: doCreateQuote,
     error,
-    isLoading
+    isLoading,
+    reset: () => setError(null)
   };
 };
