@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.18.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.18.0) (2026-11-03)
+
+- Bump messaging-types to v0.27.0 and move E2E options to session [\#72](https://github.com/uphold/enterprise-widget-sdk/pull/72) ([nibsa](https://github.com/nibsa))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.17.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.17.0) (2026-10-13)
 
 - Add E2E flow support [\#64](https://github.com/uphold/enterprise-widget-sdk/pull/64) ([TiagoLsLoureiro](https://github.com/TiagoLsLoureiro))
