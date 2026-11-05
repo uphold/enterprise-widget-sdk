@@ -170,7 +170,56 @@ class Widget<
   }
 
   #sendMessageToWidget(message: WidgetInitCommandMessage) {
-    this.#iframe?.contentWindow?.postMessage(message, '*');
+    // Outgoing messages must not use the `'*'` wildcard target. The `init` payload carries
+    // `session.token` and `session.url` (which itself embeds `sessionToken`); delivering those to
+    // `'*'` means a frame-busted, redirected, or reused widget iframe hands the session token to
+    // whatever origin now occupies that frame. Incoming messages were already origin-checked in
+    // `#widgetEventListener`; the outbound direction is checked here.
+    const targetOrigin = this.#sessionOrigin();
+
+    if (!targetOrigin) {
+      this[logSymbol].warn(
+        '[Host -> Widget] ⚠️ Not sending message because the widget session URL has no usable origin ⚠️'
+      );
+
+      return;
+    }
+
+    this.#iframe?.contentWindow?.postMessage(message, targetOrigin);
+  }
+
+  /**
+   * Resolve the origin of the widget session URL.
+   *
+   * Returns `undefined` rather than throwing when `session.url` is absent or unparseable, so that
+   * message routing degrades to "send nothing" instead of taking down the host page.
+   */
+  #sessionOrigin(): string | undefined {
+    if (!this.session?.url) {
+      return undefined;
+    }
+
+    try {
+      return new URL(this.session.url).origin;
+    } catch {
+      return undefined;
+    }
+  }
+
+  /**
+   * Parse a raw origin string into a normalized origin, or `undefined` when it is opaque or
+   * syntactically invalid.
+   */
+  #originOf(origin: string): string | undefined {
+    if (!origin || origin === 'null') {
+      return undefined;
+    }
+
+    try {
+      return new URL(origin).origin;
+    } catch {
+      return undefined;
+    }
   }
 
   #startWidgetEventsListener() {
@@ -178,12 +227,17 @@ class Widget<
   }
 
   #widgetEventListener = (event: TMessageEvent) => {
-    const eventOrigin = new URL(event.origin).origin;
-    const sessionOrigin = new URL(this.session.url).origin;
+    // `MessageEvent.origin` is the literal string `"null"` for an opaque origin (a sandboxed
+    // iframe without `allow-same-origin`, or a `data:`/`blob:`/`file:` document), and
+    // `new URL('null')` throws. A single message from any third-party iframe on the merchant page
+    // would therefore abort this listener and leave the widget with no response at all. Parse
+    // defensively and discard the message when the origin cannot be established.
+    const eventOrigin = this.#originOf(event.origin);
+    const sessionOrigin = this.#sessionOrigin();
 
-    if (eventOrigin !== sessionOrigin) {
+    if (!eventOrigin || !sessionOrigin || eventOrigin !== sessionOrigin) {
       this[logSymbol].warn(
-        `[Widget -> Host] ⚠️ Discarding message from '${eventOrigin}' as it does not match widget origin '${sessionOrigin}' ⚠️`
+        `[Widget -> Host] ⚠️ Discarding message from '${event.origin}' as it does not match widget origin '${sessionOrigin ?? '(unknown)'}' ⚠️`
       );
 
       return;
