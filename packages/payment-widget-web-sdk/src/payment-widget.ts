@@ -147,7 +147,7 @@ class PaymentWidget<TFlow extends PaymentWidgetFlow = PaymentWidgetFlow> extends
   }
 
   protected override getIframeAllowAttribute(): string {
-    return `${super.getIframeAllowAttribute()} payment 'src'; camera 'src';`;
+    return `${super.getIframeAllowAttribute()} payment 'src'; camera 'src'; web-share 'src';`;
   }
 
   /**

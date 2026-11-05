@@ -103,7 +103,7 @@ describe('PaymentWidget', () => {
     expect(appendChildSpy).toHaveBeenCalledWith(expect.any(HTMLIFrameElement));
   });
 
-  it(`should add "payment 'src'" and "camera 'src'" to the iframe allow attribute`, () => {
+  it(`should add "payment 'src'", "camera 'src'" and "web-share 'src'" to the iframe allow attribute`, () => {
     const widget = new PaymentWidget(session);
 
     const element = document.createElement('div');
@@ -111,7 +111,7 @@ describe('PaymentWidget', () => {
     widget.mountIframe(element);
 
     expect(element.querySelector('iframe')?.getAttribute('allow')).toBe(
-      "clipboard-write 'src'; clipboard-read 'src'; payment 'src'; camera 'src';"
+      "clipboard-write 'src'; clipboard-read 'src'; payment 'src'; camera 'src'; web-share 'src';"
     );
   });
 
