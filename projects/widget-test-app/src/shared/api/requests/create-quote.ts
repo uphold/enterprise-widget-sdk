@@ -32,7 +32,7 @@ type CryptoAddressTarget = {
 
 type ApmTarget = {
   type: 'apm';
-  method: 'paypal' | 'venmo';
+  method: 'paypal' | 'venmo' | 'apple-pay' | 'google-pay';
 };
 
 type QuoteTarget = AccountTarget | CryptoAddressTarget | ApmTarget;

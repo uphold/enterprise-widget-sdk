@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 
-import './travel-rule-widget.css';
 import { type CreateQuoteData, createQuote } from '../../shared/api/requests/create-quote';
 import type { CreateTravelRuleSessionData } from '../../shared/api/requests/create-travel-rule-session';
+import { PageHeader } from '../../shared/react/components';
 import {
   type TravelRuleWidgetCancelEvent,
   TravelRuleWidget as TravelRuleWidgetClass,
@@ -622,7 +622,13 @@ export default function TravelRuleWidget() {
 
   return (
     <div className="travel-rule-widget-container">
-      <h1>Travel Rule Widget Web SDK Test Page</h1>
+      {/* The description is dropped once the widget is launched, to leave more room for it. */}
+      <PageHeader
+        subtitle={
+          screen === 'widget' ? undefined : 'Collect and verify the information required by Travel Rule regulations.'
+        }
+        title="Travel Rule Widget"
+      />
 
       {screen === 'flow-selection' && <FlowSelectionScreen onSelectFlow={handleSelectFlow} />}
 

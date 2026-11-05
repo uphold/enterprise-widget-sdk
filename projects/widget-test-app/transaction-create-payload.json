@@ -1,0 +1,25 @@
+{
+    "params": {
+        "requirements": [
+            {
+                "deviceData": "{\"correlation_id\":\"581713799fcfe5dcaa1a711de424e5ee\"}",
+                "name": "authorize:paypal",
+                "provider": "braintree",
+                "tokenizedPayment": {
+                    "nonce": "96170408-c057-1cbc-4dae-b4248d002dc5",
+                    "details": {
+                        "payerId": "NMCG9ZT38NZ3E",
+                        "email": "sb-canm838976081@personal.example.com",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "countryCode": "US",
+                        "shippingAddress": null
+                    },
+                    "type": "PayPalAccount"
+                }
+            }
+        ],
+        "returnUrl": "http://localhost:8788/authorize/complete-transaction?paymentWidgetSessionId=1793358202095-3c5qq973q1w&transactionId=f162f41a-78f0-48a8-b32a-c748c7ebf5c4"
+    },
+    "quoteId": "f162f41a-78f0-48a8-b32a-c748c7ebf5c4"
+}
