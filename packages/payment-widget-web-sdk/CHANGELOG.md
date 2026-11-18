@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.20.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.20.0) (2026-11-18)
+
+- Update @uphold/enterprise-widget-messaging-types@0.28.0 [\#76](https://github.com/uphold/enterprise-widget-sdk/pull/76) ([TiagoLsLoureiro](https://github.com/TiagoLsLoureiro))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.19.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.19.0) (2026-11-05)
 
 - Add camera and web share permissions to payment widget iframe [\#75](https://github.com/uphold/enterprise-widget-sdk/pull/75) ([TiagoLsLoureiro](https://github.com/TiagoLsLoureiro))
