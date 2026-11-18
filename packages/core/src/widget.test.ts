@@ -390,7 +390,7 @@ describe('Widget', () => {
         options: { debug: true },
         type: 'init'
       },
-      '*'
+      'https://localhost:5000'
     );
   });
 
@@ -421,7 +421,7 @@ describe('Widget', () => {
         options: undefined,
         type: 'init'
       },
-      '*'
+      'https://localhost:5000'
     );
   });
 
@@ -478,7 +478,7 @@ describe('Widget', () => {
         options: { debug: true },
         type: 'init'
       },
-      '*'
+      'https://localhost:5000'
     );
     expect(consoleSpy).not.toHaveBeenCalled();
 
@@ -513,7 +513,7 @@ describe('Widget', () => {
         options: { debug: true },
         type: 'init'
       },
-      '*'
+      'https://localhost:5000'
     );
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     expect(consoleSpy.mock.calls[0]).toMatchInlineSnapshot(`
@@ -557,7 +557,7 @@ describe('Widget', () => {
         type: 'init',
         url: 'https://localhost:5000'
       },
-      '*'
+      'https://localhost:5000'
     );
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     expect(consoleSpy.mock.calls[0]).toMatchInlineSnapshot(`
@@ -568,5 +568,58 @@ describe('Widget', () => {
     `);
 
     consoleSpy.mockRestore();
+  });
+
+  it('should discard `load` messages from an opaque `null` origin without throwing', () => {
+    const widget = new Widget(session);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe');
+    const postMessage = vi.fn();
+
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: { postMessage }
+    });
+
+    const onError = vi.fn();
+
+    window.addEventListener('error', onError);
+
+    window.dispatchEvent(
+      new MessageEvent('message', {
+        data: { type: 'load' },
+        origin: 'null'
+      })
+    );
+
+    expect(onError).not.toHaveBeenCalled();
+    expect(postMessage).not.toHaveBeenCalled();
+  });
+
+  it('should neither send nor accept messages when the session url has no usable origin', () => {
+    const widget = new Widget({ url: 'file:///widget/index.html' } as WidgetSession);
+
+    const element = document.createElement('div');
+
+    widget.mountIframe(element);
+
+    const iframe = element.querySelector('iframe');
+    const postMessage = vi.fn();
+
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: { postMessage }
+    });
+
+    const messageEvent = new MessageEvent('message', {
+      data: { type: 'load' },
+      origin: 'https://localhost:5000'
+    });
+
+    window.dispatchEvent(messageEvent);
+
+    expect(postMessage).not.toHaveBeenCalled();
   });
 });
