@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 
+import type { AlternativePaymentMethod } from '@uphold/enterprise-widget-messaging-types';
 import { config } from '../../../../config';
 
 /**
@@ -32,7 +33,7 @@ type CryptoAddressTarget = {
 
 type ApmTarget = {
   type: 'apm';
-  method: 'paypal' | 'venmo';
+  method: AlternativePaymentMethod;
 };
 
 type QuoteTarget = AccountTarget | CryptoAddressTarget | ApmTarget;
