@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-payment-widget-web-sdk@v0.21.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.21.0) (2026-11-19)
+
+- Add order flows to the widget test app [\#73](https://github.com/uphold/enterprise-widget-sdk/pull/73) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-payment-widget-web-sdk@v0.20.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-payment-widget-web-sdk@v0.20.0) (2026-11-18)
 
 - Update @uphold/enterprise-widget-messaging-types@0.28.0 [\#76](https://github.com/uphold/enterprise-widget-sdk/pull/76) ([TiagoLsLoureiro](https://github.com/TiagoLsLoureiro))
