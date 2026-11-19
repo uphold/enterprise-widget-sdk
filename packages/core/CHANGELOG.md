@@ -1,5 +1,12 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.19.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.19.0) (2026-11-19)
+
+- Add order flows to the widget test app [\#73](https://github.com/uphold/enterprise-widget-sdk/pull/73) ([boliveira](https://github.com/boliveira))
+- Fix wildcard targetOrigin and opaque origin crash in widget messaging [\#77](https://github.com/uphold/enterprise-widget-sdk/pull/77) ([boliveira](https://github.com/boliveira))
+- Update @uphold/enterprise-widget-messaging-types@0.28.0 [\#76](https://github.com/uphold/enterprise-widget-sdk/pull/76) ([TiagoLsLoureiro](https://github.com/TiagoLsLoureiro))
+- Bump messaging-types to v0.27.0 and move E2E options to session [\#72](https://github.com/uphold/enterprise-widget-sdk/pull/72) ([nibsa](https://github.com/nibsa))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.18.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.18.0) (2026-10-19)
 
 ## [@uphold/enterprise-widget-sdk-core@v0.17.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.17.0) (2026-10-13)
