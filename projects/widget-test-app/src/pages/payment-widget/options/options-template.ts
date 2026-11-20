@@ -21,7 +21,7 @@ type OptionKey =
   | 'paymentMethods'
   | 'theme';
 
-const E2E_FLOWS: PaymentWidgetFlow[] = ['deposit', 'withdrawal'];
+const E2E_FLOWS: PaymentWidgetFlow[] = ['transaction:deposit-e2e', 'transaction:withdrawal-e2e'];
 
 const getOptionKeys = (flow: PaymentWidgetFlow): OptionKey[] => {
   if (AUTHORIZE_FLOWS.includes(flow)) {
@@ -46,8 +46,8 @@ const getOptionKeys = (flow: PaymentWidgetFlow): OptionKey[] => {
 
 // The payment methods each flow shows. The ones of the order flows are the ones its flow allows.
 const PAYMENT_METHOD_TYPES_BY_FLOW: Partial<Record<PaymentWidgetFlow, string[]>> = {
-  deposit: ['card', 'bank'],
-  withdrawal: ['card', 'bank'],
+  'transaction:deposit-e2e': ['card', 'bank'],
+  'transaction:withdrawal-e2e': ['card', 'bank'],
   ['off-ramp:select-deposit-origin' as PaymentWidgetFlow]: ['crypto'],
   ['off-ramp:select-withdrawal-destination' as PaymentWidgetFlow]: ['card'],
   ['on-ramp:select-deposit-origin' as PaymentWidgetFlow]: ['card', 'paypal', 'venmo', 'apple-pay', 'google-pay'],
