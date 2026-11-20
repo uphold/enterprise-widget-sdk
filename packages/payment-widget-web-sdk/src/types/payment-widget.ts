@@ -22,6 +22,8 @@ import type {
   PaymentWidgetFlow,
   PaymentWidgetMessageEvent,
   PaymentWidgetSession,
+  TradeResult,
+  TradeResultCode,
   Transaction,
   WithdrawalSelection
 } from '@uphold/enterprise-widget-messaging-types';
@@ -55,6 +57,8 @@ export type {
   OrderTimelineEvent,
   PaymentWidgetFlow,
   PaymentWidgetSession,
+  TradeResult,
+  TradeResultCode,
   Transaction,
   WithdrawalSelection
 };
