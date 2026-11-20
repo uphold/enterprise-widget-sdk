@@ -39,6 +39,12 @@ describe('PaymentWidget', () => {
     expect(widget.session).toEqual(session);
   });
 
+  it('should initialize with the trade flow', () => {
+    const widget = new PaymentWidget<'transaction:trade-e2e'>(session);
+
+    expect(widget.session).toEqual(session);
+  });
+
   it('should log debug messages when debug mode is enabled', () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
