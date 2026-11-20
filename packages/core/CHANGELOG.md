@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.20.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.20.0) (2026-11-20)
+
+- Rename E2E flows to transaction:*-e2e [\#80](https://github.com/uphold/enterprise-widget-sdk/pull/80) ([boliveira](https://github.com/boliveira))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.19.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.19.0) (2026-11-19)
 
 - Add order flows to the widget test app [\#73](https://github.com/uphold/enterprise-widget-sdk/pull/73) ([boliveira](https://github.com/boliveira))
