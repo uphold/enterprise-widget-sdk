@@ -28,7 +28,7 @@ export const FLOW_CATEGORIES: FlowCategory[] = [
     description: 'Select where funds come from or go to, and authorize a transaction.',
     id: 'transactions',
     sections: [
-      { matches: flow => flow.startsWith('transaction:') },
+      { matches: flow => flow.startsWith('transaction:') && !flow.endsWith('-e2e') },
       {
         description: 'Previous flow names, kept as aliases of the transaction flows.',
         matches: flow => ['select-for-deposit', 'select-for-withdrawal', 'authorize'].includes(flow),
@@ -62,7 +62,7 @@ export const FLOW_CATEGORIES: FlowCategory[] = [
   {
     description: 'Complete deposit and withdrawal journeys, from amount to confirmation.',
     id: 'end-to-end',
-    sections: [{ matches: flow => flow === 'deposit' || flow === 'withdrawal' }],
+    sections: [{ matches: flow => flow === 'transaction:deposit-e2e' || flow === 'transaction:withdrawal-e2e' }],
     title: 'End-to-end flows'
   }
 ];
@@ -135,7 +135,7 @@ export const FLOW_BUTTONS: FlowButton[] = [
   },
   { flow: 'select-for-withdrawal', label: 'Select for Withdrawal' },
   {
-    flow: 'deposit',
+    flow: 'transaction:deposit-e2e',
     label: 'Deposit (w/ asset opt)',
     sessionOptions: {
       amountSuggestions: {
@@ -152,7 +152,7 @@ export const FLOW_BUTTONS: FlowButton[] = [
   },
 
   {
-    flow: 'deposit',
+    flow: 'transaction:deposit-e2e',
     label: 'Deposit (w/ accountId opt)',
     sessionOptions: {
       amountSuggestions: {
@@ -168,7 +168,7 @@ export const FLOW_BUTTONS: FlowButton[] = [
     }
   },
   {
-    flow: 'withdrawal',
+    flow: 'transaction:withdrawal-e2e',
     label: 'Withdraw (w/ accountId opt)',
     sessionOptions: {
       amountSuggestions: {
