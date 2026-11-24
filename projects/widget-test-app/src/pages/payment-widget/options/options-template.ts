@@ -44,10 +44,9 @@ const getOptionKeys = (flow: PaymentWidgetFlow): OptionKey[] => {
   return ['paymentMethods', 'maxAccountsPerAsset', 'layout', 'theme'];
 };
 
-// The payment methods each flow shows. The ones of the order flows are the ones its flow allows.
+// The payment methods each flow shows. The ones of the order flows are the ones its flow allows, and the flows not
+// listed, like the E2E ones, show them all.
 const PAYMENT_METHOD_TYPES_BY_FLOW: Partial<Record<PaymentWidgetFlow, string[]>> = {
-  'transaction:deposit-e2e': ['card', 'bank'],
-  'transaction:withdrawal-e2e': ['card', 'bank'],
   ['off-ramp:select-deposit-origin' as PaymentWidgetFlow]: ['crypto'],
   ['off-ramp:select-withdrawal-destination' as PaymentWidgetFlow]: ['card'],
   ['on-ramp:select-deposit-origin' as PaymentWidgetFlow]: ['card', 'paypal', 'venmo', 'apple-pay', 'google-pay'],
