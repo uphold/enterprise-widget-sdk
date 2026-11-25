@@ -1,5 +1,9 @@
 # Changelog
 
+## [@uphold/enterprise-widget-sdk-core@v0.21.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.21.0) (2026-11-25)
+
+- Add E2E APM flows [\#81](https://github.com/uphold/enterprise-widget-sdk/pull/81) ([nibsa](https://github.com/nibsa))
+
 ## [@uphold/enterprise-widget-sdk-core@v0.20.0](https://github.com/uphold/enterprise-widget-sdk/releases/tag/@uphold/enterprise-widget-sdk-core@v0.20.0) (2026-11-20)
 
 - Rename E2E flows to transaction:*-e2e [\#80](https://github.com/uphold/enterprise-widget-sdk/pull/80) ([boliveira](https://github.com/boliveira))
