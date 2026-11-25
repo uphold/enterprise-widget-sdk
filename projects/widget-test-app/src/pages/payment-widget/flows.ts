@@ -60,9 +60,14 @@ export const FLOW_CATEGORIES: FlowCategory[] = [
     title: 'On/off-ramp flows'
   },
   {
-    description: 'Complete deposit and withdrawal journeys, from amount to confirmation.',
+    description: 'Complete deposit, withdrawal and trade journeys, from amount to confirmation.',
     id: 'end-to-end',
-    sections: [{ matches: flow => flow === 'transaction:deposit-e2e' || flow === 'transaction:withdrawal-e2e' }],
+    sections: [
+      {
+        matches: flow =>
+          ['transaction:deposit-e2e', 'transaction:trade-e2e', 'transaction:withdrawal-e2e'].includes(flow)
+      }
+    ],
     title: 'End-to-end flows'
   }
 ];
@@ -180,6 +185,25 @@ export const FLOW_BUTTONS: FlowButton[] = [
       initialSelection: {
         origin: { accountId: 'c83373fd-a0ec-41be-9d9f-37a04370bb69' }
       }
+    }
+  },
+  {
+    flow: 'transaction:trade-e2e',
+    label: 'Trade (w/ asset opt)',
+    sessionOptions: {
+      fees: { display: 'total' },
+      initialSelection: {
+        destination: { asset: 'BTC' },
+        origin: { asset: 'USD' }
+      }
+    }
+  },
+  {
+    flow: 'transaction:trade-e2e',
+    label: 'Trade (w/ available assets opt)',
+    sessionOptions: {
+      availableAssets: { include: ['USD', 'GBP', 'EUR', 'BTC', 'ETH', 'XRP'] },
+      fees: { display: 'breakdown' }
     }
   },
   {

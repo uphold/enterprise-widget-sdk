@@ -23,9 +23,16 @@ type OptionKey =
 
 const E2E_FLOWS: PaymentWidgetFlow[] = ['transaction:deposit-e2e', 'transaction:withdrawal-e2e'];
 
+// The trade flow has no payment methods or amount suggestions, it only swaps between the user's accounts.
+const TRADE_FLOW: PaymentWidgetFlow = 'transaction:trade-e2e';
+
 const getOptionKeys = (flow: PaymentWidgetFlow): OptionKey[] => {
   if (AUTHORIZE_FLOWS.includes(flow)) {
     return ['authorize', 'layout', 'theme'];
+  }
+
+  if (flow === TRADE_FLOW) {
+    return ['availableAssets', 'fees', 'initialSelection', 'maxAccountsPerAsset', 'layout', 'theme'];
   }
 
   if (E2E_FLOWS.includes(flow)) {
